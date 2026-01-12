@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אריאל והרפתקת הכפל</title>
+  <style>
+    /* ============================================
+       CSS VARIABLES - Design System
+       ============================================ */
+    :root {
+      /* Princess Arielle's Blue Theme */
+      --arielle-blue-light: #7DD3FC;
+      --arielle-blue-medium: #3B82F6;
+      --arielle-blue-dark: #1E40AF;
+
+      /* Magical Purples */
+      --magic-purple-light: #C084FC;
+      --magic-purple: #A855F7;
+      --magic-purple-dark: #7C3AED;
+
+      /* Success & Progress */
+      --success-green: #10B981;
+      --success-glow: #34D399;
+
+      /* Gold & Royal */
+      --gold: #FBBF24;
+      --gold-light: #FCD34D;
+      --gold-dark: #F59E0B;
+
+      /* Pink Accents */
+      --arielle-pink: #F472B6;
+      --pink-light: #FBCFE8;
+
+      /* Warning & Energy */
+      --warning-yellow: #FBBF24;
+      --warning-orange: #FB923C;
+      --danger-soft: #F87171;
+
+      /* UI Neutrals */
+      --white: #FFFFFF;
+      --cream: #FEF3C7;
+      --gray-light: #F3F4F6;
+      --gray-medium: #9CA3AF;
+      --gray-dark: #374151;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --shadow-strong: rgba(0, 0, 0, 0.25);
+
+      /* Text Colors */
+      --text-primary: #1F2937;
+      --text-secondary: #6B7280;
+      --text-on-dark: #FFFFFF;
+
+      /* Chapter 1: Emerald Meadows */
+      --chapter-1-primary: #10B981;
+      --chapter-1-secondary: #34D399;
+      --chapter-1-accent: #059669;
+      --chapter-1-bg: #D1FAE5;
+
+      /* Font Sizes */
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 1rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.25rem;
+      --text-2xl: 1.5rem;
+      --text-3xl: 1.875rem;
+      --text-4xl: 2.25rem;
+      --text-5xl: 3rem;
+
+      /* Multiplication sizes */
+      --problem-size: 2rem;
+      --answer-size: 1.75rem;
+    }
+
+    /* ============================================
+       BASE RESET & TYPOGRAPHY
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Varela Round', 'Rubik', 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
+      direction: rtl;
+      text-align: right;
+      background: var(--chapter-1-bg);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ============================================
+       GAME CONTAINER
+       ============================================ */
+    #game-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    /* ============================================
+       TITLE SCREEN
+       ============================================ */
+    #title-screen {
+      background: linear-gradient(135deg, var(--arielle-blue-light), var(--magic-purple-light), var(--gold-light));
+      animation: bg-shift 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes bg-shift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .title-content {
+      text-align: center;
+    }
+
+    .game-title {
+      font-size: var(--text-5xl);
+      font-weight: 900;
+      color: var(--arielle-blue-dark);
+      text-shadow: 3px 3px 6px var(--shadow-strong), 0 0 30px var(--gold-light);
+      margin-bottom: 20px;
+      animation: title-float 3s ease-in-out infinite;
+    }
+
+    @keyframes title-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .subtitle {
+      font-size: var(--text-2xl);
+      color: var(--magic-purple-dark);
+      margin-bottom: 40px;
+    }
+
+    /* ============================================
+       CRYSTAL BUTTONS
+       ============================================ */
+    .btn-crystal {
+      position: relative;
+      padding: 16px 32px;
+      font-family: inherit;
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--text-on-dark);
+      background: linear-gradient(135deg, var(--arielle-blue-medium), var(--magic-purple));
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 0 var(--arielle-blue-dark), 0 6px 12px var(--shadow-strong);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 200px;
+      min-height: 50px;
+      overflow: hidden;
+    }
+
+    .btn-crystal::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.1) 50%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .btn-crystal::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      50%, 100% { left: 100%; }
+    }
+
+    .btn-crystal:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 var(--arielle-blue-dark), 0 8px 16px var(--shadow-strong);
+    }
+
+    .btn-crystal:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--arielle-blue-dark), 0 3px 6px var(--shadow);
+    }
+
+    .btn-crystal-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      box-shadow: 0 4px 0 var(--gold-dark), 0 6px 12px var(--shadow-strong);
+    }
+
+    .btn-crystal-gold:hover {
+      box-shadow: 0 6px 0 var(--gold-dark), 0 8px 16px var(--shadow-strong);
+    }
+
+    /* ============================================
+       STORY SCREEN
+       ============================================ */
+    #story-screen {
+      background: linear-gradient(180deg, var(--chapter-1-bg) 0%, var(--white) 100%);
+    }
+
+    .story-container {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .chapter-title {
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      color: var(--chapter-1-primary);
+      text-shadow: 1px 1px 2px var(--shadow);
+    }
+
+    .speech-bubble {
+      position: relative;
+      background: var(--white);
+      border: 4px solid var(--text-primary);
+      border-radius: 24px;
+      padding: 24px 32px;
+      max-width: 600px;
+      box-shadow: 0 4px 12px var(--shadow-strong);
+    }
+
+    .speech-bubble p {
+      font-size: var(--text-2xl);
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: 60px;
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-top: 20px solid var(--text-primary);
+    }
+
+    .speaker-name {
+      position: absolute;
+      top: -16px;
+      right: 24px;
+      background: var(--arielle-blue-medium);
+      color: var(--text-on-dark);
+      padding: 4px 16px;
+      border-radius: 12px;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      border: 2px solid var(--text-primary);
+    }
+
+    .character-display {
+      display: flex;
+      gap: 40px;
+      align-items: flex-end;
+      margin-top: 20px;
+    }
+
+    /* ============================================
+       BATTLE SCREEN
+       ============================================ */
+    #battle-screen {
+      background: linear-gradient(180deg, #87CEEB 0%, var(--chapter-1-bg) 60%, var(--chapter-1-secondary) 100%);
+    }
+
+    .battle-container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .battle-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .hp-bar-container {
+      position: relative;
+      width: 200px;
+      height: 30px;
+    }
+
+    .hp-bar-background {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #1E3A8A, #0F172A);
+      border: 3px solid var(--gold);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5), 0 4px 12px var(--shadow-strong);
+    }
+
+    .hp-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1E40AF, #3B82F6, #60A5FA, #93C5FD);
+      background-size: 200% 100%;
+      animation: flame-flow 2s linear infinite;
+      transition: width 0.5s ease-out;
+    }
+
+    @keyframes flame-flow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .hp-label {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .timer-container {
+      position: relative;
+      width: 200px;
+      height: 40px;
+    }
+
+    .timer-bar {
+      width: 100%;
+      height: 100%;
+      background: var(--gray-light);
+      border: 3px solid var(--gray-dark);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px var(--shadow);
+    }
+
+    .timer-bar-fill {
+      height: 100%;
+      width: 100%;
+      transition: width 0.1s linear, background 0.3s ease;
+      box-shadow: inset 0 0 15px rgba(255,255,255,0.4);
+    }
+
+    .timer-safe { background: linear-gradient(90deg, var(--success-green), var(--success-glow)); }
+    .timer-warning { background: linear-gradient(90deg, var(--warning-yellow), var(--warning-orange)); animation: timer-pulse 1s ease-in-out infinite; }
+    .timer-critical { background: linear-gradient(90deg, var(--warning-orange), var(--danger-soft)); animation: timer-pulse 0.5s ease-in-out infinite; }
+
+    @keyframes timer-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .timer-display {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Courier New', monospace;
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .battle-arena {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .character-sprite {
+      width: 150px;
+      height: 200px;
+      animation: character-idle 3s ease-in-out infinite;
+    }
+
+    @keyframes character-idle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .monster-sprite {
+      width: 150px;
+      height: 150px;
+      animation: monster-idle 2s ease-in-out infinite;
+    }
+
+    @keyframes monster-idle {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-5px) scale(1.02); }
+    }
+
+    .monster-hit {
+      animation: monster-shake 0.3s ease-out;
+      filter: brightness(1.5);
+    }
+
+    @keyframes monster-shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px) rotate(-5deg); }
+      75% { transform: translateX(8px) rotate(5deg); }
+    }
+
+    .problem-display {
+      background: var(--white);
+      border: 4px solid var(--arielle-blue-medium);
+      border-radius: 16px;
+      padding: 20px 40px;
+      font-family: 'Courier New', monospace;
+      font-size: var(--problem-size);
+      font-weight: 700;
+      color: var(--text-primary);
+      direction: ltr;
+      text-align: center;
+      box-shadow: 0 4px 12px var(--shadow-strong);
+    }
+
+    .answers-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      max-width: 400px;
+    }
+
+    .answer-option {
+      position: relative;
+      width: 120px;
+      height: 80px;
+      font-family: 'Courier New', monospace;
+      font-size: var(--answer-size);
+      font-weight: 700;
+      color: var(--text-primary);
+      background: var(--white);
+      border: 4px solid var(--arielle-blue-medium);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 0 var(--arielle-blue-dark), 0 6px 12px var(--shadow);
+    }
+
+    .answer-option:hover {
+      transform: translateY(-4px);
+      border-color: var(--magic-purple);
+      box-shadow: 0 8px 0 var(--magic-purple-dark), 0 10px 20px var(--shadow-strong);
+    }
+
+    .answer-option:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--arielle-blue-dark), 0 3px 6px var(--shadow);
+    }
+
+    .answer-correct {
+      background: linear-gradient(135deg, var(--success-glow), var(--success-green));
+      border-color: var(--success-green);
+      color: var(--text-on-dark);
+      animation: answer-correct 0.6s ease-out;
+    }
+
+    @keyframes answer-correct {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .answer-wrong {
+      animation: answer-wrong 0.5s ease-out;
+    }
+
+    @keyframes answer-wrong {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    /* Fill in blank input */
+    .fill-blank-input {
+      width: 100px;
+      height: 60px;
+      font-family: 'Courier New', monospace;
+      font-size: var(--answer-size);
+      font-weight: 700;
+      text-align: center;
+      border: 4px solid var(--magic-purple);
+      border-radius: 12px;
+      outline: none;
+      direction: ltr;
+    }
+
+    .fill-blank-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 15px var(--gold-light);
+    }
+
+    /* Match pairs grid */
+    .match-pairs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 500px;
+    }
+
+    .match-card {
+      width: 100px;
+      height: 70px;
+      font-family: 'Courier New', monospace;
+      font-size: var(--text-xl);
+      font-weight: 700;
+      background: var(--arielle-blue-medium);
+      color: var(--text-on-dark);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .match-card.flipped {
+      background: var(--white);
+      color: var(--text-primary);
+    }
+
+    .match-card.matched {
+      background: var(--success-green);
+      color: var(--text-on-dark);
+      cursor: default;
+    }
+
+    /* ============================================
+       VICTORY SCREEN
+       ============================================ */
+    #victory-screen {
+      background: linear-gradient(135deg, var(--arielle-blue-light), var(--magic-purple-light), var(--gold-light));
+      animation: victory-entrance 0.8s ease-out;
+    }
+
+    @keyframes victory-entrance {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .victory-content {
+      text-align: center;
+    }
+
+    .victory-message {
+      font-size: var(--text-5xl);
+      font-weight: 900;
+      color: var(--text-on-dark);
+      text-shadow: 0 0 20px var(--gold), 4px 4px 8px rgba(0,0,0,0.5);
+      animation: victory-bounce 1s ease-out;
+      margin-bottom: 30px;
+    }
+
+    @keyframes victory-bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+      40% { transform: translateY(-30px) scale(1.1); }
+      60% { transform: translateY(-15px) scale(1.05); }
+    }
+
+    .victory-stats {
+      background: rgba(255,255,255,0.9);
+      border-radius: 16px;
+      border: 3px solid var(--gold);
+      padding: 20px 40px;
+      margin-bottom: 30px;
+    }
+
+    .victory-stats p {
+      font-size: var(--text-xl);
+      color: var(--text-primary);
+      margin: 10px 0;
+    }
+
+    /* Confetti */
+    .confetti-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: confetti-fall 3s linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ============================================
+       RETRY SCREEN
+       ============================================ */
+    #retry-screen {
+      background: linear-gradient(135deg, var(--pink-light), var(--cream));
+    }
+
+    .retry-content {
+      text-align: center;
+    }
+
+    .retry-message {
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      color: var(--arielle-pink);
+      margin-bottom: 20px;
+    }
+
+    .retry-encourage {
+      font-size: var(--text-2xl);
+      color: var(--text-primary);
+      margin-bottom: 30px;
+    }
+
+    /* ============================================
+       GAME COMPLETE SCREEN
+       ============================================ */
+    #complete-screen {
+      background: linear-gradient(135deg, var(--gold-light), var(--magic-purple-light), var(--arielle-blue-light));
+      animation: complete-bg 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes complete-bg {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .complete-content {
+      text-align: center;
+    }
+
+    .complete-title {
+      font-size: var(--text-5xl);
+      font-weight: 900;
+      color: var(--gold-dark);
+      text-shadow: 0 0 30px var(--gold), 4px 4px 8px rgba(0,0,0,0.5);
+      margin-bottom: 30px;
+    }
+
+    .complete-message {
+      font-size: var(--text-2xl);
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    /* ============================================
+       SPEED BONUS INDICATOR
+       ============================================ */
+    .speed-bonus {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: var(--text-4xl);
+      font-weight: 900;
+      z-index: 500;
+      pointer-events: none;
+      animation: speed-pop 0.8s ease-out forwards;
+    }
+
+    .speed-1x { color: var(--success-green); text-shadow: 0 0 10px var(--success-glow); }
+    .speed-2x { color: var(--warning-orange); text-shadow: 0 0 20px var(--warning-orange); }
+    .speed-3x { color: var(--gold); text-shadow: 0 0 30px var(--gold), 0 0 50px var(--gold-light); }
+
+    @keyframes speed-pop {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -70%) scale(1); }
+    }
+
+    /* ============================================
+       ENCOURAGEMENT MESSAGE
+       ============================================ */
+    .encourage-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px 40px;
+      background: linear-gradient(135deg, var(--pink-light), var(--cream));
+      border: 4px solid var(--arielle-pink);
+      border-radius: 20px;
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      color: var(--text-primary);
+      box-shadow: 0 8px 24px var(--shadow-strong);
+      animation: encourage-bounce 0.6s ease-out;
+      z-index: 998;
+    }
+
+    @keyframes encourage-bounce {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      60% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* ============================================
+       AUDIO CONTROLS
+       ============================================ */
+    .audio-controls {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .audio-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--gray-dark);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .audio-btn.muted {
+      background: var(--gray-light);
+      opacity: 0.6;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .game-title { font-size: var(--text-4xl); }
+      .speech-bubble p { font-size: var(--text-xl); }
+      .answers-container { grid-template-columns: repeat(2, 1fr); }
+      .answer-option { width: 100px; height: 70px; font-size: var(--text-xl); }
+      .character-sprite { width: 100px; height: 140px; }
+      .monster-sprite { width: 100px; height: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+      <button class="audio-btn" id="music-toggle" title="מוזיקה">🎵</button>
+      <button class="audio-btn" id="sfx-toggle" title="אפקטים">🔊</button>
+    </div>
+
+    <!-- Title Screen -->
+    <div id="title-screen" class="screen active">
+      <div class="title-content">
+        <h1 class="game-title">אריאל והרפתקת הכפל</h1>
+        <p class="subtitle">הרפתקה קסומה בממלכת נומריה</p>
+        <button class="btn-crystal btn-crystal-gold" id="start-btn">התחילי הרפתקה!</button>
+        <div id="continue-container" style="margin-top: 20px; display: none;">
+          <button class="btn-crystal" id="continue-btn">המשיכי משחק</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story Screen -->
+    <div id="story-screen" class="screen">
+      <div class="story-container">
+        <h2 class="chapter-title" id="chapter-title">פרק 1: האחו האזמרגדי</h2>
+        <div class="speech-bubble">
+          <span class="speaker-name" id="speaker-name">פיפ</span>
+          <p id="story-text">ברוכה הבאה להרפתקה!</p>
+        </div>
+        <div class="character-display">
+          <svg id="story-arielle" class="character-sprite" viewBox="0 0 100 150"></svg>
+          <svg id="story-pip" style="width: 60px; height: 60px;" viewBox="0 0 60 60"></svg>
+        </div>
+        <button class="btn-crystal" id="story-continue-btn">המשיכי</button>
+      </div>
+    </div>
+
+    <!-- Battle Screen -->
+    <div id="battle-screen" class="screen">
+      <div class="battle-container">
+        <div class="battle-header">
+          <div>
+            <div class="hp-label">חיי אריאל</div>
+            <div class="hp-bar-container">
+              <div class="hp-bar-background">
+                <div class="hp-bar-fill" id="player-hp-fill" style="width: 100%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="timer-container">
+            <div class="timer-bar">
+              <div class="timer-bar-fill timer-safe" id="timer-fill"></div>
+            </div>
+            <div class="timer-display" id="timer-display">10</div>
+          </div>
+          <div>
+            <div class="hp-label" id="monster-name">מפלצת</div>
+            <div class="hp-bar-container">
+              <div class="hp-bar-background">
+                <div class="hp-bar-fill" id="monster-hp-fill" style="width: 100%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="battle-arena">
+          <svg id="battle-arielle" class="character-sprite" viewBox="0 0 100 150"></svg>
+          <svg id="battle-monster" class="monster-sprite" viewBox="0 0 100 100"></svg>
+        </div>
+
+        <div class="problem-display" id="problem-display">5 × 3 = ?</div>
+
+        <div id="minigame-area">
+          <!-- Timed Selection (default) -->
+          <div class="answers-container" id="answers-container"></div>
+          <!-- Fill Blank -->
+          <div id="fill-blank-area" style="display: none; text-align: center;">
+            <input type="number" class="fill-blank-input" id="fill-blank-input" min="0" max="400">
+            <button class="btn-crystal" id="submit-answer-btn" style="margin-top: 15px;">שלחי תשובה</button>
+          </div>
+          <!-- Match Pairs -->
+          <div class="match-pairs-grid" id="match-pairs-grid" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="victory-screen" class="screen">
+      <div class="confetti-container" id="confetti-container"></div>
+      <div class="victory-content">
+        <h1 class="victory-message" id="victory-message">ניצחון!</h1>
+        <div class="victory-stats">
+          <p id="victory-damage">נזק: <span>15</span></p>
+          <p id="victory-time">זמן: <span>5.2</span> שניות</p>
+        </div>
+        <button class="btn-crystal btn-crystal-gold" id="victory-continue-btn">המשיכי</button>
+      </div>
+    </div>
+
+    <!-- Retry Screen -->
+    <div id="retry-screen" class="screen">
+      <div class="retry-content">
+        <h1 class="retry-message">נסי שוב!</h1>
+        <p class="retry-encourage" id="retry-encourage">את גיבורה! אל תוותרי!</p>
+        <button class="btn-crystal" id="retry-btn">נסי שוב</button>
+      </div>
+    </div>
+
+    <!-- Game Complete Screen -->
+    <div id="complete-screen" class="screen">
+      <div class="confetti-container" id="complete-confetti"></div>
+      <div class="complete-content">
+        <h1 class="complete-title">כל הכבוד!</h1>
+        <p class="complete-message">סיימת את פרק 1!</p>
+        <p class="complete-message">את אלופת הכפל האמיתית!</p>
+        <button class="btn-crystal btn-crystal-gold" id="play-again-btn">שחקי שוב</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden SVG Definitions -->
+  <svg style="display: none;">
+    <defs>
+      <!-- Arielle Happy -->
+      <symbol id="arielle-happy" viewBox="0 0 100 150">
+        <!-- Hair (blue gradient) -->
+        <ellipse cx="50" cy="45" rx="35" ry="40" fill="url(#hair-gradient)"/>
+        <!-- Face -->
+        <ellipse cx="50" cy="50" rx="25" ry="28" fill="#FFDAB9"/>
+        <!-- Bangs -->
+        <path d="M25 35 Q35 25 50 30 Q65 25 75 35 Q70 45 50 40 Q30 45 25 35" fill="url(#hair-gradient)"/>
+        <!-- Eyes -->
+        <ellipse cx="40" cy="48" rx="5" ry="6" fill="#4A3728"/>
+        <ellipse cx="60" cy="48" rx="5" ry="6" fill="#4A3728"/>
+        <circle cx="42" cy="46" r="2" fill="white"/>
+        <circle cx="62" cy="46" r="2" fill="white"/>
+        <!-- Blush -->
+        <ellipse cx="35" cy="55" rx="5" ry="3" fill="#FFB6C1" opacity="0.5"/>
+        <ellipse cx="65" cy="55" rx="5" ry="3" fill="#FFB6C1" opacity="0.5"/>
+        <!-- Smile -->
+        <path d="M42 60 Q50 68 58 60" stroke="#4A3728" stroke-width="2" fill="none"/>
+        <!-- Body (blue fur coat) -->
+        <rect x="30" y="80" width="40" height="50" rx="5" fill="#3B82F6"/>
+        <!-- Fur collar -->
+        <ellipse cx="50" cy="85" rx="25" ry="8" fill="#7DD3FC"/>
+        <!-- Pants -->
+        <rect x="32" y="125" width="15" height="25" fill="#1E40AF"/>
+        <rect x="53" y="125" width="15" height="25" fill="#1E40AF"/>
+        <!-- Crystal pendant glow -->
+        <circle cx="50" cy="95" r="6" fill="#A855F7" opacity="0.8">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Hair sparkles -->
+        <circle cx="30" cy="30" r="2" fill="#FCD34D">
+          <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="70" cy="35" r="2" fill="#FCD34D">
+          <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+        </circle>
+      </symbol>
+
+      <!-- Arielle Victory -->
+      <symbol id="arielle-victory" viewBox="0 0 100 150">
+        <!-- Same base as happy but with victory pose -->
+        <ellipse cx="50" cy="45" rx="35" ry="40" fill="url(#hair-gradient)"/>
+        <ellipse cx="50" cy="50" rx="25" ry="28" fill="#FFDAB9"/>
+        <path d="M25 35 Q35 25 50 30 Q65 25 75 35 Q70 45 50 40 Q30 45 25 35" fill="url(#hair-gradient)"/>
+        <!-- Happy closed eyes -->
+        <path d="M35 48 Q40 44 45 48" stroke="#4A3728" stroke-width="2" fill="none"/>
+        <path d="M55 48 Q60 44 65 48" stroke="#4A3728" stroke-width="2" fill="none"/>
+        <!-- Big smile -->
+        <path d="M40 58 Q50 70 60 58" stroke="#4A3728" stroke-width="2" fill="none"/>
+        <!-- Blush -->
+        <ellipse cx="35" cy="55" rx="6" ry="4" fill="#FFB6C1" opacity="0.6"/>
+        <ellipse cx="65" cy="55" rx="6" ry="4" fill="#FFB6C1" opacity="0.6"/>
+        <!-- Body -->
+        <rect x="30" y="80" width="40" height="50" rx="5" fill="#3B82F6"/>
+        <ellipse cx="50" cy="85" rx="25" ry="8" fill="#7DD3FC"/>
+        <!-- Victory arm raised -->
+        <rect x="70" y="70" width="10" height="35" rx="3" fill="#FFDAB9" transform="rotate(-30 75 85)"/>
+        <!-- Pants -->
+        <rect x="32" y="125" width="15" height="25" fill="#1E40AF"/>
+        <rect x="53" y="125" width="15" height="25" fill="#1E40AF"/>
+        <!-- Sparkle burst -->
+        <circle cx="85" cy="55" r="8" fill="#FCD34D">
+          <animate attributeName="r" values="6;10;6" dur="0.5s" repeatCount="indefinite"/>
+        </circle>
+      </symbol>
+
+      <!-- Pip (Number Sprite) -->
+      <symbol id="pip" viewBox="0 0 60 60">
+        <!-- Glowing core -->
+        <circle cx="30" cy="30" r="12" fill="#7DD3FC">
+          <animate attributeName="r" values="10;14;10" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="30" cy="30" r="8" fill="white" opacity="0.8"/>
+        <!-- Orbiting numbers -->
+        <text x="30" y="10" font-family="monospace" font-size="10" fill="#3B82F6" text-anchor="middle">
+          <animateTransform attributeName="transform" type="rotate" from="0 30 30" to="360 30 30" dur="4s" repeatCount="indefinite"/>
+          7
+        </text>
+        <text x="50" y="35" font-family="monospace" font-size="10" fill="#A855F7" text-anchor="middle">
+          <animateTransform attributeName="transform" type="rotate" from="120 30 30" to="480 30 30" dur="4s" repeatCount="indefinite"/>
+          3
+        </text>
+        <text x="15" y="50" font-family="monospace" font-size="10" fill="#F472B6" text-anchor="middle">
+          <animateTransform attributeName="transform" type="rotate" from="240 30 30" to="600 30 30" dur="4s" repeatCount="indefinite"/>
+          5
+        </text>
+        <!-- Eyes -->
+        <circle cx="26" cy="28" r="2" fill="#1E40AF"/>
+        <circle cx="34" cy="28" r="2" fill="#1E40AF"/>
+        <!-- Smile -->
+        <path d="M26 34 Q30 38 34 34" stroke="#1E40AF" stroke-width="1.5" fill="none"/>
+      </symbol>
+
+      <!-- Monster: Chishubon (Number Blob) -->
+      <symbol id="monster-chishubon" viewBox="0 0 100 100">
+        <!-- Blob body -->
+        <ellipse cx="50" cy="55" rx="40" ry="35" fill="#8B5CF6">
+          <animate attributeName="ry" values="33;37;33" dur="2s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- Question marks -->
+        <text x="25" y="30" font-size="16" fill="#C084FC">?</text>
+        <text x="70" y="25" font-size="14" fill="#C084FC">?</text>
+        <!-- Confused eyes -->
+        <ellipse cx="35" cy="50" rx="8" ry="10" fill="white"/>
+        <ellipse cx="65" cy="50" rx="8" ry="10" fill="white"/>
+        <circle cx="37" cy="52" r="4" fill="#1F2937"/>
+        <circle cx="67" cy="52" r="4" fill="#1F2937"/>
+        <!-- Swirl eyes (confusion) -->
+        <circle cx="37" cy="52" r="2" fill="white"/>
+        <circle cx="67" cy="52" r="2" fill="white"/>
+        <!-- Wobbly mouth -->
+        <path d="M40 70 Q50 75 60 70" stroke="#1F2937" stroke-width="2" fill="none"/>
+        <!-- Floating numbers -->
+        <text x="20" y="85" font-family="monospace" font-size="12" fill="#DDD6FE">4</text>
+        <text x="75" y="80" font-family="monospace" font-size="12" fill="#DDD6FE">2</text>
+      </symbol>
+
+      <!-- Monster: Kefulon (Multiplication Creature) -->
+      <symbol id="monster-kefulon" viewBox="0 0 100 100">
+        <!-- Body -->
+        <ellipse cx="50" cy="60" rx="35" ry="30" fill="#10B981"/>
+        <!-- X pattern on body -->
+        <text x="50" y="65" font-size="24" fill="#34D399" text-anchor="middle">×</text>
+        <!-- Antennae -->
+        <line x1="35" y1="30" x2="30" y2="15" stroke="#059669" stroke-width="3"/>
+        <line x1="65" y1="30" x2="70" y2="15" stroke="#059669" stroke-width="3"/>
+        <circle cx="30" cy="13" r="5" fill="#FCD34D"/>
+        <circle cx="70" cy="13" r="5" fill="#FCD34D"/>
+        <!-- Eyes -->
+        <ellipse cx="38" cy="50" rx="7" ry="9" fill="white"/>
+        <ellipse cx="62" cy="50" rx="7" ry="9" fill="white"/>
+        <circle cx="40" cy="52" r="4" fill="#1F2937"/>
+        <circle cx="64" cy="52" r="4" fill="#1F2937"/>
+        <!-- Cute confused expression -->
+        <path d="M42 72 Q50 68 58 72" stroke="#065F46" stroke-width="2" fill="none"/>
+      </symbol>
+
+      <!-- Monster: Shigayon (Error Sprite) -->
+      <symbol id="monster-shigayon" viewBox="0 0 100 100">
+        <!-- Spiky body -->
+        <polygon points="50,10 60,35 90,40 65,55 75,85 50,70 25,85 35,55 10,40 40,35" fill="#F87171"/>
+        <!-- Inner body -->
+        <circle cx="50" cy="50" r="25" fill="#FECACA"/>
+        <!-- X eyes (dizzy) -->
+        <text x="38" y="50" font-size="14" fill="#DC2626">×</text>
+        <text x="55" y="50" font-size="14" fill="#DC2626">×</text>
+        <!-- Wavy mouth -->
+        <path d="M40 60 Q45 65 50 60 Q55 55 60 60" stroke="#DC2626" stroke-width="2" fill="none"/>
+        <!-- Error symbols -->
+        <text x="70" y="25" font-size="10" fill="#FCA5A5">!</text>
+        <text x="20" y="30" font-size="10" fill="#FCA5A5">!</text>
+      </symbol>
+
+      <!-- Hair gradient -->
+      <linearGradient id="hair-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#1E40AF"/>
+        <stop offset="50%" style="stop-color:#3B82F6"/>
+        <stop offset="100%" style="stop-color:#7DD3FC"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <script>
+    // ============================================
+    // GAME STATE
+    // ============================================
+    const GameState = {
+      currentScreen: 'title',
+      chapter: 1,
+      encounter: 0,
+      playerHP: 100,
+      playerMaxHP: 100,
+      monsterHP: 0,
+      monsterMaxHP: 5,
+      score: 0,
+      currentProblem: null,
+      timerStartTime: 0,
+      isPlaying: false,
+      minigameType: 'selection', // selection, fillBlank, matchPairs
+      matchPairsState: {
+        cards: [],
+        flipped: [],
+        matched: 0
+      }
+    };
+
+    // ============================================
+    // EVENT BUS
+    // ============================================
+    const Events = {
+      listeners: {},
+      on(event, callback) {
+        if (!this.listeners[event]) this.listeners[event] = [];
+        this.listeners[event].push(callback);
+      },
+      emit(event, data) {
+        if (this.listeners[event]) {
+          this.listeners[event].forEach(cb => cb(data));
+        }
+      }
+    };
+
+    // ============================================
+    // AUDIO MANAGER (Web Audio API)
+    // ============================================
+    const AudioManager = {
+      context: null,
+      musicGain: null,
+      sfxGain: null,
+      settings: {
+        musicEnabled: true,
+        sfxEnabled: true,
+        musicVolume: 0.4,
+        sfxVolume: 0.7
+      },
+      currentMusic: null,
+
+      init() {
+        document.addEventListener('click', () => this.createContext(), { once: true });
+      },
+
+      createContext() {
+        if (this.context) return;
+        this.context = new (window.AudioContext || window.webkitAudioContext)();
+
+        this.musicGain = this.context.createGain();
+        this.musicGain.gain.value = this.settings.musicVolume;
+        this.musicGain.connect(this.context.destination);
+
+        this.sfxGain = this.context.createGain();
+        this.sfxGain.gain.value = this.settings.sfxVolume;
+        this.sfxGain.connect(this.context.destination);
+      },
+
+      // Note frequencies
+      notes: {
+        C2: 65.41, C3: 130.81, C4: 261.63, C5: 523.25, C6: 1046.50,
+        D4: 293.66, D5: 587.33, E4: 329.63, E5: 659.25,
+        F4: 349.23, G4: 392.00, G5: 783.99, A4: 440.00, B4: 493.88
+      },
+
+      playCorrectAnswer(damage = 1) {
+        if (!this.context || !this.settings.sfxEnabled) return;
+        const now = this.context.currentTime;
+
+        const osc = this.context.createOscillator();
+        const gain = this.context.createGain();
+        osc.type = 'square';
+        osc.connect(gain);
+        gain.connect(this.sfxGain);
+
+        if (damage >= 3) {
+          // Epic arpeggio
+          [this.notes.C5, this.notes.E5, this.notes.G5, this.notes.C6].forEach((note, i) => {
+            osc.frequency.setValueAtTime(note, now + i * 0.1);
+          });
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+          osc.start(now);
+          osc.stop(now + 0.6);
+        } else if (damage >= 2) {
+          // Fast arpeggio
+          [this.notes.C5, this.notes.E5, this.notes.G5].forEach((note, i) => {
+            osc.frequency.setValueAtTime(note, now + i * 0.12);
+          });
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+          osc.start(now);
+          osc.stop(now + 0.5);
+        } else {
+          // Simple two-note
+          osc.frequency.setValueAtTime(this.notes.C5, now);
+          osc.frequency.setValueAtTime(this.notes.E5, now + 0.15);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+          osc.start(now);
+          osc.stop(now + 0.4);
+        }
+      },
+
+      playWrongAnswer() {
+        if (!this.context || !this.settings.sfxEnabled) return;
+        const now = this.context.currentTime;
+
+        const osc = this.context.createOscillator();
+        const gain = this.context.createGain();
+        osc.type = 'triangle';
+        osc.connect(gain);
+        gain.connect(this.sfxGain);
+
+        // Gentle descending pattern (encouraging)
+        osc.frequency.setValueAtTime(this.notes.E5, now);
+        osc.frequency.setValueAtTime(this.notes.D5, now + 0.15);
+        osc.frequency.setValueAtTime(this.notes.C5, now + 0.3);
+
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+
+        osc.start(now);
+        osc.stop(now + 0.5);
+      },
+
+      playMonsterHit() {
+        if (!this.context || !this.settings.sfxEnabled) return;
+        const now = this.context.currentTime;
+
+        const osc = this.context.createOscillator();
+        const gain = this.context.createGain();
+        osc.type = 'square';
+        osc.connect(gain);
+        gain.connect(this.sfxGain);
+
+        osc.frequency.setValueAtTime(this.notes.C2, now);
+        osc.frequency.exponentialRampToValueAtTime(this.notes.C2 * 0.5, now + 0.1);
+
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+
+        osc.start(now);
+        osc.stop(now + 0.2);
+      },
+
+      playVictory() {
+        if (!this.context || !this.settings.sfxEnabled) return;
+        const now = this.context.currentTime;
+
+        const osc = this.context.createOscillator();
+        const gain = this.context.createGain();
+        osc.type = 'square';
+        osc.connect(gain);
+        gain.connect(this.sfxGain);
+
+        // Victory fanfare
+        const notes = [this.notes.C5, this.notes.E5, this.notes.G5];
+        notes.forEach((note, i) => {
+          osc.frequency.setValueAtTime(note, now + i * 0.15);
+        });
+
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.setValueAtTime(0.3, now + 0.3);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+
+        osc.start(now);
+        osc.stop(now + 0.8);
+      },
+
+      playButtonClick() {
+        if (!this.context || !this.settings.sfxEnabled) return;
+        const now = this.context.currentTime;
+
+        const osc = this.context.createOscillator();
+        const gain = this.context.createGain();
+        osc.type = 'square';
+        osc.connect(gain);
+        gain.connect(this.sfxGain);
+
+        osc.frequency.setValueAtTime(this.notes.C5, now);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+
+        osc.start(now);
+        osc.stop(now + 0.08);
+      },
+
+      playTimerTick() {
+        if (!this.context || !this.settings.sfxEnabled) return;
+        const now = this.context.currentTime;
+
+        const osc = this.context.createOscillator();
+        const gain = this.context.createGain();
+        osc.type = 'triangle';
+        osc.connect(gain);
+        gain.connect(this.sfxGain);
+
+        osc.frequency.setValueAtTime(this.notes.G4, now);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+
+        osc.start(now);
+        osc.stop(now + 0.08);
+      },
+
+      toggleMusic() {
+        this.settings.musicEnabled = !this.settings.musicEnabled;
+        document.getElementById('music-toggle').classList.toggle('muted', !this.settings.musicEnabled);
+      },
+
+      toggleSFX() {
+        this.settings.sfxEnabled = !this.settings.sfxEnabled;
+        document.getElementById('sfx-toggle').classList.toggle('muted', !this.settings.sfxEnabled);
+      }
+    };
+
+    // ============================================
+    // SAVE MANAGER
+    // ============================================
+    const SaveManager = {
+      SAVE_KEY: 'arielle_multiplication_save',
+
+      save() {
+        const data = {
+          chapter: GameState.chapter,
+          encounter: GameState.encounter,
+          score: GameState.score,
+          timestamp: Date.now()
+        };
+        localStorage.setItem(this.SAVE_KEY, JSON.stringify(data));
+      },
+
+      load() {
+        const data = localStorage.getItem(this.SAVE_KEY);
+        if (data) {
+          return JSON.parse(data);
+        }
+        return null;
+      },
+
+      hasSave() {
+        return localStorage.getItem(this.SAVE_KEY) !== null;
+      },
+
+      clearSave() {
+        localStorage.removeItem(this.SAVE_KEY);
+      }
+    };
+
+    // ============================================
+    // STORY CONTENT (Hebrew)
+    // ============================================
+    const StoryContent = {
+      chapter1: {
+        title: 'פרק 1: האחו האזמרגדי',
+        intro: [
+          { speaker: 'מספר', text: 'ביום הולדתה השביעי של אריאל, קרה משהו קסום...' },
+          { speaker: 'פיפ', text: 'שלום אריאל! אני פיפ, שדון המספרים!' },
+          { speaker: 'פיפ', text: 'יש לך כוח מיוחד - כוח הכפל!' },
+          { speaker: 'פיפ', text: 'הממלכה שלנו בסכנה! הקוסם בלגן פיזר את הגבישים הקסומים.' },
+          { speaker: 'פיפ', text: 'רק את יכולה להחזיר אותם! בואי נצא להרפתקה!' },
+        ],
+        tutorial: [
+          { speaker: 'פיפ', text: 'כשתראי מפלצת מבולבלת, פתרי את חידת הכפל כדי לעזור לה!' },
+          { speaker: 'פיפ', text: 'ככל שתענו מהר יותר, יותר נזק תגרמי לבילבול!' },
+          { speaker: 'פיפ', text: 'מהירות רגילה = נזק 1, מהירה = נזק 2, סופר מהירה = נזק 3!' },
+        ],
+        encounters: [
+          { monster: 'chishubon', name: 'חישובון', intro: 'אוי לא! חישובון מבולבל חוסם את הדרך!' },
+          { monster: 'kefulon', name: 'כפולון', intro: 'כפולון הקטן צריך את עזרתך!' },
+          { monster: 'shigayon', name: 'שגיאון', intro: 'שגיאון סחרחר! בואי נעזור לו!' },
+          { monster: 'chishubon', name: 'חישובון', intro: 'עוד חישובון מבולבל!' },
+          { monster: 'kefulon', name: 'כפולון', intro: 'כפולון נוסף זקוק לך!' },
+          { monster: 'shigayon', name: 'שגיאון', intro: 'שגיאון אחר מחכה לעזרה!' },
+          { monster: 'chishubon', name: 'חישובון', intro: 'חישובון רוצה להבין!' },
+          { monster: 'kefulon', name: 'כפולון', intro: 'כפולון מנסה להתרכז!' },
+          { monster: 'shigayon', name: 'שגיאון', intro: 'שגיאון מקווה שתעזרי!' },
+          { monster: 'chishubon', name: 'חישובון אחרון', intro: 'המפלצת האחרונה של הפרק!' },
+        ],
+        outro: [
+          { speaker: 'פיפ', text: 'מדהים! מצאנו את הגביש הראשון!' },
+          { speaker: 'פיפ', text: 'גביש האזמרגד חזר למקומו!' },
+          { speaker: 'פיפ', text: 'כל הכבוד אריאל! את גיבורה אמיתית!' },
+        ]
+      },
+      encouragement: [
+        'נסי שוב, את יכולה!',
+        'כמעט! עוד פעם!',
+        'לא נורא, חשבי שוב!',
+        'את גיבורה! נסי שוב!',
+        'המתמטיקה איתך!',
+      ],
+      victoryMessages: [
+        'נכון!',
+        'יפה מאוד!',
+        'כל הכבוד!',
+        'מעולה!',
+        'מושלם!',
+      ],
+      speedMessages: {
+        1: ['נכון!', 'יפה!', 'טוב!'],
+        2: ['מהירה!', 'וואו!', 'בזק!'],
+        3: ['סופר כוכב!', 'מדהים!', 'אלופה!']
+      }
+    };
+
+    // ============================================
+    // RIDDLE GENERATOR
+    // ============================================
+    const RiddleGenerator = {
+      // Chapter 1: tables 1-5
+      generate(chapter = 1) {
+        const maxTable = Math.min(5, 2 + chapter);
+        const a = Math.floor(Math.random() * maxTable) + 1;
+        const b = Math.floor(Math.random() * 10) + 1;
+        return {
+          a, b,
+          answer: a * b,
+          display: `${a} × ${b} = ?`,
+          fillBlankDisplay: Math.random() > 0.5 ? `? × ${b} = ${a * b}` : `${a} × ? = ${a * b}`,
+          missingValue: Math.random() > 0.5 ? a : b
+        };
+      },
+
+      generateOptions(correctAnswer) {
+        const options = [correctAnswer];
+        while (options.length < 4) {
+          // Generate wrong answers close to correct
+          const offset = Math.floor(Math.random() * 10) - 5;
+          const wrong = Math.max(0, correctAnswer + offset);
+          if (!options.includes(wrong) && wrong !== correctAnswer) {
+            options.push(wrong);
+          }
+        }
+        // Shuffle
+        return options.sort(() => Math.random() - 0.5);
+      },
+
+      generateMatchPairs() {
+        const pairs = [];
+        for (let i = 0; i < 6; i++) {
+          const problem = this.generate();
+          pairs.push(
+            { id: i * 2, type: 'problem', value: `${problem.a}×${problem.b}`, pairId: i },
+            { id: i * 2 + 1, type: 'answer', value: problem.answer.toString(), pairId: i }
+          );
+        }
+        return pairs.sort(() => Math.random() - 0.5);
+      }
+    };
+
+    // ============================================
+    // TIMER SYSTEM
+    // ============================================
+    const TimerSystem = {
+      duration: 10000, // 10 seconds for selection
+      elapsed: 0,
+      interval: null,
+      lastTick: 0,
+
+      start(duration) {
+        this.duration = duration;
+        this.elapsed = 0;
+        this.lastTick = Date.now();
+        GameState.timerStartTime = Date.now();
+
+        this.interval = setInterval(() => this.update(), 100);
+        this.updateDisplay();
+      },
+
+      update() {
+        const now = Date.now();
+        this.elapsed = now - GameState.timerStartTime;
+        const remaining = Math.max(0, this.duration - this.elapsed);
+
+        this.updateDisplay();
+
+        // Timer tick sound in last 10 seconds
+        const secondsLeft = Math.ceil(remaining / 1000);
+        if (secondsLeft <= 10 && secondsLeft !== this.lastTick && secondsLeft > 0) {
+          this.lastTick = secondsLeft;
+          AudioManager.playTimerTick();
+        }
+
+        if (remaining <= 0) {
+          this.stop();
+          Events.emit('time_up');
+        }
+      },
+
+      updateDisplay() {
+        const remaining = Math.max(0, this.duration - this.elapsed);
+        const percent = (remaining / this.duration) * 100;
+        const seconds = Math.ceil(remaining / 1000);
+
+        const fill = document.getElementById('timer-fill');
+        const display = document.getElementById('timer-display');
+
+        if (fill && display) {
+          fill.style.width = percent + '%';
+          display.textContent = seconds;
+
+          // Update color class
+          fill.className = 'timer-bar-fill';
+          if (percent > 60) {
+            fill.classList.add('timer-safe');
+          } else if (percent > 30) {
+            fill.classList.add('timer-warning');
+          } else {
+            fill.classList.add('timer-critical');
+          }
+        }
+      },
+
+      stop() {
+        if (this.interval) {
+          clearInterval(this.interval);
+          this.interval = null;
+        }
+      },
+
+      getElapsed() {
+        return this.elapsed;
+      }
+    };
+
+    // ============================================
+    // COMBAT SYSTEM
+    // ============================================
+    const CombatSystem = {
+      calculateDamage(timeElapsed, maxTime) {
+        const ratio = timeElapsed / maxTime;
+        if (ratio < 0.3) return 3; // Super fast
+        if (ratio < 0.6) return 2; // Fast
+        return 1; // Normal
+      },
+
+      applyDamage(damage) {
+        GameState.monsterHP = Math.max(0, GameState.monsterHP - damage);
+        this.updateMonsterHP();
+
+        // Show damage animation
+        const monster = document.getElementById('battle-monster');
+        monster.classList.add('monster-hit');
+        setTimeout(() => monster.classList.remove('monster-hit'), 300);
+
+        AudioManager.playMonsterHit();
+        Events.emit('monster_hit', { damage, remainingHP: GameState.monsterHP });
+
+        if (GameState.monsterHP <= 0) {
+          Events.emit('monster_defeated');
+        }
+      },
+
+      updateMonsterHP() {
+        const fill = document.getElementById('monster-hp-fill');
+        const percent = (GameState.monsterHP / GameState.monsterMaxHP) * 100;
+        fill.style.width = percent + '%';
+      },
+
+      updatePlayerHP() {
+        const fill = document.getElementById('player-hp-fill');
+        const percent = (GameState.playerHP / GameState.playerMaxHP) * 100;
+        fill.style.width = percent + '%';
+      }
+    };
+
+    // ============================================
+    // SCREEN MANAGER
+    // ============================================
+    const ScreenManager = {
+      screens: ['title', 'story', 'battle', 'victory', 'retry', 'complete'],
+
+      show(screenId) {
+        this.screens.forEach(s => {
+          const el = document.getElementById(s + '-screen');
+          if (el) {
+            el.classList.remove('active');
+          }
+        });
+
+        const screen = document.getElementById(screenId + '-screen');
+        if (screen) {
+          screen.classList.add('active');
+          GameState.currentScreen = screenId;
+        }
+      }
+    };
+
+    // ============================================
+    // MINIGAME ENGINE
+    // ============================================
+    const MinigameEngine = {
+      currentType: 'selection',
+
+      startMinigame(type = 'selection') {
+        this.currentType = type;
+        GameState.minigameType = type;
+
+        // Hide all minigame areas
+        document.getElementById('answers-container').style.display = 'none';
+        document.getElementById('fill-blank-area').style.display = 'none';
+        document.getElementById('match-pairs-grid').style.display = 'none';
+
+        switch (type) {
+          case 'selection':
+            this.startSelection();
+            break;
+          case 'fillBlank':
+            this.startFillBlank();
+            break;
+          case 'matchPairs':
+            this.startMatchPairs();
+            break;
+        }
+      },
+
+      startSelection() {
+        document.getElementById('answers-container').style.display = 'grid';
+
+        GameState.currentProblem = RiddleGenerator.generate(GameState.chapter);
+        document.getElementById('problem-display').textContent = GameState.currentProblem.display;
+
+        const options = RiddleGenerator.generateOptions(GameState.currentProblem.answer);
+        const container = document.getElementById('answers-container');
+        container.innerHTML = '';
+
+        options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'answer-option';
+          btn.textContent = opt;
+          btn.onclick = () => this.checkSelectionAnswer(opt, btn);
+          container.appendChild(btn);
+        });
+
+        TimerSystem.start(10000);
+      },
+
+      startFillBlank() {
+        document.getElementById('fill-blank-area').style.display = 'block';
+
+        GameState.currentProblem = RiddleGenerator.generate(GameState.chapter);
+        document.getElementById('problem-display').textContent = GameState.currentProblem.fillBlankDisplay;
+
+        const input = document.getElementById('fill-blank-input');
+        input.value = '';
+        input.focus();
+
+        TimerSystem.start(15000);
+      },
+
+      startMatchPairs() {
+        document.getElementById('match-pairs-grid').style.display = 'grid';
+        document.getElementById('problem-display').textContent = 'התאימי זוגות!';
+
+        const cards = RiddleGenerator.generateMatchPairs();
+        GameState.matchPairsState = { cards, flipped: [], matched: 0 };
+
+        const grid = document.getElementById('match-pairs-grid');
+        grid.innerHTML = '';
+
+        cards.forEach(card => {
+          const btn = document.createElement('button');
+          btn.className = 'match-card';
+          btn.dataset.id = card.id;
+          btn.dataset.pairId = card.pairId;
+          btn.dataset.value = card.value;
+          btn.textContent = '?';
+          btn.onclick = () => this.flipCard(btn, card);
+          grid.appendChild(btn);
+        });
+
+        TimerSystem.start(30000);
+      },
+
+      checkSelectionAnswer(answer, btn) {
+        TimerSystem.stop();
+
+        if (answer === GameState.currentProblem.answer) {
+          this.handleCorrect(btn);
+        } else {
+          this.handleWrong(btn);
+        }
+      },
+
+      checkFillBlankAnswer() {
+        const input = document.getElementById('fill-blank-input');
+        const answer = parseInt(input.value);
+
+        TimerSystem.stop();
+
+        if (answer === GameState.currentProblem.missingValue) {
+          this.handleCorrect(input);
+        } else {
+          this.handleWrong(input);
+        }
+      },
+
+      flipCard(btn, card) {
+        if (btn.classList.contains('flipped') || btn.classList.contains('matched')) return;
+        if (GameState.matchPairsState.flipped.length >= 2) return;
+
+        btn.classList.add('flipped');
+        btn.textContent = card.value;
+        GameState.matchPairsState.flipped.push({ btn, card });
+
+        if (GameState.matchPairsState.flipped.length === 2) {
+          const [first, second] = GameState.matchPairsState.flipped;
+
+          if (first.card.pairId === second.card.pairId) {
+            // Match!
+            setTimeout(() => {
+              first.btn.classList.add('matched');
+              second.btn.classList.add('matched');
+              GameState.matchPairsState.matched++;
+              AudioManager.playCorrectAnswer(1);
+
+              if (GameState.matchPairsState.matched === 6) {
+                TimerSystem.stop();
+                const damage = CombatSystem.calculateDamage(TimerSystem.getElapsed(), 30000);
+                CombatSystem.applyDamage(damage * 3); // Bonus for completing all pairs
+                this.showSpeedBonus(damage);
+              }
+            }, 300);
+          } else {
+            // No match
+            setTimeout(() => {
+              first.btn.classList.remove('flipped');
+              second.btn.classList.remove('flipped');
+              first.btn.textContent = '?';
+              second.btn.textContent = '?';
+            }, 800);
+          }
+
+          GameState.matchPairsState.flipped = [];
+        }
+      },
+
+      handleCorrect(element) {
+        element.classList?.add('answer-correct');
+
+        const elapsed = TimerSystem.getElapsed();
+        const maxTime = GameState.minigameType === 'fillBlank' ? 15000 : 10000;
+        const damage = CombatSystem.calculateDamage(elapsed, maxTime);
+
+        AudioManager.playCorrectAnswer(damage);
+        CombatSystem.applyDamage(damage);
+        this.showSpeedBonus(damage);
+      },
+
+      handleWrong(element) {
+        element.classList?.add('answer-wrong');
+        AudioManager.playWrongAnswer();
+        this.showEncouragement();
+
+        // Restart with new problem after delay
+        setTimeout(() => {
+          element.classList?.remove('answer-wrong');
+          this.startMinigame(this.currentType);
+        }, 1500);
+      },
+
+      showSpeedBonus(damage) {
+        const bonus = document.createElement('div');
+        bonus.className = `speed-bonus speed-${damage}x`;
+        const messages = StoryContent.speedMessages[damage];
+        bonus.textContent = `×${damage} ${messages[Math.floor(Math.random() * messages.length)]}`;
+        document.body.appendChild(bonus);
+        setTimeout(() => bonus.remove(), 800);
+      },
+
+      showEncouragement() {
+        const msg = document.createElement('div');
+        msg.className = 'encourage-message';
+        msg.textContent = StoryContent.encouragement[Math.floor(Math.random() * StoryContent.encouragement.length)];
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 1500);
+      }
+    };
+
+    // ============================================
+    // GAME FLOW
+    // ============================================
+    const GameFlow = {
+      storyIndex: 0,
+      storyPhase: 'intro', // intro, tutorial, encounter, outro
+
+      init() {
+        // Check for saved game
+        if (SaveManager.hasSave()) {
+          document.getElementById('continue-container').style.display = 'block';
+        }
+
+        // Set up sprites
+        this.setupSprites();
+
+        // Event listeners
+        this.setupEventListeners();
+
+        // Initialize audio
+        AudioManager.init();
+      },
+
+      setupSprites() {
+        // Use SVG symbols
+        const arielleSprites = document.querySelectorAll('#story-arielle, #battle-arielle');
+        arielleSprites.forEach(el => {
+          el.innerHTML = '<use href="#arielle-happy"/>';
+        });
+
+        const pipSprites = document.querySelectorAll('#story-pip');
+        pipSprites.forEach(el => {
+          el.innerHTML = '<use href="#pip"/>';
+        });
+      },
+
+      setupEventListeners() {
+        // Title screen
+        document.getElementById('start-btn').onclick = () => {
+          AudioManager.playButtonClick();
+          this.startNewGame();
+        };
+
+        document.getElementById('continue-btn').onclick = () => {
+          AudioManager.playButtonClick();
+          this.continueGame();
+        };
+
+        // Story screen
+        document.getElementById('story-continue-btn').onclick = () => {
+          AudioManager.playButtonClick();
+          this.advanceStory();
+        };
+
+        // Victory screen
+        document.getElementById('victory-continue-btn').onclick = () => {
+          AudioManager.playButtonClick();
+          this.afterVictory();
+        };
+
+        // Retry screen
+        document.getElementById('retry-btn').onclick = () => {
+          AudioManager.playButtonClick();
+          this.retryEncounter();
+        };
+
+        // Complete screen
+        document.getElementById('play-again-btn').onclick = () => {
+          AudioManager.playButtonClick();
+          SaveManager.clearSave();
+          this.startNewGame();
+        };
+
+        // Audio toggles
+        document.getElementById('music-toggle').onclick = () => AudioManager.toggleMusic();
+        document.getElementById('sfx-toggle').onclick = () => AudioManager.toggleSFX();
+
+        // Fill blank submit
+        document.getElementById('submit-answer-btn').onclick = () => {
+          MinigameEngine.checkFillBlankAnswer();
+        };
+
+        document.getElementById('fill-blank-input').onkeypress = (e) => {
+          if (e.key === 'Enter') MinigameEngine.checkFillBlankAnswer();
+        };
+
+        // Game events
+        Events.on('monster_defeated', () => this.onMonsterDefeated());
+        Events.on('time_up', () => this.onTimeUp());
+      },
+
+      startNewGame() {
+        GameState.chapter = 1;
+        GameState.encounter = 0;
+        GameState.score = 0;
+        GameState.playerHP = 100;
+
+        this.storyPhase = 'intro';
+        this.storyIndex = 0;
+
+        ScreenManager.show('story');
+        this.showStoryContent();
+      },
+
+      continueGame() {
+        const save = SaveManager.load();
+        if (save) {
+          GameState.chapter = save.chapter;
+          GameState.encounter = save.encounter;
+          GameState.score = save.score;
+          GameState.playerHP = 100;
+
+          this.storyPhase = 'encounter';
+          this.startEncounter();
+        }
+      },
+
+      showStoryContent() {
+        const chapter = StoryContent.chapter1;
+        document.getElementById('chapter-title').textContent = chapter.title;
+
+        let content;
+        switch (this.storyPhase) {
+          case 'intro':
+            content = chapter.intro;
+            break;
+          case 'tutorial':
+            content = chapter.tutorial;
+            break;
+          case 'outro':
+            content = chapter.outro;
+            break;
+          default:
+            content = [];
+        }
+
+        if (this.storyIndex < content.length) {
+          const line = content[this.storyIndex];
+          document.getElementById('speaker-name').textContent = line.speaker;
+          document.getElementById('story-text').textContent = line.text;
+        }
+      },
+
+      advanceStory() {
+        const chapter = StoryContent.chapter1;
+        let content;
+
+        switch (this.storyPhase) {
+          case 'intro':
+            content = chapter.intro;
+            break;
+          case 'tutorial':
+            content = chapter.tutorial;
+            break;
+          case 'outro':
+            content = chapter.outro;
+            break;
+          default:
+            content = [];
+        }
+
+        this.storyIndex++;
+
+        if (this.storyIndex >= content.length) {
+          // Move to next phase
+          if (this.storyPhase === 'intro') {
+            this.storyPhase = 'tutorial';
+            this.storyIndex = 0;
+            this.showStoryContent();
+          } else if (this.storyPhase === 'tutorial') {
+            this.storyPhase = 'encounter';
+            this.startEncounter();
+          } else if (this.storyPhase === 'outro') {
+            this.completeChapter();
+          }
+        } else {
+          this.showStoryContent();
+        }
+      },
+
+      startEncounter() {
+        const chapter = StoryContent.chapter1;
+        const encounter = chapter.encounters[GameState.encounter];
+
+        if (!encounter) {
+          this.storyPhase = 'outro';
+          this.storyIndex = 0;
+          ScreenManager.show('story');
+          this.showStoryContent();
+          return;
+        }
+
+        // Show encounter intro
+        document.getElementById('speaker-name').textContent = 'פיפ';
+        document.getElementById('story-text').textContent = encounter.intro;
+        ScreenManager.show('story');
+
+        // Update continue button to start battle
+        const btn = document.getElementById('story-continue-btn');
+        btn.textContent = 'להילחם!';
+        btn.onclick = () => {
+          AudioManager.playButtonClick();
+          btn.textContent = 'המשיכי';
+          btn.onclick = () => {
+            AudioManager.playButtonClick();
+            this.advanceStory();
+          };
+          this.startBattle(encounter);
+        };
+      },
+
+      startBattle(encounter) {
+        ScreenManager.show('battle');
+
+        // Set up monster
+        document.getElementById('monster-name').textContent = encounter.name;
+        document.getElementById('battle-monster').innerHTML = `<use href="#monster-${encounter.monster}"/>`;
+
+        // Set monster HP based on chapter
+        GameState.monsterMaxHP = 5 + Math.floor(GameState.chapter / 2);
+        GameState.monsterHP = GameState.monsterMaxHP;
+        CombatSystem.updateMonsterHP();
+        CombatSystem.updatePlayerHP();
+
+        // Choose random minigame type
+        const types = ['selection', 'selection', 'fillBlank', 'matchPairs'];
+        const type = types[Math.floor(Math.random() * types.length)];
+
+        MinigameEngine.startMinigame(type);
+        GameState.isPlaying = true;
+      },
+
+      onMonsterDefeated() {
+        TimerSystem.stop();
+        GameState.isPlaying = false;
+
+        AudioManager.playVictory();
+
+        // Show victory screen
+        ScreenManager.show('victory');
+        this.spawnConfetti();
+
+        const messages = StoryContent.victoryMessages;
+        document.getElementById('victory-message').textContent = messages[Math.floor(Math.random() * messages.length)];
+
+        // Update arielle sprite to victory
+        document.getElementById('battle-arielle').innerHTML = '<use href="#arielle-victory"/>';
+      },
+
+      afterVictory() {
+        // Restore normal sprite
+        document.getElementById('battle-arielle').innerHTML = '<use href="#arielle-happy"/>';
+
+        GameState.encounter++;
+        SaveManager.save();
+
+        // Check if chapter complete
+        if (GameState.encounter >= 10) {
+          this.storyPhase = 'outro';
+          this.storyIndex = 0;
+          ScreenManager.show('story');
+          this.showStoryContent();
+        } else {
+          this.startEncounter();
+        }
+      },
+
+      onTimeUp() {
+        GameState.isPlaying = false;
+
+        // Take damage
+        GameState.playerHP = Math.max(0, GameState.playerHP - 20);
+        CombatSystem.updatePlayerHP();
+
+        if (GameState.playerHP <= 0) {
+          // Show retry screen
+          ScreenManager.show('retry');
+          document.getElementById('retry-encourage').textContent =
+            StoryContent.encouragement[Math.floor(Math.random() * StoryContent.encouragement.length)];
+        } else {
+          // Continue with new problem
+          MinigameEngine.startMinigame(GameState.minigameType);
+        }
+      },
+
+      retryEncounter() {
+        GameState.playerHP = 100;
+        CombatSystem.updatePlayerHP();
+        this.startEncounter();
+      },
+
+      completeChapter() {
+        ScreenManager.show('complete');
+        this.spawnConfetti(document.getElementById('complete-confetti'));
+        SaveManager.clearSave();
+      },
+
+      spawnConfetti(container = document.getElementById('confetti-container')) {
+        const colors = ['#FBBF24', '#F472B6', '#7DD3FC', '#10B981', '#A855F7'];
+
+        for (let i = 0; i < 50; i++) {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + '%';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDelay = Math.random() * 2 + 's';
+          confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+          container.appendChild(confetti);
+
+          setTimeout(() => confetti.remove(), 5000);
+        }
+      }
+    };
+
+    // ============================================
+    // INITIALIZE GAME
+    // ============================================
+    document.addEventListener('DOMContentLoaded', () => {
+      GameFlow.init();
+    });
+  </script>
+</body>
+</html>
