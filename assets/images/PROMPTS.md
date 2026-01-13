@@ -218,3 +218,47 @@ Fantasy game battle arena on floating island in sky. Circular clearing with glow
 ```
 Fantasy game chapter complete celebration on floating sky island. Golden hour with magical sparkles, confetti, and flower petals. Light blue crystal glowing in center with rays of light. All bridges restored connecting islands. Triumphant joyful atmosphere. Anime style. Wide aspect ratio. No characters.
 ```
+
+## Chapter 5: Rainbow Falls
+
+### gray-otter.png (Gray Otter)
+**Generated**: January 2025
+
+```
+Cute confused gray otter monster anime chibi style. Round fluffy body, big eyes with spiral confusion marks. Should be colorful but drained to gray. Playful water creature pose. Pokemon-like. Transparent background. Child-friendly.
+```
+
+### water-sprite.png (Faded Water Sprite)
+**Generated**: January 2025
+
+```
+Cute confused water sprite monster anime chibi style. Translucent faded blue elemental being made of water drops. Big sad eyes with spiral confusion. Floating pose. Pokemon-like water type. Transparent background. Child-friendly.
+```
+
+### rainbow-fish.png (Colorless Rainbow Fish)
+**Generated**: January 2025
+
+```
+Cute confused rainbow fish monster anime chibi style. Elegant fish that should be rainbow colored but is now gray and dull. Flowing fins, big eyes with spiral confusion. Swimming pose. Pokemon-like. Transparent background. Child-friendly.
+```
+
+### chapter5-falls.png (Rainbow Falls - Story/Dialog)
+**Generated**: January 2025
+
+```
+Fantasy game background of massive gray waterfalls that have lost their color. Dull misty pools and faded water. Anime style landscape for children's game. Desaturated colors, hints of where rainbow should be. Wide aspect ratio. No characters.
+```
+
+### chapter5-battle.png (Rainbow Falls Battle Arena)
+**Generated**: January 2025
+
+```
+Fantasy game battle arena at the base of massive waterfalls. Circular clearing with glowing water runes. Dramatic mist and spray. Partially gray with hints of returning color. Anime style. Action-ready. Wide aspect ratio. No characters.
+```
+
+### chapter5-complete.png (Rainbow Falls Chapter Complete)
+**Generated**: January 2025
+
+```
+Fantasy game chapter complete celebration at rainbow waterfalls. Vibrant rainbow-colored water cascading down. Golden hour with magical sparkles, confetti, and water spray catching light. Rainbow crystal glowing in center with prismatic rays. Triumphant joyful atmosphere. Anime style. Wide aspect ratio. No characters.
+```

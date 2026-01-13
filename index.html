@@ -75,6 +75,12 @@
       --chapter-4-accent: #0284C7;
       --chapter-4-bg: #E0F2FE;
 
+      /* Chapter 5: Rainbow Falls */
+      --chapter-5-primary: #FF6B6B;
+      --chapter-5-secondary: #4ECDC4;
+      --chapter-5-accent: #9B59B6;
+      --chapter-5-bg: #F0F8FF;
+
       /* Font Sizes */
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -373,6 +379,19 @@
 
     #complete-screen.chapter-4 {
       background: url('assets/images/backgrounds/chapter4-complete.png') center/cover no-repeat;
+    }
+
+    /* Chapter 5: Rainbow Falls */
+    #story-screen.chapter-5 {
+      background: url('assets/images/backgrounds/chapter5-falls.png') center center / cover no-repeat;
+    }
+
+    #battle-screen.chapter-5 {
+      background: url('assets/images/backgrounds/chapter5-battle.png') center/cover no-repeat;
+    }
+
+    #complete-screen.chapter-5 {
+      background: url('assets/images/backgrounds/chapter5-complete.png') center/cover no-repeat;
     }
 
     .battle-container {
@@ -1507,6 +1526,33 @@
           { speaker: 'פיפ', text: 'הסתכלי! השדונים, הפיות והדגים רוקדים יחד באוויר!' },
           { speaker: 'מספר', text: 'אריאל קיבלה את גביש השמיים הכחול-בהיר. ארבעה גבישים נאספו!' },
           { speaker: 'פיפ', text: 'תראי למטה! אני רואה מפלים צבעוניים! מפלי הקשת!' }
+        ]
+      },
+      chapter5: {
+        title: 'פרק 5: מפלי הקשת',
+        intro: [
+          { speaker: 'מספר', text: 'אריאל ופיפ עזבו את הגנים המרחפים וירדו אל עמק עצום עם מפלים אדירים.' },
+          { speaker: 'פיפ', text: 'המפלים האלה היו פעם הדבר הכי יפה בממלכה! מים בכל צבעי הקשת זרמו כאן...' },
+          { speaker: 'מספר', text: 'אבל עכשיו המים היו אפורים ודהויים. הצבעים נעלמו לגמרי.' },
+          { speaker: 'פיפ', text: 'הגענו לאמצע המסע! עוד חמישה גבישים ונציל את הממלכה! בואי נחזיר את הצבעים!' }
+        ],
+        encounters: [
+          { monster: 'gray-otter', name: 'לוטרה אפורה', intro: 'לוטרה קטנה וחמודה שיחקה במים, אבל היא נראתה עצובה ואפורה.' },
+          { monster: 'water-sprite', name: 'רוח מים דהויה', intro: 'רוח מים ריחפה באוויר, כמעט שקופה לגמרי בלי הצבעים שלה.' },
+          { monster: 'rainbow-fish', name: 'דג קשת חסר צבע', intro: 'דג יפהפה שחה במעגלים, סנפיריו שהיו פעם צבעוניים עכשיו אפורים.' },
+          { monster: 'gray-otter', name: 'לוטרה אפורה', intro: 'עוד לוטרה אפורה הופיעה, מנסה לשחק אבל בלי אנרגיה.' },
+          { monster: 'water-sprite', name: 'רוח מים דהויה', intro: 'רוח מים נוספת צפה לאיטה, זקוקה לעזרה כדי לזרוח שוב.' },
+          { monster: 'rainbow-fish', name: 'דג קשת חסר צבע', intro: 'דג קשת נוסף הסתובב בבריכה, מחכה שיחזירו לו את צבעיו.' },
+          { monster: 'gray-otter', name: 'לוטרה אפורה', intro: 'לוטרה שלישית נפלה מסלע קטן, מבולבלת ועייפה.' },
+          { monster: 'water-sprite', name: 'רוח מים דהויה', intro: 'רוח מים גדולה יותר הופיעה מאחורי המפל, כמעט בלתי נראית.' },
+          { monster: 'rainbow-fish', name: 'דג קשת חסר צבע', intro: 'דג הקשת הגדול ביותר שחה לעברכם, סנפיריו הארוכים גוררים במים.' },
+          { monster: 'water-sprite', name: 'רוח מים דהויה', intro: 'רוח המים האחרונה שמרה על הכניסה למערה מאחורי המפל.' }
+        ],
+        outro: [
+          { speaker: 'מספר', text: 'כשאריאל פתרה את החידה האחרונה, צבעי הקשת התחילו לזרום בחזרה למפלים!' },
+          { speaker: 'פיפ', text: 'תראי! אדום, כתום, צהוב, ירוק, כחול, סגול! כל הצבעים חזרו!' },
+          { speaker: 'מספר', text: 'מאחורי המפל הראשי, במערה נסתרת, גביש הקשת נצץ באור משתנה.' },
+          { speaker: 'פיפ', text: 'חמישה גבישים! אנחנו בדיוק באמצע! זו החגיגה הכי צבעונית עד עכשיו!' }
         ]
       },
       encouragement: [
