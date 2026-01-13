@@ -2,7 +2,6 @@
 """Generate images using Gemini 2.5 Flash (nano banana)"""
 
 import os
-import base64
 from dotenv import load_dotenv
 from google import genai
 
@@ -32,10 +31,10 @@ def generate_image(prompt: str, output_path: str = "output.png"):
 
     # Extract and save the image
     for part in response.candidates[0].content.parts:
-        if part.inline_data is not None:
-            image_data = base64.b64decode(part.inline_data.data)
+        if part.inline_data is not None and part.inline_data.mime_type == 'image/png':
+            # The data is already raw bytes, not base64 encoded
             with open(output_path, "wb") as f:
-                f.write(image_data)
+                f.write(part.inline_data.data)
             print(f"Image saved to {output_path}")
             return
 
