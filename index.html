@@ -944,6 +944,7 @@
       timerStartTime: 0,
       isPlaying: false,
       minigameType: 'selection', // selection, fillBlank, matchPairs
+      isAnswering: false, // Guard against double-answering
       matchPairsState: {
         cards: [],
         flipped: [],
@@ -1321,12 +1322,13 @@
         const maxTable = Math.min(5, 2 + chapter);
         const a = Math.floor(Math.random() * maxTable) + 1;
         const b = Math.floor(Math.random() * 10) + 1;
+        const missingFirst = Math.random() > 0.5;
         return {
           a, b,
           answer: a * b,
           display: `${a} × ${b} = ?`,
-          fillBlankDisplay: Math.random() > 0.5 ? `? × ${b} = ${a * b}` : `${a} × ? = ${a * b}`,
-          missingValue: Math.random() > 0.5 ? a : b
+          fillBlankDisplay: missingFirst ? `? × ${b} = ${a * b}` : `${a} × ? = ${a * b}`,
+          missingValue: missingFirst ? a : b
         };
       },
 
@@ -1514,6 +1516,7 @@
       startMinigame(type = 'selection') {
         this.currentType = type;
         GameState.minigameType = type;
+        GameState.isAnswering = false; // Reset guard
 
         // Hide all minigame areas
         document.getElementById('answers-container').style.display = 'none';
@@ -1592,6 +1595,8 @@
       },
 
       checkSelectionAnswer(answer, btn) {
+        if (GameState.isAnswering) return; // Prevent double-answering
+        GameState.isAnswering = true;
         TimerSystem.stop();
 
         if (answer === GameState.currentProblem.answer) {
@@ -1602,6 +1607,8 @@
       },
 
       checkFillBlankAnswer() {
+        if (GameState.isAnswering) return; // Prevent double-answering
+        GameState.isAnswering = true;
         const input = document.getElementById('fill-blank-input');
         const answer = parseInt(input.value);
 
@@ -1665,11 +1672,9 @@
         CombatSystem.applyDamage(damage);
         this.showSpeedBonus(damage);
 
-        // If monster still alive, start new problem after delay
+        // If monster still alive, start new problem immediately
         if (GameState.monsterHP > 0) {
-          setTimeout(() => {
-            this.startMinigame(this.currentType);
-          }, 1000);
+          this.startMinigame(this.currentType);
         }
       },
 
