@@ -142,7 +142,137 @@ When extending the game, use these specialized sub-agents:
 
 ## Development Guidelines
 
-### Adding a New Chapter
+### Chapter Generation Guide
+
+This is a comprehensive checklist of all assets and code changes needed to add a new chapter.
+
+#### Asset Checklist
+
+| Category | Asset | Location | Required? | Notes |
+|----------|-------|----------|-----------|-------|
+| **Images** | Story background | `assets/images/backgrounds/chapter{N}-{name}.png` | Yes | Peaceful scene for dialogue |
+| | Battle arena | `assets/images/backgrounds/chapter{N}-battle.png` | Optional | Can reuse `battle-arena.png` |
+| | Victory background | `assets/images/backgrounds/victory.png` | No | Shared across chapters |
+| | Monsters (3+) | `assets/images/monsters/{name}.png` | Yes | Transparent backgrounds |
+| **Audio** | Story BGM | `assets/audio/music/chapter{N}-story.mp3` | Optional | Can reuse `story-bgm.mp3` |
+| | Battle BGM | `assets/audio/music/chapter{N}-battle.mp3` | Optional | Can reuse `battle-bgm.mp3` |
+| | Victory jingle | `assets/audio/sfx/victory-jingle.mp3` | No | Shared |
+| | Chapter complete | `assets/audio/sfx/chapter-complete.mp3` | No | Shared |
+
+#### Image Generation Commands
+
+```bash
+# Story background (peaceful, matches chapter theme)
+uv run python generate_image.py "Fantasy game background of [CHAPTER SETTING]. [DESCRIPTION]. Anime style landscape for children's game. [COLOR PALETTE]. No characters. Wide aspect ratio." assets/images/backgrounds/chapter{N}-{name}.png
+
+# Battle arena (dramatic version of chapter setting)
+uv run python generate_image.py "Fantasy game battle arena in [CHAPTER SETTING]. Circular clearing with glowing runes. Dramatic lighting. [CHAPTER ELEMENTS]. Anime style. Action-ready. Wide aspect ratio. No characters." assets/images/backgrounds/chapter{N}-battle.png
+
+# Monster (always needs background removal)
+uv run python generate_image.py "Cute confused [CREATURE TYPE] monster anime chibi style. [DESCRIPTION]. Big eyes with spiral confusion. Pokemon-like. Transparent background. Child-friendly." assets/images/monsters/{name}-raw.png
+uv run python remove_bg.py assets/images/monsters/{name}-raw.png assets/images/monsters/{name}.png
+```
+
+#### Audio Generation Commands
+
+```bash
+# Story BGM (requires paid ElevenLabs)
+uv run python generate_audio.py music "Gentle [MOOD] fantasy music for [CHAPTER THEME]. Soft atmospheric with [INSTRUMENTS]. Child-friendly. Seamless loop." --duration 60 assets/audio/music/chapter{N}-story.mp3
+
+# Battle BGM (requires paid ElevenLabs)
+uv run python generate_audio.py music "Energetic [MOOD] battle music for [CHAPTER THEME]. Exciting but not scary. For 7 year old. Seamless loop." --duration 60 assets/audio/music/chapter{N}-battle.mp3
+```
+
+#### Code Changes Required
+
+**1. CSS Variables** (add chapter color theme):
+```css
+/* Chapter N: [Name] */
+--chapter-{N}-primary: #XXXXXX;   /* Main theme color */
+--chapter-{N}-secondary: #XXXXXX; /* Lighter accent */
+--chapter-{N}-accent: #XXXXXX;    /* Darker accent */
+--chapter-{N}-bg: #XXXXXX;        /* Light background tint */
+```
+
+**2. StoryContent** (add chapter data object):
+```javascript
+chapter{N}: {
+  title: 'פרק {N}: [Hebrew Chapter Name]',
+  intro: [
+    { speaker: 'מספר', text: '[Narrator intro text]' },
+    { speaker: 'פיפ', text: '[Pip dialogue]' },
+    // 3-5 intro lines
+  ],
+  // tutorial: [] - Only for chapter 1
+  encounters: [
+    { monster: '{monster-id}', name: '[Hebrew name]', intro: '[Encounter text]' },
+    // 10 encounters total, can repeat monsters
+  ],
+  outro: [
+    { speaker: 'פיפ', text: '[Victory celebration text]' },
+    // 2-4 outro lines
+  ]
+}
+```
+
+**3. Screen Backgrounds** (update CSS for chapter-specific backgrounds):
+```css
+#story-screen.chapter-{N} {
+  background: url('assets/images/backgrounds/chapter{N}-{name}.png') center/cover no-repeat;
+}
+#battle-screen.chapter-{N} {
+  background: url('assets/images/backgrounds/chapter{N}-battle.png') center/cover no-repeat;
+}
+```
+
+**4. RiddleGenerator** (update difficulty for chapter):
+```javascript
+// Chapter difficulty progression
+// Chapters 1-3: Tables 1-5
+// Chapters 4-6: Tables 1-7
+// Chapters 7-9: Tables 1-10
+// Chapter 10: Tables 1-20
+```
+
+**5. AudioManager** (if using chapter-specific music):
+```javascript
+this.bgmElements.storyChapter{N} = new Audio('assets/audio/music/chapter{N}-story.mp3');
+this.bgmElements.battleChapter{N} = new Audio('assets/audio/music/chapter{N}-battle.mp3');
+```
+
+#### Chapter Themes Reference (from storyline.md)
+
+| Ch | Hebrew Name | English | Setting | Color Palette |
+|----|-------------|---------|---------|---------------|
+| 1 | האחו האזמרגדי | Emerald Meadows | Green hills, flowers | Greens, blue sky |
+| 2 | יער הלחשים | Whispering Woods | Enchanted forest | Deep greens, purple mist |
+| 3 | מערות הבדולח | Crystal Caves | Underground caverns | Blues, crystal whites |
+| 4 | הגנים המרחפים | Floating Gardens | Sky islands | Sky blue, flower colors |
+| 5 | מפלי הקשת | Rainbow Falls | Colorful waterfalls | Rainbow spectrum |
+| 6 | מדבר ההדים | Desert of Echoes | Sandy dunes | Golds, oranges |
+| 7 | פסגות הקרח | Frozen Peaks | Snowy mountains | Whites, ice blues |
+| 8 | ביצת הדמדומים | Twilight Marsh | Purple swampland | Purples, dark blues |
+| 9 | גשר הכוכבים | Starlight Bridge | Space bridge | Dark blue, starlight |
+| 10 | ארמון הגביש | Crystal Palace | Royal palace | Golds, crystal rainbow |
+
+#### Monster Design Guidelines
+
+- **Style**: Anime chibi, Pokemon-like, child-friendly
+- **Expression**: Confused (spiral eyes, question marks), never scary
+- **Theme**: Match chapter setting (forest creatures, cave creatures, etc.)
+- **Colors**: Match chapter color palette
+- **Background**: Always transparent (use `remove_bg.py`)
+- **Naming**: Hebrew name should be playful pun (e.g., חישובון = calculation + cute suffix)
+
+#### Workflow Summary
+
+1. **Story** (`story-writer` agent): Write Hebrew dialogue for intro, encounters, outro
+2. **Visuals** (`visual-designer` agent): Generate backgrounds and monsters
+3. **Audio** (`audio-designer` agent): Generate chapter-specific music (optional)
+4. **Code** (`game-architect` agent): Add StoryContent, CSS, wire up assets
+5. **Test**: Play through entire chapter, verify all encounters work
+
+### Adding a New Chapter (Quick Version)
 1. Use `story-writer` agent to create Hebrew content for the chapter
 2. Use `visual-designer` agent to create monster SVGs and background theme
 3. Use `audio-designer` agent if chapter needs unique audio

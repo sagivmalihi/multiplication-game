@@ -50,9 +50,30 @@ Cute confused pudgy field mouse monster anime chibi style. Round gray-brown body
 
 ## Backgrounds
 
-### chapter1-meadow.png (Emerald Meadows)
+### title-screen.png (Magical Portal)
+**Generated**: January 2025
+
+```
+Fantasy game title screen background. Magical portal entrance to an enchanted meadow world. Glowing archway made of ancient stones covered in vines and flowers, sparkles and magical particles floating. Path leading through portal into distant rolling green hills. Purple and blue magical aura. Anime style landscape. Dramatic lighting, sense of adventure beginning. Wide aspect ratio. No characters.
+```
+
+### chapter1-meadow.png (Emerald Meadows - Story/Dialog)
 **Generated**: January 2025
 
 ```
 Fantasy game background of rolling emerald green meadows with wildflowers, gentle stream, ancient oak tree on hill, blue sky with fluffy clouds. Warm sunlight, soft shadows. Anime style landscape for children's game. Vibrant green palette. No characters. Wide aspect ratio.
+```
+
+### battle-arena.png (Battle Arena)
+**Generated**: January 2025
+
+```
+Fantasy game battle arena background. Circular clearing in magical meadow with glowing runes on ground forming a circle. Dramatic sky with swirling clouds and rays of sunlight breaking through. Wildflowers around edges, ancient stones with mystical symbols. Energy particles floating in air. Anime style. Action-ready atmosphere, slightly more intense than peaceful meadow. Wide aspect ratio. No characters.
+```
+
+### victory.png (Victory Celebration)
+**Generated**: January 2025
+
+```
+Fantasy game victory celebration background. Magical meadow scene at golden hour with sparkles, confetti particles, and magical fireworks in the sky. Glowing light rays from above. Flowers blooming, butterflies. Triumphant joyful atmosphere. Soft golden and purple magical glow. Anime style. Celebration vibes. Wide aspect ratio. No characters.
 ```
