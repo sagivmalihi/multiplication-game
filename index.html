@@ -122,8 +122,8 @@
        TITLE SCREEN
        ============================================ */
     #title-screen {
-      background: linear-gradient(135deg, var(--arielle-blue-light), var(--magic-purple-light), var(--gold-light));
-      animation: bg-shift 10s ease-in-out infinite alternate;
+      background: url('assets/images/backgrounds/chapter1-meadow.png') center/cover no-repeat,
+                  linear-gradient(135deg, var(--arielle-blue-light), var(--magic-purple-light), var(--gold-light));
     }
 
     @keyframes bg-shift {
@@ -993,6 +993,10 @@
         document.addEventListener('click', () => {
           this.createContext();
           this.preloadMusic();
+          // Play title music on first click if on title screen
+          if (document.getElementById('title-screen').classList.contains('active')) {
+            this.playBGM('title');
+          }
         }, { once: true });
       },
 
@@ -1010,6 +1014,10 @@
       },
 
       preloadMusic() {
+        this.bgmElements.title = new Audio('assets/audio/music/story-bgm.mp3');
+        this.bgmElements.title.loop = true;
+        this.bgmElements.title.volume = this.settings.musicVolume;
+
         this.bgmElements.story = new Audio('assets/audio/music/story-bgm.mp3');
         this.bgmElements.story.loop = true;
         this.bgmElements.story.volume = this.settings.musicVolume;
@@ -1338,11 +1346,20 @@
 
       generateMatchPairs() {
         const pairs = [];
-        for (let i = 0; i < 6; i++) {
+        const usedAnswers = new Set();
+
+        while (pairs.length < 4) {
           const problem = this.generate();
+          // Skip duplicate answers to avoid confusion
+          if (usedAnswers.has(problem.answer)) {
+            continue;
+          }
+          usedAnswers.add(problem.answer);
+
+          const pairId = pairs.length;
           pairs.push(
-            { id: i * 2, type: 'problem', value: `${problem.a}×${problem.b}`, pairId: i },
-            { id: i * 2 + 1, type: 'answer', value: problem.answer.toString(), pairId: i }
+            { id: pairId * 2, type: 'problem', value: `${problem.a}×${problem.b}`, pairId },
+            { id: pairId * 2 + 1, type: 'answer', value: problem.answer.toString(), pairId }
           );
         }
         return pairs.sort(() => Math.random() - 0.5);
@@ -1570,7 +1587,7 @@
           grid.appendChild(btn);
         });
 
-        TimerSystem.start(30000);
+        TimerSystem.start(45000);
       },
 
       checkSelectionAnswer(answer, btn) {
