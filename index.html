@@ -968,6 +968,7 @@
       }
     };
 
+
     // ============================================
     // AUDIO MANAGER (Web Audio API)
     // ============================================
@@ -982,23 +983,47 @@
         sfxVolume: 0.7
       },
       currentMusic: null,
-
       // Background music elements
       bgmElements: {
+        title: null,
         story: null,
         battle: null
       },
       currentBGM: null,
 
       init() {
+        // Preload music immediately (doesn't require user interaction)
+        this.preloadMusic();
+        
+        // Attempt to autoplay title music immediately
+        if (document.getElementById('title-screen').classList.contains('active')) {
+          this.attemptAutoplay();
+        }
+        
+        // Fallback: if autoplay fails, start music on first user interaction
         document.addEventListener('click', () => {
           this.createContext();
-          this.preloadMusic();
-          // Play title music on first click if on title screen
-          if (document.getElementById('title-screen').classList.contains('active')) {
+          // If title music isn't playing yet, start it
+          if (!this.currentBGM && document.getElementById('title-screen').classList.contains('active')) {
             this.playBGM('title');
           }
         }, { once: true });
+      },
+      
+      attemptAutoplay() {
+        // Try to autoplay title music immediately
+        // Modern browsers may block this, but it's worth trying
+        const titleAudio = this.bgmElements.title;
+        if (titleAudio && this.settings.musicEnabled) {
+          titleAudio.play()
+            .then(() => {
+              this.currentBGM = titleAudio;
+              console.log('Title music autoplay successful');
+            })
+            .catch(e => {
+              console.log('Autoplay blocked, waiting for user interaction:', e.message);
+            });
+        }
       },
 
       createContext() {
@@ -1015,10 +1040,12 @@
       },
 
       preloadMusic() {
-        this.bgmElements.title = new Audio('assets/audio/music/story-bgm.mp3');
+        // Title theme - AI-generated via ElevenLabs
+        this.bgmElements.title = new Audio('assets/audio/music/title-theme.mp3');
         this.bgmElements.title.loop = true;
+        this.bgmElements.title.autoplay = true;
         this.bgmElements.title.volume = this.settings.musicVolume;
-
+        
         this.bgmElements.story = new Audio('assets/audio/music/story-bgm.mp3');
         this.bgmElements.story.loop = true;
         this.bgmElements.story.volume = this.settings.musicVolume;
@@ -1031,13 +1058,12 @@
       playBGM(track) {
         if (!this.settings.musicEnabled) return;
 
-        // Stop current music if different track
-        if (this.currentBGM && this.currentBGM !== this.bgmElements[track]) {
-          this.stopBGM();
-        }
+        // Stop any existing music first
+        this.stopBGM();
 
+        // Use external audio files for all tracks (title, story, battle)
         const audio = this.bgmElements[track];
-        if (audio && audio !== this.currentBGM) {
+        if (audio) {
           audio.currentTime = 0;
           audio.play().catch(e => console.log('BGM play blocked:', e));
           this.currentBGM = audio;
@@ -1045,11 +1071,13 @@
       },
 
       stopBGM() {
+        // Stop external audio
         if (this.currentBGM) {
           this.currentBGM.pause();
           this.currentBGM.currentTime = 0;
-          this.currentBGM = null;
         }
+
+        this.currentBGM = null;
       },
 
       playAudioFile(path) {
@@ -1059,7 +1087,7 @@
         audio.play().catch(e => console.log('Audio play blocked:', e));
       },
 
-      // Note frequencies
+      // Note frequencies for SFX
       notes: {
         C2: 65.41, C3: 130.81, C4: 261.63, C5: 523.25, C6: 1046.50,
         D4: 293.66, D5: 587.33, E4: 329.63, E5: 659.25,

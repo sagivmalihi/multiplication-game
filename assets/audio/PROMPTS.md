@@ -4,6 +4,19 @@ Generated using `generate_audio.py` (ElevenLabs API)
 
 ## Background Music
 
+### title-theme.mp3
+**Type**: Music
+**Duration**: 60 seconds
+**Generated**: January 2025
+
+```
+Whimsical magical fantasy adventure music for children's game title screen. Inviting and enchanting melody with orchestral chimes and sparkles. Medium tempo around 120 BPM. Anime-inspired, dreamy and adventurous feel. Suitable for a 7-year-old girl's math adventure game. Seamless looping.
+```
+
+**Notes**:
+AI-generated via ElevenLabs music API. Replaces the previous procedural Web Audio API title music.
+Attempts autoplay on page load; falls back to playing on first user interaction if browser blocks autoplay.
+
 ### story-bgm.mp3
 **Type**: Music
 **Duration**: 60 seconds
