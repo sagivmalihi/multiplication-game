@@ -29,7 +29,9 @@
 
 ## Project Overview
 
-A single-file HTML game (HTML + CSS + JavaScript) featuring a retro-style fantasy adventure designed to help practice multiplication. The game is personalized for Arielle (אריאל), a 7-year-old girl in second grade.
+A web game hosted on GitHub Pages featuring a retro-style fantasy adventure designed to help practice multiplication. The game is personalized for Arielle (אריאל), a 7-year-old girl in second grade.
+
+**Note**: While the core game logic lives in `index.html`, external assets (images, audio) are now supported and encouraged for richer visuals and audio.
 
 ## Language
 - **UI Language**: Hebrew (RTL)
@@ -80,14 +82,31 @@ A single-file HTML game (HTML + CSS + JavaScript) featuring a retro-style fantas
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| `index.html` | **The game** - single file with all HTML/CSS/JS |
+| File/Folder | Purpose |
+|-------------|---------|
+| `index.html` | **The game** - core HTML/CSS/JS |
+| `assets/images/` | External image assets (characters, monsters, backgrounds) |
+| `assets/audio/` | External audio files (music, SFX) |
+| `generate_image.py` | AI image generation script (Gemini nano-banana) |
+| `generate_audio.py` | AI audio generation script (ElevenLabs SFX + music) |
+| `.env` | API keys (gitignored) |
 | `CLAUDE.md` | Project instructions and status (this file) |
 | `architecture.md` | Detailed technical architecture spec |
 | `design-system.md` | Visual design, colors, typography, sprites |
 | `storyline.md` | Full story for all 10 chapters |
 | `audio-design.md` | Audio philosophy and Web Audio API specs |
+
+### Asset Folder Structure
+```
+assets/
+├── images/
+│   ├── characters/    # Arielle, Pip, NPCs
+│   ├── monsters/      # Enemy sprites
+│   └── backgrounds/   # Scene backgrounds
+└── audio/
+    ├── music/         # Background music loops
+    └── sfx/           # Sound effects
+```
 
 ---
 
@@ -101,14 +120,14 @@ When extending the game, use these specialized sub-agents:
 **When**: Planning new features, debugging game logic
 
 ### `visual-designer`
-**Use for**: CSS styles, SVG sprites, animations, UI components
-**Tools**: Read, Glob, Grep
-**When**: Adding new characters, monsters, visual effects
+**Use for**: CSS styles, SVG sprites, animations, UI components, AI-generated images
+**Tools**: Read, Glob, Grep, Bash
+**When**: Adding new characters, monsters, visual effects, generating artwork
 
 ### `audio-designer`
-**Use for**: Web Audio API sounds, music, SFX
-**Tools**: Read, Glob
-**When**: Adding new sound effects or background music
+**Use for**: Web Audio API sounds, music, SFX, external audio files
+**Tools**: Read, Glob, Bash
+**When**: Adding new sound effects, background music, or sourcing audio files
 
 ### `story-writer`
 **Use for**: Hebrew narrative, dialogue, character text
@@ -127,14 +146,26 @@ When extending the game, use these specialized sub-agents:
 5. Update `RiddleGenerator` difficulty for the chapter's multiplication tables
 
 ### Adding a New Monster
+**Option A: SVG (simple monsters)**
 1. Create SVG in `<defs>` section with `<symbol id="monster-[name]">`
 2. Add monster to chapter's encounters array in `StoryContent`
 3. Reference with `<use href="#monster-[name]"/>`
 
+**Option B: AI-Generated Image (complex monsters)**
+1. Use `visual-designer` agent to generate image with `generate_image.py`
+2. Save to `assets/images/monsters/[name].png`
+3. Reference with `<img src="assets/images/monsters/[name].png">`
+
 ### Adding Sound Effects
+**Option A: Procedural (simple SFX)**
 1. Add method to `AudioManager` object
 2. Use Web Audio API oscillators (square, triangle, sawtooth)
 3. Hook into game events via `Events.on()`
+
+**Option B: External Audio File (complex sounds/music)**
+1. Source or create audio file (MP3/OGG)
+2. Save to `assets/audio/sfx/` or `assets/audio/music/`
+3. Load and play via `AudioManager` with `new Audio('assets/audio/...')`
 
 ### Hebrew Text Guidelines
 - All UI text must be in Hebrew
@@ -145,11 +176,18 @@ When extending the game, use these specialized sub-agents:
 ---
 
 ## Technical Requirements
-- **Format**: Single HTML file containing all HTML, CSS, and JavaScript
+- **Format**: HTML + external assets hosted on GitHub Pages
+- **Assets**: Images in `assets/images/`, audio in `assets/audio/`
 - **Storage**: localStorage for saving progress
 - **Dependencies**: None (self-contained)
 - **Responsiveness**: Desktop and tablet (min 768px)
 - **Browsers**: Chrome, Safari, Firefox
+
+### Asset Guidelines
+- Use relative paths: `assets/images/...` (not absolute `/assets/...`)
+- Optimize images for web (compress PNGs, use appropriate dimensions)
+- Audio: MP3 for broad compatibility, keep files small
+- Commit assets to git for GitHub Pages deployment
 
 ---
 

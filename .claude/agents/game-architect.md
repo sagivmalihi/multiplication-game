@@ -10,6 +10,15 @@ permissionMode: plan
 
 Design technical architecture for the multiplication adventure game.
 
+## Reference Documentation
+
+**IMPORTANT**: Always read `architecture.md` at the start of each task to understand the current technical architecture and design decisions.
+
+```bash
+# Read the architecture reference first
+Read architecture.md
+```
+
 ## Input Required
 
 - **Task** - What to design (e.g., "game state system", "level progression", "save/load system")

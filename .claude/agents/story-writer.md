@@ -9,6 +9,15 @@ model: opus
 
 Write Hebrew narrative content for Arielle's multiplication adventure.
 
+## Reference Documentation
+
+**IMPORTANT**: Always read `storyline.md` at the start of each task to understand the full story arc, characters, and existing narrative.
+
+```bash
+# Read the storyline reference first
+Read storyline.md
+```
+
 ## Input Required
 
 - **Task** - What to write (e.g., "chapter 1 story", "boss dialogue", "victory messages")
