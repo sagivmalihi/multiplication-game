@@ -1347,8 +1347,9 @@
       generateMatchPairs() {
         const pairs = [];
         const usedAnswers = new Set();
+        let pairCount = 0;
 
-        while (pairs.length < 4) {
+        while (pairCount < 4) {  // 4 pairs = 8 cards
           const problem = this.generate();
           // Skip duplicate answers to avoid confusion
           if (usedAnswers.has(problem.answer)) {
@@ -1356,11 +1357,11 @@
           }
           usedAnswers.add(problem.answer);
 
-          const pairId = pairs.length;
           pairs.push(
-            { id: pairId * 2, type: 'problem', value: `${problem.a}×${problem.b}`, pairId },
-            { id: pairId * 2 + 1, type: 'answer', value: problem.answer.toString(), pairId }
+            { id: pairCount * 2, type: 'problem', value: `${problem.a}×${problem.b}`, pairId: pairCount },
+            { id: pairCount * 2 + 1, type: 'answer', value: problem.answer.toString(), pairId: pairCount }
           );
+          pairCount++;
         }
         return pairs.sort(() => Math.random() - 0.5);
       }
@@ -1632,9 +1633,9 @@
               GameState.matchPairsState.matched++;
               AudioManager.playCorrectAnswer(1);
 
-              if (GameState.matchPairsState.matched === 6) {
+              if (GameState.matchPairsState.matched === 4) {  // 4 pairs matched = win
                 TimerSystem.stop();
-                const damage = CombatSystem.calculateDamage(TimerSystem.getElapsed(), 30000);
+                const damage = CombatSystem.calculateDamage(TimerSystem.getElapsed(), 45000);
                 CombatSystem.applyDamage(damage * 3); // Bonus for completing all pairs
                 this.showSpeedBonus(damage);
               }
@@ -1663,6 +1664,13 @@
         AudioManager.playCorrectAnswer(damage);
         CombatSystem.applyDamage(damage);
         this.showSpeedBonus(damage);
+
+        // If monster still alive, start new problem after delay
+        if (GameState.monsterHP > 0) {
+          setTimeout(() => {
+            this.startMinigame(this.currentType);
+          }, 1000);
+        }
       },
 
       handleWrong(element) {
