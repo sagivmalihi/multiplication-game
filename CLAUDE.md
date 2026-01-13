@@ -2,7 +2,7 @@
 
 ## Project Status
 
-**Current State**: Chapter 1 MVP Complete
+**Current State**: Chapter 1 v2.0 Complete (AI-generated assets)
 **Live URL**: https://sagivmalihi.github.io/multiplication-game/
 **Last Updated**: January 2025
 
@@ -10,17 +10,18 @@
 - [x] Chapter 1: האחו האזמרגדי (The Emerald Meadow) - 10 encounters
 - [x] All 3 minigame types (Timed Selection, Fill Blank, Match Pairs)
 - [x] Combat system with speed-based damage (1x/2x/3x multipliers)
-- [x] Procedural 8-bit audio via Web Audio API
-- [x] SVG character sprites (Arielle, Pip, 3 monster types)
+- [x] Procedural 8-bit audio via Web Audio API + external BGM
+- [x] AI-generated character/monster sprites (anime/chibi style, transparent backgrounds)
+- [x] AI-generated background music (story + battle themes)
 - [x] Hebrew RTL interface
 - [x] Save/Load system (localStorage)
 - [x] 6 game screens (Title, Story, Battle, Victory, Retry, Complete)
+- [x] Title screen with background image and auto-playing music
 
 ### What's Remaining (Future Chapters)
 - [ ] Chapters 2-10 (storyline exists in storyline.md)
 - [ ] Additional monster types per chapter
 - [ ] Chapter-specific backgrounds and themes
-- [ ] Background music loops
 - [ ] Boss battle with Balagan (Chapter 10)
 - [ ] Statistics tracking
 - [ ] Difficulty progression (tables 1-5 → 1-10 → 1-20)
@@ -76,7 +77,7 @@ A web game hosted on GitHub Pages featuring a retro-style fantasy adventure desi
 |------|-------|-------------|
 | Timed Selection | 10s | Pick correct answer from 4 options |
 | Fill Blank | 15s | Enter missing number in equation |
-| Match Pairs | 30s | Memory game matching problems to answers |
+| Match Pairs | 45s | Memory game with 4 pairs (8 cards), unique answers |
 
 ---
 
@@ -87,8 +88,11 @@ A web game hosted on GitHub Pages featuring a retro-style fantasy adventure desi
 | `index.html` | **The game** - core HTML/CSS/JS |
 | `assets/images/` | External image assets (characters, monsters, backgrounds) |
 | `assets/audio/` | External audio files (music, SFX) |
-| `generate_image.py` | AI image generation script (Gemini nano-banana) |
+| `assets/images/PROMPTS.md` | Prompts used to generate images (for reproducibility) |
+| `assets/audio/PROMPTS.md` | Prompts used to generate audio (for reproducibility) |
+| `generate_image.py` | AI image generation script (Gemini 2.0 Flash) |
 | `generate_audio.py` | AI audio generation script (ElevenLabs SFX + music) |
+| `remove_bg.py` | Background removal script using rembg |
 | `.env` | API keys (gitignored) |
 | `CLAUDE.md` | Project instructions and status (this file) |
 | `architecture.md` | Detailed technical architecture spec |
@@ -242,4 +246,67 @@ git push origin main
 --success-green: #10B981;         /* Correct answers */
 --gold: #FBBF24;                  /* Highlights */
 --arielle-pink: #F472B6;          /* Accents */
+```
+
+---
+
+## Lessons Learned / Gotchas
+
+### User Preferences
+- **Always use `uv run`** instead of `source .venv/bin/activate` for running Python scripts
+- Example: `uv run python generate_image.py "prompt" output.png`
+
+### AI Image Generation (Gemini)
+- Model: `gemini-2.0-flash-exp-image-generation`
+- **CRITICAL**: `part.inline_data.data` returns RAW BYTES, not base64-encoded
+- Must check `part.inline_data.mime_type == 'image/png'` before saving
+- Images come with solid backgrounds - need post-processing for transparency
+
+### Background Removal (rembg)
+- Use `remove_bg.py` script for transparent backgrounds
+- **First run downloads ~176MB model** to `~/.u2net/u2net.onnx`
+- Requires `tqdm` package for download progress bar
+- Install: `uv pip install rembg[cli] Pillow tqdm`
+- If dependency issues on Python 3.12, install with `--no-deps` then add: `onnxruntime pillow pooch numpy pymatting scipy opencv-python-headless scikit-image jsonschema tqdm`
+
+### AI Audio Generation (ElevenLabs)
+- **Music API requires PAID plan** (free users get 402 error)
+- SFX generation works on free tier
+- Store prompts in `assets/audio/PROMPTS.md` for reproducibility
+
+### Game Balance (for 7-year-old)
+- Match Pairs: 6 pairs (12 cards) was TOO HARD
+- Better: 4 pairs (8 cards) with 45s timer
+- Always ensure unique answer numbers to avoid confusion
+- Keep encouragement high, never punish mistakes
+
+### Asset Management
+- Store generation prompts in `PROMPTS.md` files for reproducibility
+- Use relative paths: `assets/images/...` (not `/assets/...`)
+- Commit binary assets to git for GitHub Pages deployment
+
+### Environment Setup
+```bash
+# Create venv and install dependencies
+uv venv
+uv pip install google-genai python-dotenv elevenlabs rembg[cli] Pillow tqdm
+
+# Required .env file
+GEMINI_API_KEY=your_key_here
+ELEVENLABS_API_KEY=your_key_here
+```
+
+### Common Commands
+```bash
+# Generate image
+uv run python generate_image.py "anime chibi character" output.png
+
+# Remove background
+uv run python remove_bg.py input.png output.png
+
+# Generate SFX
+uv run python generate_audio.py sfx "magical sparkle sound" sfx.mp3
+
+# Generate music (requires paid ElevenLabs)
+uv run python generate_audio.py music "fantasy adventure theme" --duration 60 music.mp3
 ```
