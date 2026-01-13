@@ -407,7 +407,36 @@
     .character-sprite {
       width: 150px;
       height: 200px;
+      object-fit: contain;
       animation: character-idle 3s ease-in-out infinite;
+    }
+
+    .pip-sprite {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      animation: pip-float 2s ease-in-out infinite;
+    }
+
+    @keyframes pip-float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.05); }
+    }
+
+    .battle-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('assets/images/backgrounds/chapter1-meadow.png') center/cover no-repeat;
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    .battle-container {
+      position: relative;
+      z-index: 1;
     }
 
     @keyframes character-idle {
@@ -808,8 +837,8 @@
           <p id="story-text">ברוכה הבאה להרפתקה!</p>
         </div>
         <div class="character-display">
-          <svg id="story-arielle" class="character-sprite" viewBox="0 0 100 150"></svg>
-          <svg id="story-pip" style="width: 60px; height: 60px;" viewBox="0 0 60 60"></svg>
+          <img id="story-arielle" class="character-sprite" src="assets/images/characters/arielle-happy.png" alt="אריאל">
+          <img id="story-pip" class="pip-sprite" src="assets/images/characters/pip.png" alt="פיפ">
         </div>
         <button class="btn-crystal" id="story-continue-btn">המשיכי</button>
       </div>
@@ -817,6 +846,7 @@
 
     <!-- Battle Screen -->
     <div id="battle-screen" class="screen">
+      <div class="battle-background"></div>
       <div class="battle-container">
         <div class="battle-header">
           <div>
@@ -844,8 +874,8 @@
         </div>
 
         <div class="battle-arena">
-          <svg id="battle-arielle" class="character-sprite" viewBox="0 0 100 150"></svg>
-          <svg id="battle-monster" class="monster-sprite" viewBox="0 0 100 100"></svg>
+          <img id="battle-arielle" class="character-sprite" src="assets/images/characters/arielle-happy.png" alt="אריאל">
+          <img id="battle-monster" class="monster-sprite" src="" alt="מפלצת">
         </div>
 
         <div class="problem-display" id="problem-display">5 × 3 = ?</div>
@@ -897,172 +927,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Hidden SVG Definitions -->
-  <svg style="display: none;">
-    <defs>
-      <!-- Arielle Happy -->
-      <symbol id="arielle-happy" viewBox="0 0 100 150">
-        <!-- Hair (blue gradient) -->
-        <ellipse cx="50" cy="45" rx="35" ry="40" fill="url(#hair-gradient)"/>
-        <!-- Face -->
-        <ellipse cx="50" cy="50" rx="25" ry="28" fill="#FFDAB9"/>
-        <!-- Bangs -->
-        <path d="M25 35 Q35 25 50 30 Q65 25 75 35 Q70 45 50 40 Q30 45 25 35" fill="url(#hair-gradient)"/>
-        <!-- Eyes -->
-        <ellipse cx="40" cy="48" rx="5" ry="6" fill="#4A3728"/>
-        <ellipse cx="60" cy="48" rx="5" ry="6" fill="#4A3728"/>
-        <circle cx="42" cy="46" r="2" fill="white"/>
-        <circle cx="62" cy="46" r="2" fill="white"/>
-        <!-- Blush -->
-        <ellipse cx="35" cy="55" rx="5" ry="3" fill="#FFB6C1" opacity="0.5"/>
-        <ellipse cx="65" cy="55" rx="5" ry="3" fill="#FFB6C1" opacity="0.5"/>
-        <!-- Smile -->
-        <path d="M42 60 Q50 68 58 60" stroke="#4A3728" stroke-width="2" fill="none"/>
-        <!-- Body (blue fur coat) -->
-        <rect x="30" y="80" width="40" height="50" rx="5" fill="#3B82F6"/>
-        <!-- Fur collar -->
-        <ellipse cx="50" cy="85" rx="25" ry="8" fill="#7DD3FC"/>
-        <!-- Pants -->
-        <rect x="32" y="125" width="15" height="25" fill="#1E40AF"/>
-        <rect x="53" y="125" width="15" height="25" fill="#1E40AF"/>
-        <!-- Crystal pendant glow -->
-        <circle cx="50" cy="95" r="6" fill="#A855F7" opacity="0.8">
-          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <!-- Hair sparkles -->
-        <circle cx="30" cy="30" r="2" fill="#FCD34D">
-          <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="70" cy="35" r="2" fill="#FCD34D">
-          <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.5s"/>
-        </circle>
-      </symbol>
-
-      <!-- Arielle Victory -->
-      <symbol id="arielle-victory" viewBox="0 0 100 150">
-        <!-- Same base as happy but with victory pose -->
-        <ellipse cx="50" cy="45" rx="35" ry="40" fill="url(#hair-gradient)"/>
-        <ellipse cx="50" cy="50" rx="25" ry="28" fill="#FFDAB9"/>
-        <path d="M25 35 Q35 25 50 30 Q65 25 75 35 Q70 45 50 40 Q30 45 25 35" fill="url(#hair-gradient)"/>
-        <!-- Happy closed eyes -->
-        <path d="M35 48 Q40 44 45 48" stroke="#4A3728" stroke-width="2" fill="none"/>
-        <path d="M55 48 Q60 44 65 48" stroke="#4A3728" stroke-width="2" fill="none"/>
-        <!-- Big smile -->
-        <path d="M40 58 Q50 70 60 58" stroke="#4A3728" stroke-width="2" fill="none"/>
-        <!-- Blush -->
-        <ellipse cx="35" cy="55" rx="6" ry="4" fill="#FFB6C1" opacity="0.6"/>
-        <ellipse cx="65" cy="55" rx="6" ry="4" fill="#FFB6C1" opacity="0.6"/>
-        <!-- Body -->
-        <rect x="30" y="80" width="40" height="50" rx="5" fill="#3B82F6"/>
-        <ellipse cx="50" cy="85" rx="25" ry="8" fill="#7DD3FC"/>
-        <!-- Victory arm raised -->
-        <rect x="70" y="70" width="10" height="35" rx="3" fill="#FFDAB9" transform="rotate(-30 75 85)"/>
-        <!-- Pants -->
-        <rect x="32" y="125" width="15" height="25" fill="#1E40AF"/>
-        <rect x="53" y="125" width="15" height="25" fill="#1E40AF"/>
-        <!-- Sparkle burst -->
-        <circle cx="85" cy="55" r="8" fill="#FCD34D">
-          <animate attributeName="r" values="6;10;6" dur="0.5s" repeatCount="indefinite"/>
-        </circle>
-      </symbol>
-
-      <!-- Pip (Number Sprite) -->
-      <symbol id="pip" viewBox="0 0 60 60">
-        <!-- Glowing core -->
-        <circle cx="30" cy="30" r="12" fill="#7DD3FC">
-          <animate attributeName="r" values="10;14;10" dur="2s" repeatCount="indefinite"/>
-        </circle>
-        <circle cx="30" cy="30" r="8" fill="white" opacity="0.8"/>
-        <!-- Orbiting numbers -->
-        <text x="30" y="10" font-family="monospace" font-size="10" fill="#3B82F6" text-anchor="middle">
-          <animateTransform attributeName="transform" type="rotate" from="0 30 30" to="360 30 30" dur="4s" repeatCount="indefinite"/>
-          7
-        </text>
-        <text x="50" y="35" font-family="monospace" font-size="10" fill="#A855F7" text-anchor="middle">
-          <animateTransform attributeName="transform" type="rotate" from="120 30 30" to="480 30 30" dur="4s" repeatCount="indefinite"/>
-          3
-        </text>
-        <text x="15" y="50" font-family="monospace" font-size="10" fill="#F472B6" text-anchor="middle">
-          <animateTransform attributeName="transform" type="rotate" from="240 30 30" to="600 30 30" dur="4s" repeatCount="indefinite"/>
-          5
-        </text>
-        <!-- Eyes -->
-        <circle cx="26" cy="28" r="2" fill="#1E40AF"/>
-        <circle cx="34" cy="28" r="2" fill="#1E40AF"/>
-        <!-- Smile -->
-        <path d="M26 34 Q30 38 34 34" stroke="#1E40AF" stroke-width="1.5" fill="none"/>
-      </symbol>
-
-      <!-- Monster: Chishubon (Number Blob) -->
-      <symbol id="monster-chishubon" viewBox="0 0 100 100">
-        <!-- Blob body -->
-        <ellipse cx="50" cy="55" rx="40" ry="35" fill="#8B5CF6">
-          <animate attributeName="ry" values="33;37;33" dur="2s" repeatCount="indefinite"/>
-        </ellipse>
-        <!-- Question marks -->
-        <text x="25" y="30" font-size="16" fill="#C084FC">?</text>
-        <text x="70" y="25" font-size="14" fill="#C084FC">?</text>
-        <!-- Confused eyes -->
-        <ellipse cx="35" cy="50" rx="8" ry="10" fill="white"/>
-        <ellipse cx="65" cy="50" rx="8" ry="10" fill="white"/>
-        <circle cx="37" cy="52" r="4" fill="#1F2937"/>
-        <circle cx="67" cy="52" r="4" fill="#1F2937"/>
-        <!-- Swirl eyes (confusion) -->
-        <circle cx="37" cy="52" r="2" fill="white"/>
-        <circle cx="67" cy="52" r="2" fill="white"/>
-        <!-- Wobbly mouth -->
-        <path d="M40 70 Q50 75 60 70" stroke="#1F2937" stroke-width="2" fill="none"/>
-        <!-- Floating numbers -->
-        <text x="20" y="85" font-family="monospace" font-size="12" fill="#DDD6FE">4</text>
-        <text x="75" y="80" font-family="monospace" font-size="12" fill="#DDD6FE">2</text>
-      </symbol>
-
-      <!-- Monster: Kefulon (Multiplication Creature) -->
-      <symbol id="monster-kefulon" viewBox="0 0 100 100">
-        <!-- Body -->
-        <ellipse cx="50" cy="60" rx="35" ry="30" fill="#10B981"/>
-        <!-- X pattern on body -->
-        <text x="50" y="65" font-size="24" fill="#34D399" text-anchor="middle">×</text>
-        <!-- Antennae -->
-        <line x1="35" y1="30" x2="30" y2="15" stroke="#059669" stroke-width="3"/>
-        <line x1="65" y1="30" x2="70" y2="15" stroke="#059669" stroke-width="3"/>
-        <circle cx="30" cy="13" r="5" fill="#FCD34D"/>
-        <circle cx="70" cy="13" r="5" fill="#FCD34D"/>
-        <!-- Eyes -->
-        <ellipse cx="38" cy="50" rx="7" ry="9" fill="white"/>
-        <ellipse cx="62" cy="50" rx="7" ry="9" fill="white"/>
-        <circle cx="40" cy="52" r="4" fill="#1F2937"/>
-        <circle cx="64" cy="52" r="4" fill="#1F2937"/>
-        <!-- Cute confused expression -->
-        <path d="M42 72 Q50 68 58 72" stroke="#065F46" stroke-width="2" fill="none"/>
-      </symbol>
-
-      <!-- Monster: Shigayon (Error Sprite) -->
-      <symbol id="monster-shigayon" viewBox="0 0 100 100">
-        <!-- Spiky body -->
-        <polygon points="50,10 60,35 90,40 65,55 75,85 50,70 25,85 35,55 10,40 40,35" fill="#F87171"/>
-        <!-- Inner body -->
-        <circle cx="50" cy="50" r="25" fill="#FECACA"/>
-        <!-- X eyes (dizzy) -->
-        <text x="38" y="50" font-size="14" fill="#DC2626">×</text>
-        <text x="55" y="50" font-size="14" fill="#DC2626">×</text>
-        <!-- Wavy mouth -->
-        <path d="M40 60 Q45 65 50 60 Q55 55 60 60" stroke="#DC2626" stroke-width="2" fill="none"/>
-        <!-- Error symbols -->
-        <text x="70" y="25" font-size="10" fill="#FCA5A5">!</text>
-        <text x="20" y="30" font-size="10" fill="#FCA5A5">!</text>
-      </symbol>
-
-      <!-- Hair gradient -->
-      <linearGradient id="hair-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#1E40AF"/>
-        <stop offset="50%" style="stop-color:#3B82F6"/>
-        <stop offset="100%" style="stop-color:#7DD3FC"/>
-      </linearGradient>
-    </defs>
-  </svg>
-
   <script>
     // ============================================
     // GAME STATE
@@ -1118,8 +982,18 @@
       },
       currentMusic: null,
 
+      // Background music elements
+      bgmElements: {
+        story: null,
+        battle: null
+      },
+      currentBGM: null,
+
       init() {
-        document.addEventListener('click', () => this.createContext(), { once: true });
+        document.addEventListener('click', () => {
+          this.createContext();
+          this.preloadMusic();
+        }, { once: true });
       },
 
       createContext() {
@@ -1133,6 +1007,47 @@
         this.sfxGain = this.context.createGain();
         this.sfxGain.gain.value = this.settings.sfxVolume;
         this.sfxGain.connect(this.context.destination);
+      },
+
+      preloadMusic() {
+        this.bgmElements.story = new Audio('assets/audio/music/story-bgm.mp3');
+        this.bgmElements.story.loop = true;
+        this.bgmElements.story.volume = this.settings.musicVolume;
+
+        this.bgmElements.battle = new Audio('assets/audio/music/battle-bgm.mp3');
+        this.bgmElements.battle.loop = true;
+        this.bgmElements.battle.volume = this.settings.musicVolume;
+      },
+
+      playBGM(track) {
+        if (!this.settings.musicEnabled) return;
+
+        // Stop current music if different track
+        if (this.currentBGM && this.currentBGM !== this.bgmElements[track]) {
+          this.stopBGM();
+        }
+
+        const audio = this.bgmElements[track];
+        if (audio && audio !== this.currentBGM) {
+          audio.currentTime = 0;
+          audio.play().catch(e => console.log('BGM play blocked:', e));
+          this.currentBGM = audio;
+        }
+      },
+
+      stopBGM() {
+        if (this.currentBGM) {
+          this.currentBGM.pause();
+          this.currentBGM.currentTime = 0;
+          this.currentBGM = null;
+        }
+      },
+
+      playAudioFile(path) {
+        if (!this.settings.sfxEnabled) return;
+        const audio = new Audio(path);
+        audio.volume = this.settings.sfxVolume;
+        audio.play().catch(e => console.log('Audio play blocked:', e));
       },
 
       // Note frequencies
@@ -1286,6 +1201,11 @@
       toggleMusic() {
         this.settings.musicEnabled = !this.settings.musicEnabled;
         document.getElementById('music-toggle').classList.toggle('muted', !this.settings.musicEnabled);
+
+        // Stop or resume BGM based on toggle
+        if (!this.settings.musicEnabled) {
+          this.stopBGM();
+        }
       },
 
       toggleSFX() {
@@ -1782,16 +1702,17 @@
       },
 
       setupSprites() {
-        // Use SVG symbols
+        // Image-based sprites - already set via src attributes in HTML
+        // This function now just ensures sprites are in default state
         const arielleSprites = document.querySelectorAll('#story-arielle, #battle-arielle');
         arielleSprites.forEach(el => {
-          el.innerHTML = '<use href="#arielle-happy"/>';
+          el.src = 'assets/images/characters/arielle-happy.png';
         });
 
-        const pipSprites = document.querySelectorAll('#story-pip');
-        pipSprites.forEach(el => {
-          el.innerHTML = '<use href="#pip"/>';
-        });
+        const pipSprite = document.getElementById('story-pip');
+        if (pipSprite) {
+          pipSprite.src = 'assets/images/characters/pip.png';
+        }
       },
 
       setupEventListeners() {
@@ -1860,6 +1781,7 @@
 
         ScreenManager.show('story');
         this.showStoryContent();
+        AudioManager.playBGM('story');
       },
 
       continueGame() {
@@ -1872,6 +1794,7 @@
 
           this.storyPhase = 'encounter';
           this.startEncounter();
+          AudioManager.playBGM('story');
         }
       },
 
@@ -1971,10 +1894,11 @@
 
       startBattle(encounter) {
         ScreenManager.show('battle');
+        AudioManager.playBGM('battle');
 
         // Set up monster
         document.getElementById('monster-name').textContent = encounter.name;
-        document.getElementById('battle-monster').innerHTML = `<use href="#monster-${encounter.monster}"/>`;
+        document.getElementById('battle-monster').src = `assets/images/monsters/${encounter.monster}.png`;
 
         // Set monster HP based on chapter
         GameState.monsterMaxHP = 5 + Math.floor(GameState.chapter / 2);
@@ -1994,7 +1918,9 @@
         TimerSystem.stop();
         GameState.isPlaying = false;
 
+        AudioManager.stopBGM();
         AudioManager.playVictory();
+        AudioManager.playAudioFile('assets/audio/sfx/victory-jingle.mp3');
 
         // Show victory screen
         ScreenManager.show('victory');
@@ -2004,15 +1930,16 @@
         document.getElementById('victory-message').textContent = messages[Math.floor(Math.random() * messages.length)];
 
         // Update arielle sprite to victory
-        document.getElementById('battle-arielle').innerHTML = '<use href="#arielle-victory"/>';
+        document.getElementById('battle-arielle').src = 'assets/images/characters/arielle-victory.png';
       },
 
       afterVictory() {
         // Restore normal sprite
-        document.getElementById('battle-arielle').innerHTML = '<use href="#arielle-happy"/>';
+        document.getElementById('battle-arielle').src = 'assets/images/characters/arielle-happy.png';
 
         GameState.encounter++;
         SaveManager.save();
+        AudioManager.playBGM('story');
 
         // Check if chapter complete
         if (GameState.encounter >= 10) {
@@ -2053,6 +1980,8 @@
         ScreenManager.show('complete');
         this.spawnConfetti(document.getElementById('complete-confetti'));
         SaveManager.clearSave();
+        AudioManager.stopBGM();
+        AudioManager.playAudioFile('assets/audio/sfx/chapter-complete.mp3');
       },
 
       spawnConfetti(container = document.getElementById('confetti-container')) {
