@@ -2,26 +2,27 @@
 
 ## Project Status
 
-**Current State**: Chapter 1 v2.0 Complete (AI-generated assets)
+**Current State**: Chapters 1-2 Complete (AI-generated assets)
 **Live URL**: https://sagivmalihi.github.io/multiplication-game/
 **Last Updated**: January 2025
 
 ### What's Implemented
 - [x] Chapter 1: האחו האזמרגדי (The Emerald Meadow) - 10 encounters
+- [x] Chapter 2: יער הלחשים (Whispering Woods) - 10 encounters
 - [x] All 3 minigame types (Timed Selection, Fill Blank, Match Pairs)
 - [x] Combat system with speed-based damage (1x/2x/3x multipliers)
 - [x] Procedural 8-bit audio via Web Audio API + external BGM
 - [x] AI-generated character/monster sprites (anime/chibi style, transparent backgrounds)
-- [x] AI-generated background music (story + battle themes)
+- [x] AI-generated background music (chapter-specific story + battle themes)
 - [x] Hebrew RTL interface
 - [x] Save/Load system (localStorage)
 - [x] 6 game screens (Title, Story, Battle, Victory, Retry, Complete)
 - [x] Title screen with background image and auto-playing music
+- [x] Multi-chapter progression system
+- [x] Chapter-specific backgrounds (story, battle, complete screens)
 
 ### What's Remaining (Future Chapters)
-- [ ] Chapters 2-10 (storyline exists in storyline.md)
-- [ ] Additional monster types per chapter
-- [ ] Chapter-specific backgrounds and themes
+- [ ] Chapters 3-10 (storyline exists in storyline.md)
 - [ ] Boss battle with Balagan (Chapter 10)
 - [ ] Statistics tracking
 - [ ] Difficulty progression (tables 1-5 → 1-10 → 1-20)
@@ -151,13 +152,24 @@ This is a comprehensive checklist of all assets and code changes needed to add a
 | Category | Asset | Location | Required? | Notes |
 |----------|-------|----------|-----------|-------|
 | **Images** | Story background | `assets/images/backgrounds/chapter{N}-{name}.png` | Yes | Peaceful scene for dialogue |
-| | Battle arena | `assets/images/backgrounds/chapter{N}-battle.png` | Optional | Can reuse `battle-arena.png` |
-| | Victory background | `assets/images/backgrounds/victory.png` | No | Shared across chapters |
+| | Battle arena | `assets/images/backgrounds/chapter{N}-battle.png` | Yes | Dramatic battle scene |
+| | Chapter complete | `assets/images/backgrounds/chapter{N}-complete.png` | Yes | Celebration scene with crystal |
 | | Monsters (3+) | `assets/images/monsters/{name}.png` | Yes | Transparent backgrounds |
+| | Victory background | `assets/images/backgrounds/victory.png` | No | Shared (per-monster victory) |
 | **Audio** | Story BGM | `assets/audio/music/chapter{N}-story.mp3` | Optional | Can reuse `story-bgm.mp3` |
 | | Battle BGM | `assets/audio/music/chapter{N}-battle.mp3` | Optional | Can reuse `battle-bgm.mp3` |
 | | Victory jingle | `assets/audio/sfx/victory-jingle.mp3` | No | Shared |
-| | Chapter complete | `assets/audio/sfx/chapter-complete.mp3` | No | Shared |
+| | Chapter complete SFX | `assets/audio/sfx/chapter-complete.mp3` | No | Shared |
+
+#### Required Assets Per Chapter Summary
+
+Each new chapter needs **5 required image assets**:
+1. `chapter{N}-{name}.png` - Story/dialogue background
+2. `chapter{N}-battle.png` - Battle arena background
+3. `chapter{N}-complete.png` - Chapter completion celebration
+4. 3+ monster PNGs with transparent backgrounds
+
+Audio is optional - chapters can reuse default `story-bgm.mp3` and `battle-bgm.mp3`.
 
 #### Image Generation Commands
 
@@ -167,6 +179,9 @@ uv run python generate_image.py "Fantasy game background of [CHAPTER SETTING]. [
 
 # Battle arena (dramatic version of chapter setting)
 uv run python generate_image.py "Fantasy game battle arena in [CHAPTER SETTING]. Circular clearing with glowing runes. Dramatic lighting. [CHAPTER ELEMENTS]. Anime style. Action-ready. Wide aspect ratio. No characters." assets/images/backgrounds/chapter{N}-battle.png
+
+# Chapter complete celebration (golden hour with crystal)
+uv run python generate_image.py "Fantasy game chapter complete celebration background. [CHAPTER SETTING] at golden hour with magical sparkles, confetti, and [CELEBRATION ELEMENTS]. [CRYSTAL COLOR] crystal glowing in center with rays of light. Triumphant joyful atmosphere. Anime style. Wide aspect ratio. No characters." assets/images/backgrounds/chapter{N}-complete.png
 
 # Monster (always needs background removal)
 uv run python generate_image.py "Cute confused [CREATURE TYPE] monster anime chibi style. [DESCRIPTION]. Big eyes with spiral confusion. Pokemon-like. Transparent background. Child-friendly." assets/images/monsters/{name}-raw.png
@@ -222,6 +237,9 @@ chapter{N}: {
 }
 #battle-screen.chapter-{N} {
   background: url('assets/images/backgrounds/chapter{N}-battle.png') center/cover no-repeat;
+}
+#complete-screen.chapter-{N} {
+  background: url('assets/images/backgrounds/chapter{N}-complete.png') center/cover no-repeat;
 }
 ```
 

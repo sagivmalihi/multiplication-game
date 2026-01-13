@@ -57,6 +57,12 @@
       --chapter-1-accent: #059669;
       --chapter-1-bg: #D1FAE5;
 
+      /* Chapter 2: Whispering Woods */
+      --chapter-2-primary: #166534;
+      --chapter-2-secondary: #22C55E;
+      --chapter-2-accent: #7C3AED;
+      --chapter-2-bg: #DCFCE7;
+
       /* Font Sizes */
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -311,6 +317,24 @@
        ============================================ */
     #battle-screen {
       background: url('assets/images/backgrounds/battle-arena.png') center/cover no-repeat;
+    }
+
+    /* Chapter-specific backgrounds */
+    #story-screen.chapter-2 {
+      background: url('assets/images/backgrounds/chapter2-forest.png') center center / cover no-repeat;
+    }
+
+    #battle-screen.chapter-2 {
+      background: url('assets/images/backgrounds/chapter2-battle.png') center/cover no-repeat;
+    }
+
+    /* Chapter complete backgrounds */
+    #complete-screen.chapter-1 {
+      background: url('assets/images/backgrounds/chapter1-complete.png') center/cover no-repeat;
+    }
+
+    #complete-screen.chapter-2 {
+      background: url('assets/images/backgrounds/chapter2-complete.png') center/cover no-repeat;
     }
 
     .battle-container {
@@ -1000,7 +1024,9 @@
       bgmElements: {
         title: null,
         story: null,
-        battle: null
+        battle: null,
+        storyChapter2: null,
+        battleChapter2: null
       },
       currentBGM: null,
 
@@ -1066,16 +1092,33 @@
         this.bgmElements.battle = new Audio('assets/audio/music/battle-bgm.mp3');
         this.bgmElements.battle.loop = true;
         this.bgmElements.battle.volume = this.settings.musicVolume;
+
+        // Chapter 2: Whispering Woods
+        this.bgmElements.storyChapter2 = new Audio('assets/audio/music/chapter2-story.mp3');
+        this.bgmElements.storyChapter2.loop = true;
+        this.bgmElements.storyChapter2.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter2 = new Audio('assets/audio/music/chapter2-battle.mp3');
+        this.bgmElements.battleChapter2.loop = true;
+        this.bgmElements.battleChapter2.volume = this.settings.musicVolume;
       },
 
-      playBGM(track) {
+      playBGM(track, chapter = 1) {
         if (!this.settings.musicEnabled) return;
 
         // Stop any existing music first
         this.stopBGM();
 
-        // Use external audio files for all tracks (title, story, battle)
-        const audio = this.bgmElements[track];
+        // Determine which track to play (chapter-specific if available)
+        let audioKey = track;
+        if (chapter > 1) {
+          const chapterKey = `${track}Chapter${chapter}`;
+          if (this.bgmElements[chapterKey]) {
+            audioKey = chapterKey;
+          }
+        }
+
+        const audio = this.bgmElements[audioKey];
         if (audio) {
           audio.currentTime = 0;
           audio.play().catch(e => console.log('BGM play blocked:', e));
@@ -1331,6 +1374,34 @@
           { speaker: 'פיפ', text: 'מדהים! מצאנו את הגביש הראשון!' },
           { speaker: 'פיפ', text: 'גביש האזמרגד חזר למקומו!' },
           { speaker: 'פיפ', text: 'כל הכבוד אריאל! את גיבורה אמיתית!' },
+        ]
+      },
+      chapter2: {
+        title: 'פרק 2: יער הלחשים',
+        intro: [
+          { speaker: 'מספר', text: 'אריאל נכנסת ליער הלחשים, מקום קסום שבו העצים יכולים לדבר...' },
+          { speaker: 'פיפ', text: 'היער הזה היה פעם מלא בחוכמה! העצים ידעו הכל!' },
+          { speaker: 'פיפ', text: 'אבל הכישוף של בלגן ערבל את המילים שלהם. הם מנסים לעזור אבל יוצא ג\'יבריש!' },
+          { speaker: 'פיפ', text: 'יצורי היער גם הם אבודים ומבולבלים. הם צריכים את עזרתך!' },
+          { speaker: 'פיפ', text: 'בעומק היער נמצא העץ המדבר הגדול. הוא שומר על גביש היער!' },
+        ],
+        encounters: [
+          { monster: 'yinshouf-mevulbal', name: 'ינשוף מבולבל', intro: 'ינשוף חכם יושב על ענף, אבל הוא לא זוכר איך לעוף!' },
+          { monster: 'ayal-mevulbal', name: 'אייל מבולבל', intro: 'אייל קטן ומתוק הלך לאיבוד ביער!' },
+          { monster: 'ruach-etz-sevucha', name: 'רוח עץ סבוכה', intro: 'רוח עץ קטנה הסתבכה בענפים שלה!' },
+          { monster: 'yinshouf-mevulbal', name: 'ינשוף מבולבל', intro: 'עוד ינשוף מבולבל צריך עזרה!' },
+          { monster: 'ayal-mevulbal', name: 'אייל מבולבל', intro: 'אייל נוסף מחפש את דרכו הביתה!' },
+          { monster: 'ruach-etz-sevucha', name: 'רוח עץ סבוכה', intro: 'רוח עץ עוד יותר סבוכה!' },
+          { monster: 'yinshouf-mevulbal', name: 'ינשוף מבולבל', intro: 'ינשוף שלישי רוצה להיזכר בחכמתו!' },
+          { monster: 'ayal-mevulbal', name: 'אייל מבולבל', intro: 'אייל אחרון תועה בערפל!' },
+          { monster: 'ruach-etz-sevucha', name: 'רוח עץ סבוכה', intro: 'רוח העץ האחרונה צריכה עזרה!' },
+          { monster: 'yinshouf-mevulbal', name: 'ינשוף חכם', intro: 'הינשוף הגדול שומר על הדרך לעץ המדבר!' },
+        ],
+        outro: [
+          { speaker: 'פיפ', text: 'מדהים! העץ המדבר הגדול מתעורר!' },
+          { speaker: 'מספר', text: 'העץ העתיק פותח את עיניו ומחייך לאריאל...' },
+          { speaker: 'פיפ', text: 'גביש היער נמצא! הוא זוהר באור ענברי חם!' },
+          { speaker: 'פיפ', text: 'העצים יכולים לדבר שוב! היער אומר תודה!' },
         ]
       },
       encouragement: [
@@ -1852,7 +1923,7 @@
 
         ScreenManager.show('story');
         this.showStoryContent();
-        AudioManager.playBGM('story');
+        AudioManager.playBGM('story', GameState.chapter);
       },
 
       continueGame() {
@@ -1865,13 +1936,24 @@
 
           this.storyPhase = 'encounter';
           this.startEncounter();
-          AudioManager.playBGM('story');
+          AudioManager.playBGM('story', GameState.chapter);
         }
       },
 
       showStoryContent() {
-        const chapter = StoryContent.chapter1;
+        const chapterKey = `chapter${GameState.chapter}`;
+        const chapter = StoryContent[chapterKey];
+
+        if (!chapter) {
+          console.error(`Chapter ${GameState.chapter} not found!`);
+          return;
+        }
+
         document.getElementById('chapter-title').textContent = chapter.title;
+
+        // Add chapter class to screens for CSS targeting
+        document.getElementById('story-screen').className = `screen active chapter-${GameState.chapter}`;
+        document.getElementById('battle-screen').className = `screen chapter-${GameState.chapter}`;
 
         let content;
         switch (this.storyPhase) {
@@ -1879,7 +1961,7 @@
             content = chapter.intro;
             break;
           case 'tutorial':
-            content = chapter.tutorial;
+            content = chapter.tutorial || []; // Tutorial only in chapter 1
             break;
           case 'outro':
             content = chapter.outro;
@@ -1896,7 +1978,8 @@
       },
 
       advanceStory() {
-        const chapter = StoryContent.chapter1;
+        const chapterKey = `chapter${GameState.chapter}`;
+        const chapter = StoryContent[chapterKey];
         let content;
 
         switch (this.storyPhase) {
@@ -1904,7 +1987,7 @@
             content = chapter.intro;
             break;
           case 'tutorial':
-            content = chapter.tutorial;
+            content = chapter.tutorial || [];
             break;
           case 'outro':
             content = chapter.outro;
@@ -1918,9 +2001,15 @@
         if (this.storyIndex >= content.length) {
           // Move to next phase
           if (this.storyPhase === 'intro') {
-            this.storyPhase = 'tutorial';
-            this.storyIndex = 0;
-            this.showStoryContent();
+            // Only chapter 1 has tutorial
+            if (GameState.chapter === 1 && chapter.tutorial && chapter.tutorial.length > 0) {
+              this.storyPhase = 'tutorial';
+              this.storyIndex = 0;
+              this.showStoryContent();
+            } else {
+              this.storyPhase = 'encounter';
+              this.startEncounter();
+            }
           } else if (this.storyPhase === 'tutorial') {
             this.storyPhase = 'encounter';
             this.startEncounter();
@@ -1933,7 +2022,8 @@
       },
 
       startEncounter() {
-        const chapter = StoryContent.chapter1;
+        const chapterKey = `chapter${GameState.chapter}`;
+        const chapter = StoryContent[chapterKey];
         const encounter = chapter.encounters[GameState.encounter];
 
         if (!encounter) {
@@ -1965,7 +2055,9 @@
 
       startBattle(encounter) {
         ScreenManager.show('battle');
-        AudioManager.playBGM('battle');
+        // Add chapter class for chapter-specific backgrounds
+        document.getElementById('battle-screen').className = `screen active chapter-${GameState.chapter}`;
+        AudioManager.playBGM('battle', GameState.chapter);
 
         // Set up monster
         document.getElementById('monster-name').textContent = encounter.name;
@@ -2010,7 +2102,7 @@
 
         GameState.encounter++;
         SaveManager.save();
-        AudioManager.playBGM('story');
+        AudioManager.playBGM('story', GameState.chapter);
 
         // Check if chapter complete
         if (GameState.encounter >= 10) {
@@ -2049,10 +2141,43 @@
 
       completeChapter() {
         ScreenManager.show('complete');
+        // Add chapter class for chapter-specific backgrounds (before chapter increments)
+        document.getElementById('complete-screen').className = `screen active chapter-${GameState.chapter}`;
         this.spawnConfetti(document.getElementById('complete-confetti'));
-        SaveManager.clearSave();
         AudioManager.stopBGM();
         AudioManager.playAudioFile('assets/audio/sfx/chapter-complete.mp3');
+
+        // Update complete message for current chapter
+        const chapterKey = `chapter${GameState.chapter}`;
+        const chapter = StoryContent[chapterKey];
+        document.querySelector('.complete-message').textContent = `סיימת את ${chapter.title}!`;
+
+        // Check if there's a next chapter
+        const nextChapterKey = `chapter${GameState.chapter + 1}`;
+        if (StoryContent[nextChapterKey]) {
+          // Save progress to next chapter
+          GameState.chapter++;
+          GameState.encounter = 0;
+          SaveManager.save();
+
+          document.getElementById('play-again-btn').textContent = 'המשיכי לפרק הבא!';
+          document.getElementById('play-again-btn').onclick = () => {
+            AudioManager.playButtonClick();
+            this.storyPhase = 'intro';
+            this.storyIndex = 0;
+            ScreenManager.show('story');
+            this.showStoryContent();
+            AudioManager.playBGM('story', GameState.chapter);
+          };
+        } else {
+          // Final chapter complete - game finished!
+          SaveManager.clearSave();
+          document.getElementById('play-again-btn').textContent = 'שחקי שוב מההתחלה';
+          document.getElementById('play-again-btn').onclick = () => {
+            AudioManager.playButtonClick();
+            this.startNewGame();
+          };
+        }
       },
 
       spawnConfetti(container = document.getElementById('confetti-container')) {

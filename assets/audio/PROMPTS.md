@@ -54,3 +54,23 @@ Triumphant short victory fanfare. Magical sparkle celebration. Ta-da achievement
 ```
 Grand triumphant celebration fanfare for completing game chapter. Magical orchestral victory building to climax. Fantasy game level complete. Joyful ending with sustained major chord.
 ```
+
+## Chapter 2: Whispering Woods
+
+### chapter2-story.mp3
+**Type**: Music
+**Duration**: 60 seconds
+**Generated**: January 2025
+
+```
+Gentle mysterious forest fantasy music. Soft atmospheric with wooden flute and ethereal chimes. Enchanted woodland feel. Child-friendly. Seamless loop.
+```
+
+### chapter2-battle.mp3
+**Type**: Music
+**Duration**: 60 seconds
+**Generated**: January 2025
+
+```
+Energetic forest adventure battle music. Exciting upbeat with woodland instruments - drums, flute, strings. Not scary, playful. For 7 year old. Seamless loop.
+```
