@@ -74,3 +74,23 @@ Gentle mysterious forest fantasy music. Soft atmospheric with wooden flute and e
 ```
 Energetic forest adventure battle music. Exciting upbeat with woodland instruments - drums, flute, strings. Not scary, playful. For 7 year old. Seamless loop.
 ```
+
+## Chapter 3: Crystal Caves
+
+### chapter3-story.mp3
+**Type**: Music
+**Duration**: 60 seconds
+**Generated**: January 2025
+
+```
+Gentle mysterious fantasy music for underground crystal caves. Soft echoing tones, crystalline chimes, ambient dripping water sounds. Ethereal and magical but calm. Child-friendly exploration music. Seamless loop.
+```
+
+### chapter3-battle.mp3
+**Type**: Music
+**Duration**: 60 seconds
+**Generated**: January 2025
+
+```
+Energetic underground cave battle music. Crystal chimes mixed with dramatic drums. Mysterious but exciting. Echo effects. For 7 year old child. Not scary. Seamless loop.
+```

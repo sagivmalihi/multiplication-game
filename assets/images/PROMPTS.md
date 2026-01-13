@@ -130,3 +130,47 @@ Fantasy game chapter complete celebration background. Emerald green meadow at go
 ```
 Fantasy game chapter complete celebration background. Enchanted forest clearing at golden hour with magical sparkles, confetti, and fireflies. Amber crystal glowing warmly in center with rays of light. Ancient trees celebrating, purple mist with golden highlights. Triumphant joyful atmosphere. Anime style. Wide aspect ratio. No characters.
 ```
+
+## Chapter 3: Crystal Caves
+
+### chipushit-bedolach.png (Gem Beetle)
+**Generated**: January 2025
+
+```
+Cute confused gem beetle monster anime chibi style. Iridescent blue-purple shell with crystal patterns. Six tiny legs. Big eyes with spiral confusion. Small antennae with glowing tips. Pokemon-like. Transparent background. Child-friendly.
+```
+
+### atalef-gavish.png (Crystal Bat)
+**Generated**: January 2025
+
+```
+Cute sleepy crystal bat monster anime chibi style. Translucent wings with crystal patterns. Small fuzzy purple body. Drowsy half-closed eyes with swirls. Tiny fangs (not scary). Hanging upside down pose. Pokemon-like. Transparent background. Child-friendly.
+```
+
+### golem-sela.png (Rock Golem)
+**Generated**: January 2025
+
+```
+Cute grumpy rock golem monster anime chibi style. Made of gray-blue stones with glowing crystal veins. Stubby arms and legs. Grumpy but not scary face with confused spiral eyes. Small crystals growing from shoulders. Pokemon-like. Transparent background. Child-friendly.
+```
+
+### chapter3-caves.png (Crystal Caves - Story/Dialog)
+**Generated**: January 2025
+
+```
+Fantasy game background of underground crystal caves. Stalactites and stalagmites with glowing blue and purple crystals. Underground pools reflecting light. Ancient stone walls with mysterious carvings. Anime style landscape for children's game. Blues, purples, crystal whites color palette. Magical ethereal atmosphere. No characters. Wide aspect ratio.
+```
+
+### chapter3-battle.png (Crystal Cave Battle Arena)
+**Generated**: January 2025
+
+```
+Fantasy game battle arena in underground crystal cave. Circular clearing with glowing purple runes on stone floor. Large crystals forming a natural ring. Dramatic lighting from crystals above. Blues and purples. Ancient temple feel. Anime style. Action-ready. Wide aspect ratio. No characters.
+```
+
+### chapter3-complete.png (Crystal Caves Chapter Complete)
+**Generated**: January 2025
+
+```
+Fantasy game chapter complete celebration background. Underground crystal cave at magical moment with brilliant light bursting from crystals. Sparkles, confetti, and rays of purple light. Large glowing purple crystal (Deep Crystal) on ancient stone pedestal in center. Triumphant joyful atmosphere. Blues, purples, golds. Anime style. Wide aspect ratio. No characters.
+```

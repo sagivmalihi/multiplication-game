@@ -63,6 +63,12 @@
       --chapter-2-accent: #7C3AED;
       --chapter-2-bg: #DCFCE7;
 
+      /* Chapter 3: Crystal Caves */
+      --chapter-3-primary: #6366F1;
+      --chapter-3-secondary: #818CF8;
+      --chapter-3-accent: #7C3AED;
+      --chapter-3-bg: #E0E7FF;
+
       /* Font Sizes */
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -335,6 +341,19 @@
 
     #complete-screen.chapter-2 {
       background: url('assets/images/backgrounds/chapter2-complete.png') center/cover no-repeat;
+    }
+
+    /* Chapter 3: Crystal Caves */
+    #story-screen.chapter-3 {
+      background: url('assets/images/backgrounds/chapter3-caves.png') center center / cover no-repeat;
+    }
+
+    #battle-screen.chapter-3 {
+      background: url('assets/images/backgrounds/chapter3-battle.png') center/cover no-repeat;
+    }
+
+    #complete-screen.chapter-3 {
+      background: url('assets/images/backgrounds/chapter3-complete.png') center/cover no-repeat;
     }
 
     .battle-container {
@@ -1026,7 +1045,9 @@
         story: null,
         battle: null,
         storyChapter2: null,
-        battleChapter2: null
+        battleChapter2: null,
+        storyChapter3: null,
+        battleChapter3: null
       },
       currentBGM: null,
 
@@ -1101,6 +1122,15 @@
         this.bgmElements.battleChapter2 = new Audio('assets/audio/music/chapter2-battle.mp3');
         this.bgmElements.battleChapter2.loop = true;
         this.bgmElements.battleChapter2.volume = this.settings.musicVolume;
+
+        // Chapter 3: Crystal Caves
+        this.bgmElements.storyChapter3 = new Audio('assets/audio/music/chapter3-story.mp3');
+        this.bgmElements.storyChapter3.loop = true;
+        this.bgmElements.storyChapter3.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter3 = new Audio('assets/audio/music/chapter3-battle.mp3');
+        this.bgmElements.battleChapter3.loop = true;
+        this.bgmElements.battleChapter3.volume = this.settings.musicVolume;
       },
 
       playBGM(track, chapter = 1) {
@@ -1402,6 +1432,34 @@
           { speaker: 'מספר', text: 'העץ העתיק פותח את עיניו ומחייך לאריאל...' },
           { speaker: 'פיפ', text: 'גביש היער נמצא! הוא זוהר באור ענברי חם!' },
           { speaker: 'פיפ', text: 'העצים יכולים לדבר שוב! היער אומר תודה!' },
+        ]
+      },
+      chapter3: {
+        title: 'פרק 3: מערות הבדולח',
+        intro: [
+          { speaker: 'מספר', text: 'מתחת ליער הלחשים, פתח חשוך נגלה לעיני אריאל ופיפ.' },
+          { speaker: 'פיפ', text: 'וואו! מערות הבדולח! פעם הן היו מלאות אור, אבל עכשיו...' },
+          { speaker: 'מספר', text: 'הגבישים שפעם האירו את המערות כבו. רק חושך עמוק נשאר.' },
+          { speaker: 'אריאל', text: 'איך נמצא את הדרך בחושך?' },
+          { speaker: 'פיפ', text: 'כל תשובה נכונה תדליק גביש! בואי נאיר את הדרך!' }
+        ],
+        encounters: [
+          { monster: 'chipushit-bedolach', name: 'חיפושית-בדולח', intro: 'חיפושית בדולח מבולבלת חוסמת את המעבר! היא צריכה אור!' },
+          { monster: 'atalef-gavish', name: 'עטלף-גביש', intro: 'עטלף גביש ישנוני תלוי מהתקרה. הוא נמנם מדי בגלל החושך!' },
+          { monster: 'golem-sela', name: 'גולם-סלע', intro: 'גולם סלע זועף עומד בדרך. הוא לא יכול לראות לאן ללכת!' },
+          { monster: 'chipushit-bedolach', name: 'חיפושית-בדולח', intro: 'עוד חיפושית בדולח! הגבישים שלה כבויים לגמרי.' },
+          { monster: 'atalef-gavish', name: 'עטלף-גביש', intro: 'משפחה של עטלפי גביש! הם צריכים אור כדי להתעורר.' },
+          { monster: 'golem-sela', name: 'גולם-סלע', intro: 'גולם סלע גדול חוסם את הכניסה למקדש העתיק!' },
+          { monster: 'chipushit-bedolach', name: 'חיפושית-בדולח', intro: 'חיפושית בדולח קטנה אבודה במסדרון החשוך.' },
+          { monster: 'atalef-gavish', name: 'עטלף-גביש', intro: 'עטלף גביש מפהק. כמעט הגענו!' },
+          { monster: 'golem-sela', name: 'גולם-סלע', intro: 'השומר האחרון של המקדש - גולם סלע ענק!' },
+          { monster: 'golem-sela', name: 'גולם-סלע', intro: 'גולם הסלע האחרון! מאחוריו נראה אור סגול!' }
+        ],
+        outro: [
+          { speaker: 'מספר', text: 'כל הגבישים במערה התעוררו לחיים! אור סגול מילא את החלל.' },
+          { speaker: 'פיפ', text: 'הסתכלי! על המזבח! זה גביש המעמקים!' },
+          { speaker: 'מספר', text: 'אריאל הרימה את הגביש הסגול הזוהר. שלושה גבישים נאספו!' },
+          { speaker: 'פיפ', text: 'יש מנהרה שמובילה למעלה... לשמיים! הגנים המרחפים מחכים לנו!' }
         ]
       },
       encouragement: [
