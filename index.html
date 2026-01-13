@@ -69,6 +69,12 @@
       --chapter-3-accent: #7C3AED;
       --chapter-3-bg: #E0E7FF;
 
+      /* Chapter 4: Floating Gardens */
+      --chapter-4-primary: #38BDF8;
+      --chapter-4-secondary: #7DD3FC;
+      --chapter-4-accent: #0284C7;
+      --chapter-4-bg: #E0F2FE;
+
       /* Font Sizes */
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -354,6 +360,19 @@
 
     #complete-screen.chapter-3 {
       background: url('assets/images/backgrounds/chapter3-complete.png') center/cover no-repeat;
+    }
+
+    /* Chapter 4: Floating Gardens */
+    #story-screen.chapter-4 {
+      background: url('assets/images/backgrounds/chapter4-gardens.png') center center / cover no-repeat;
+    }
+
+    #battle-screen.chapter-4 {
+      background: url('assets/images/backgrounds/chapter4-battle.png') center/cover no-repeat;
+    }
+
+    #complete-screen.chapter-4 {
+      background: url('assets/images/backgrounds/chapter4-complete.png') center/cover no-repeat;
     }
 
     .battle-container {
@@ -1462,6 +1481,34 @@
           { speaker: 'פיפ', text: 'יש מנהרה שמובילה למעלה... לשמיים! הגנים המרחפים מחכים לנו!' }
         ]
       },
+      chapter4: {
+        title: 'פרק 4: הגנים המרחפים',
+        intro: [
+          { speaker: 'מספר', text: 'אריאל יצאה מהמנהרה ונעצרה בהשתאות. לפניה נפרשו איים צפים בשמיים!' },
+          { speaker: 'פיפ', text: 'וואו! הגנים המרחפים! איים קסומים שצפים בין העננים!' },
+          { speaker: 'מספר', text: 'גנים צבעוניים פרחו על כל אי, אבל הגשרים שחיברו ביניהם היו שבורים.' },
+          { speaker: 'פיפ', text: 'אוי לא! בלגן שבר את גשרי האור! היצורים תקועים על האיים השונים!' },
+          { speaker: 'מספר', text: 'אריאל הבינה - היא צריכה לפתור חידות כפל כדי לבנות מחדש את הגשרים.' }
+        ],
+        encounters: [
+          { monster: 'shduon-anenim', name: 'שדון-עננים', intro: 'שדון עננים קטן צף לבד על ענן בודד. הוא נראה אבוד!' },
+          { monster: 'piyat-gan', name: 'פיית-גן', intro: 'פיית גן עם כנפיים צבעוניות תקועה על אי קטן. היא צריכה עזרה!' },
+          { monster: 'dag-meofef', name: 'דג-מעופף', intro: 'דג מעופף עם קשקשי קשת מסתובב במעגלים. הוא שכח איך לעוף ישר!' },
+          { monster: 'shduon-anenim', name: 'שדון-עננים', intro: 'עוד שדון עננים! הוא מנסה לבנות גשר מעננים אבל לא מצליח.' },
+          { monster: 'piyat-gan', name: 'פיית-גן', intro: 'פיית גן יושבת על פרח ענק ובוכה. היא רוצה לחזור הביתה!' },
+          { monster: 'dag-meofef', name: 'דג-מעופף', intro: 'משפחת דגים מעופפים! הם שוחים באוויר בבלבול.' },
+          { monster: 'shduon-anenim', name: 'שדון-עננים', intro: 'שדון עננים שמנמן ישן על ענן. הוא חולם חלומות מבולבלים.' },
+          { monster: 'piyat-gan', name: 'פיית-גן', intro: 'פיית גן מנסה להפריח פרחים, אבל הם צומחים הפוך!' },
+          { monster: 'dag-meofef', name: 'דג-מעופף', intro: 'דג מעופף גדול! הוא שומר על הגשר האחרון לגן העליון.' },
+          { monster: 'shduon-anenim', name: 'שדון-עננים', intro: 'מלך השדונים! הוא מחזיק את גביש השמיים ומחכה לעזרה.' }
+        ],
+        outro: [
+          { speaker: 'מספר', text: 'כל גשרי האור נבנו מחדש! האיים הצפים התחברו שוב.' },
+          { speaker: 'פיפ', text: 'הסתכלי! השדונים, הפיות והדגים רוקדים יחד באוויר!' },
+          { speaker: 'מספר', text: 'אריאל קיבלה את גביש השמיים הכחול-בהיר. ארבעה גבישים נאספו!' },
+          { speaker: 'פיפ', text: 'תראי למטה! אני רואה מפלים צבעוניים! מפלי הקשת!' }
+        ]
+      },
       encouragement: [
         'נסי שוב, את יכולה!',
         'כמעט! עוד פעם!',
@@ -1487,9 +1534,9 @@
     // RIDDLE GENERATOR
     // ============================================
     const RiddleGenerator = {
-      // Chapter 1: tables 1-5
+      // Difficulty progression: Ch1-3: tables 2-5, Ch4-6: tables 2-7, Ch7-9: tables 2-10
       generate(chapter = 1) {
-        const maxTable = Math.min(5, 2 + chapter);
+        const maxTable = Math.min(10, 2 + chapter);
         const a = Math.floor(Math.random() * maxTable) + 1;
         const b = Math.floor(Math.random() * 10) + 1;
         const missingFirst = Math.random() > 0.5;
