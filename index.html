@@ -81,6 +81,12 @@
       --chapter-5-accent: #9B59B6;
       --chapter-5-bg: #F0F8FF;
 
+      /* Chapter 6: Desert of Echoes */
+      --chapter-6-primary: #F59E0B;
+      --chapter-6-secondary: #FCD34D;
+      --chapter-6-accent: #D97706;
+      --chapter-6-bg: #FFFBEB;
+
       /* Font Sizes */
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -392,6 +398,19 @@
 
     #complete-screen.chapter-5 {
       background: url('assets/images/backgrounds/chapter5-complete.png') center/cover no-repeat;
+    }
+
+    /* Chapter 6: Desert of Echoes */
+    #story-screen.chapter-6 {
+      background: url('assets/images/backgrounds/chapter6-desert.png') center center / cover no-repeat;
+    }
+
+    #battle-screen.chapter-6 {
+      background: url('assets/images/backgrounds/chapter6-battle.png') center/cover no-repeat;
+    }
+
+    #complete-screen.chapter-6 {
+      background: url('assets/images/backgrounds/chapter6-complete.png') center/cover no-repeat;
     }
 
     .battle-container {
@@ -1553,6 +1572,34 @@
           { speaker: 'פיפ', text: 'תראי! אדום, כתום, צהוב, ירוק, כחול, סגול! כל הצבעים חזרו!' },
           { speaker: 'מספר', text: 'מאחורי המפל הראשי, במערה נסתרת, גביש הקשת נצץ באור משתנה.' },
           { speaker: 'פיפ', text: 'חמישה גבישים! אנחנו בדיוק באמצע! זו החגיגה הכי צבעונית עד עכשיו!' }
+        ]
+      },
+      chapter6: {
+        title: 'פרק 6: מדבר ההדים',
+        intro: [
+          { speaker: 'מספר', text: 'אריאל ופיפ עזבו את מפלי הקשת הצבעוניים ונכנסו למדבר עצום שנקרא מדבר ההדים.' },
+          { speaker: 'פיפ', text: 'המדבר הזה מיוחד! כל צליל כאן מהדהד ומכפיל את עצמו. אבל משהו לא בסדר...' },
+          { speaker: 'מספר', text: 'ההדים במדבר היו משקרים! במקום להגיד את האמת, הם בלבלו את כל המטיילים.' },
+          { speaker: 'פיפ', text: 'זו הכישוף של בלגן! הוא גרם להדים לשקר. אנחנו צריכים להחזיר להם את האמת!' },
+          { speaker: 'מספר', text: 'יצורי המדבר - ציפורי הד, שועלי חול ורוחות קקטוס - כולם היו מבולבלים ואבודים.' }
+        ],
+        encounters: [
+          { monster: 'tsipor-hed', name: 'ציפור הד', intro: 'ציפור קטנה עם נוצות זהובות ישבה על סלע וצייצה הדים שקריים.' },
+          { monster: 'shual-chol', name: 'שועל חול', intro: 'שועל פנק חמוד עם אוזניים ענקיות רץ במעגלים, מבולבל מההדים.' },
+          { monster: 'ruach-kaktus', name: 'רוח קקטוס', intro: 'רוח קטנה בצורת קקטוס עם פרח על הראש ריחפה בבלבול.' },
+          { monster: 'tsipor-hed', name: 'ציפור הד', intro: 'עוד ציפור הד ניסתה לתת הוראות, אבל כל מה שאמרה היה הפוך!' },
+          { monster: 'shual-chol', name: 'שועל חול', intro: 'שועל חול אחר חפר בחול בטירוף, מחפש את הדרך הביתה.' },
+          { monster: 'ruach-kaktus', name: 'רוח קקטוס', intro: 'רוח קקטוס גדולה יותר שמרה על הכניסה לקניון ההדים.' },
+          { monster: 'tsipor-hed', name: 'ציפור הד', intro: 'להקת ציפורי הד שרו יחד שיר מבולבל של מספרים מעורבבים.' },
+          { monster: 'shual-chol', name: 'שועל חול', intro: 'משפחת שועלי חול התכנסה ליד הנווה, לא יודעים לאן ללכת.' },
+          { monster: 'ruach-kaktus', name: 'רוח קקטוס', intro: 'רוח קקטוס עתיקה ליד הבאר הקסומה זקוקה לעזרה.' },
+          { monster: 'tsipor-hed', name: 'ציפור הד', intro: 'ציפור ההד האחרונה שמרה על הגביש בלב הנווה.' }
+        ],
+        outro: [
+          { speaker: 'מספר', text: 'כשאריאל פתרה את החידה האחרונה, ההדים התחילו לומר אמת שוב!' },
+          { speaker: 'פיפ', text: 'תשמעי! ההדים אומרים את האמת עכשיו! הם מראים את הדרך הנכונה!' },
+          { speaker: 'מספר', text: 'בלב הנווה, בתוך באר עתיקה, גביש ההד הזהוב נצץ באור חם.' },
+          { speaker: 'פיפ', text: 'שישה גבישים! עוד ארבעה ונציל את הממלכה! קדימה להרים המושלגים!' }
         ]
       },
       encouragement: [

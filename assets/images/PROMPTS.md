@@ -262,3 +262,47 @@ Fantasy game battle arena at the base of massive waterfalls. Circular clearing w
 ```
 Fantasy game chapter complete celebration at rainbow waterfalls. Vibrant rainbow-colored water cascading down. Golden hour with magical sparkles, confetti, and water spray catching light. Rainbow crystal glowing in center with prismatic rays. Triumphant joyful atmosphere. Anime style. Wide aspect ratio. No characters.
 ```
+
+## Chapter 6: Desert of Echoes
+
+### tsipor-hed.png (Echo Bird)
+**Generated**: January 2025
+
+```
+Cute confused desert bird monster anime chibi style. Golden-orange feathers with sound wave patterns. Big eyes with spiral confusion and question marks. Small wings, puffy body. Pokemon-like design. Child-friendly and adorable. White background.
+```
+
+### shual-chol.png (Sand Fox)
+**Generated**: January 2025
+
+```
+Cute confused fennec fox monster anime chibi style. Sandy golden fur with big ears. Big eyes with spiral confusion swirls. Fluffy tail. Desert theme. Pokemon-like design. Child-friendly and adorable. White background.
+```
+
+### ruach-kaktus.png (Cactus Spirit)
+**Generated**: January 2025
+
+```
+Cute confused cactus spirit monster anime chibi style. Green cactus body with tiny arms and a flower on top. Big eyes with spiral confusion. Friendly smile despite confusion. Desert theme with orange accents. Pokemon-like design. Child-friendly and adorable. White background.
+```
+
+### chapter6-desert.png (Desert of Echoes - Story/Dialog)
+**Generated**: January 2025
+
+```
+Fantasy game background of a magical golden desert with towering sand dunes. Ancient echoing canyons in the distance. Mysterious oasis visible on the horizon. Warm golden and orange color palette. Blue sky with wispy clouds. Anime style landscape for children's game. Wide aspect ratio. No characters.
+```
+
+### chapter6-battle.png (Desert Battle Arena)
+**Generated**: January 2025
+
+```
+Fantasy game battle arena in a magical desert canyon. Circular sandy clearing surrounded by tall rock formations. Glowing golden runes on the canyon walls. Dramatic warm lighting with orange and gold tones. Echo waves visible in the air. Anime style. Action-ready. Wide aspect ratio. No characters.
+```
+
+### chapter6-complete.png (Desert of Echoes Chapter Complete)
+**Generated**: January 2025
+
+```
+Fantasy game chapter complete celebration background. Magical desert oasis at golden hour with palm trees and sparkling water. Magical golden sparkles and confetti in the air. Gold crystal glowing in center with rays of warm light emanating outward. Triumphant joyful atmosphere. Warm orange sunset colors. Anime style. Wide aspect ratio. No characters.
+```
