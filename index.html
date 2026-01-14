@@ -87,6 +87,12 @@
       --chapter-6-accent: #D97706;
       --chapter-6-bg: #FFFBEB;
 
+      /* Chapter 7: Frozen Peaks */
+      --chapter-7-primary: #60A5FA;
+      --chapter-7-secondary: #BFDBFE;
+      --chapter-7-accent: #1D4ED8;
+      --chapter-7-bg: #EFF6FF;
+
       /* Font Sizes */
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -411,6 +417,19 @@
 
     #complete-screen.chapter-6 {
       background: url('assets/images/backgrounds/chapter6-complete.png') center/cover no-repeat;
+    }
+
+    /* Chapter 7: Frozen Peaks */
+    #story-screen.chapter-7 {
+      background: url('assets/images/backgrounds/chapter7-frozen.png') center center / cover no-repeat;
+    }
+
+    #battle-screen.chapter-7 {
+      background: url('assets/images/backgrounds/chapter7-battle.png') center/cover no-repeat;
+    }
+
+    #complete-screen.chapter-7 {
+      background: url('assets/images/backgrounds/chapter7-complete.png') center/cover no-repeat;
     }
 
     .battle-container {
@@ -1600,6 +1619,34 @@
           { speaker: 'פיפ', text: 'תשמעי! ההדים אומרים את האמת עכשיו! הם מראים את הדרך הנכונה!' },
           { speaker: 'מספר', text: 'בלב הנווה, בתוך באר עתיקה, גביש ההד הזהוב נצץ באור חם.' },
           { speaker: 'פיפ', text: 'שישה גבישים! עוד ארבעה ונציל את הממלכה! קדימה להרים המושלגים!' }
+        ]
+      },
+      chapter7: {
+        title: 'פרק 7: פסגות הקרח',
+        intro: [
+          { speaker: 'מספר', text: 'אריאל ופיפ עולים אל פסגות הקרח - הרים מכוסי שלג עם ארמונות קרח נוצצים.' },
+          { speaker: 'פיפ', text: 'בררר! קר פה! מאז שהגביש נעלם, הכל קפוא מדי!' },
+          { speaker: 'מספר', text: 'יצורי השלג רועדים מקור. הם צריכים חום קסום!' },
+          { speaker: 'פיפ', text: 'כל תרגיל כפל שתפתרי ייצור מדורה קסומה שתחמם אותם!' },
+          { speaker: 'מספר', text: 'אורות הצפון רוקדים בשמיים כשאריאל מתחילה לטפס.' }
+        ],
+        encounters: [
+          { monster: 'shduon-sheleg', name: 'שדון שלג', intro: 'שדון שלג קטן רועד מקור ליד מערה קפואה!' },
+          { monster: 'dov-kerach', name: 'דוב קרח', intro: 'דוב קרח פרוותי יושב ורועד. הוא צריך חיבוק חם!' },
+          { monster: 'pingvin-zoef', name: 'פינגווין זועף', intro: 'פינגווין זועף חוסם את הדרך. הוא נראה ממש ממורמר!' },
+          { monster: 'shduon-sheleg', name: 'שדון שלג', intro: 'עוד שדון שלג! הפעם הוא תקוע על צוק קפוא!' },
+          { monster: 'dov-kerach', name: 'דוב קרח', intro: 'משפחת דובי קרח צריכה עזרה להתחמם!' },
+          { monster: 'pingvin-zoef', name: 'פינגווין זועף', intro: 'שני פינגווינים זועפים מתווכחים מי קר יותר!' },
+          { monster: 'shduon-sheleg', name: 'שדון שלג', intro: 'שדוני שלג רוקדים סביב גבישי קרח!' },
+          { monster: 'dov-kerach', name: 'דוב קרח', intro: 'דוב קרח ענק אבל ממש חמוד שומר על גשר קרח!' },
+          { monster: 'pingvin-zoef', name: 'פינגווין זועף', intro: 'הפינגווין הזועף ביותר שומר על שער ארמון הקרח!' },
+          { monster: 'shduon-sheleg', name: 'שדון שלג', intro: 'שדון השלג האחרון שומר על גביש הקרח בפסגה!' }
+        ],
+        outro: [
+          { speaker: 'מספר', text: 'גביש הקרח מתחיל לזהור באור לבן-כחול יפהפה!' },
+          { speaker: 'פיפ', text: 'עשית את זה! החום חזר! תראי איך כולם מחייכים!' },
+          { speaker: 'מספר', text: 'יצורי הקרח כבר לא רועדים. הם רוקדים בשמחה בשלג!' },
+          { speaker: 'פיפ', text: 'מהפסגה אפשר לראות את ביצת הדמדומים למטה. זה היעד הבא שלנו!' }
         ]
       },
       encouragement: [
