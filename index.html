@@ -99,6 +99,12 @@
       --chapter-8-accent: #6D28D9;
       --chapter-8-bg: #EDE9FE;
 
+      /* Chapter 9: Starlight Bridge */
+      --chapter-9-primary: #1E3A5F;
+      --chapter-9-secondary: #4A90D9;
+      --chapter-9-accent: #C0C0C0;
+      --chapter-9-bg: #0D1B2A;
+
       /* Font Sizes */
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -449,6 +455,19 @@
 
     #complete-screen.chapter-8 {
       background: url('assets/images/backgrounds/chapter8-complete.png') center/cover no-repeat;
+    }
+
+    /* Chapter 9: Starlight Bridge */
+    #story-screen.chapter-9 {
+      background: url('assets/images/backgrounds/chapter9-starlight.png') center center / cover no-repeat;
+    }
+
+    #battle-screen.chapter-9 {
+      background: url('assets/images/backgrounds/chapter9-battle.png') center/cover no-repeat;
+    }
+
+    #complete-screen.chapter-9 {
+      background: url('assets/images/backgrounds/chapter9-complete.png') center/cover no-repeat;
     }
 
     .battle-container {
@@ -1694,6 +1713,34 @@
           { speaker: 'פיפ', text: 'תראי! גביש הדמדומים! הוא זוהר בסגול וורוד כמו השקיעה הכי יפה!' },
           { speaker: 'מספר', text: 'יצורי הביצה התחילו לרקוד בשמחה. הם כבר לא מבולבלים - הם מראים את הדרך!' },
           { speaker: 'פיפ', text: 'שמונה גבישים! רק עוד שניים! ותראי - הערפל נפתח וחושף גשר מדהים של כוכבים!' }
+        ]
+      },
+      chapter9: {
+        title: 'פרק 9: גשר הכוכבים',
+        intro: [
+          { speaker: 'מספר', text: 'אריאל ופיפ יצאו מביצת הדמדומים וראו לפניהם משהו מדהים - גשר עשוי מאור כוכבים!' },
+          { speaker: 'פיפ', text: 'וואו! גשר הכוכבים! הוא מוביל דרך החלל עצמו אל ארמון הגביש!' },
+          { speaker: 'מספר', text: 'מתחת לרגליהם נראתה כל הממלכה כמו מפה זוהרת. הכוכבים רקדו סביבם.' },
+          { speaker: 'פיפ', text: 'אבל הסתכלי - יש פערים בגשר! הכישוף של בלגן שבר אותו. יצורי הכוכבים אבודים!' },
+          { speaker: 'מספר', text: 'כדי לחצות את הגשר ולהגיע לארמון, אריאל תצטרך לפתור חידות כפל ולמלא את הפערים באור.' }
+        ],
+        encounters: [
+          { monster: 'constellation-animal', name: 'חיית כוכבים', intro: 'חיה קטנה עשויה מכוכבים מחוברים ריחפה לפני אריאל, הקווים שלה מהבהבים בבלבול.' },
+          { monster: 'meteor-mouse', name: 'עכבר מטאור', intro: 'עכבר קטן וזוהר עם זנב של אש דהר על הגשר, לא יודע לאן הוא רץ!' },
+          { monster: 'comet-cat', name: 'חתול שביט', intro: 'חתול יפהפה עם זנב ארוך של קרח ואור צף לאיטה, מחפש את דרכו הביתה.' },
+          { monster: 'constellation-animal', name: 'חיית כוכבים', intro: 'עוד חיית כוכבים! הפעם בצורת ארנב, הכוכבים שלה מתנתקים ומתחברים בבלבול.' },
+          { monster: 'meteor-mouse', name: 'עכבר מטאור', intro: 'משפחת עכברי מטאור רצה במעגלים על הגשר, משאירים שבילי אש!' },
+          { monster: 'comet-cat', name: 'חתול שביט', intro: 'חתול שביט גדול יותר ישב על פער בגשר, מהרהר בכוכבים.' },
+          { monster: 'constellation-animal', name: 'חיית כוכבים', intro: 'חיית כוכבים בצורת דוב רקדה בין הגלקסיות, מנסה למצוא את הדרך.' },
+          { monster: 'meteor-mouse', name: 'עכבר מטאור', intro: 'עכבר מטאור בודד ישב על כוכב קטן, מחכה שמישהו יעזור לו.' },
+          { monster: 'comet-cat', name: 'חתול שביט', intro: 'שלושה חתולי שביט שחקו יחד, זנבותיהם משתלבים באור יפהפה.' },
+          { monster: 'constellation-animal', name: 'חיית כוכבים', intro: 'חיית הכוכבים האחרונה שמרה על גביש הכוכבים שרחף כמו ירח קטן!' }
+        ],
+        outro: [
+          { speaker: 'מספר', text: 'כשאריאל פתרה את החידה האחרונה, כל הפערים בגשר התמלאו באור כוכבים!' },
+          { speaker: 'פיפ', text: 'תראי! גביש הכוכבים! הוא זוהר בכסף-לבן כמו כוכב הכי בוהק בשמיים!' },
+          { speaker: 'מספר', text: 'יצורי הכוכבים התחילו לרקוד סביב אריאל, יוצרים מצעד של אור שליווה אותה.' },
+          { speaker: 'פיפ', text: 'תשעה גבישים! רק עוד אחד! תראי - ארמון הגביש ממש לפנינו! בלגן מחכה שם!' }
         ]
       },
       encouragement: [
