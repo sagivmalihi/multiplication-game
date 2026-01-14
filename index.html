@@ -2221,9 +2221,15 @@
 
               if (GameState.matchPairsState.matched === 4) {  // 4 pairs matched = win
                 TimerSystem.stop();
-                const damage = CombatSystem.calculateDamage(TimerSystem.getElapsed(), 45000);
-                CombatSystem.applyDamage(damage * 3); // Bonus for completing all pairs
+                const isChapter10 = GameState.chapter === 10;
+                const maxTime = isChapter10 ? 60000 : 45000;
+                const damage = CombatSystem.calculateDamage(TimerSystem.getElapsed(), maxTime);
                 this.showSpeedBonus(damage);
+
+                // Match pairs completion always defeats the monster (all-or-nothing minigame)
+                GameState.monsterHP = 0;
+                CombatSystem.updateMonsterHP();
+                Events.emit('monster_defeated');
               }
             }, 300);
           } else {
