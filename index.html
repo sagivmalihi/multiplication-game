@@ -1245,6 +1245,69 @@
         this.bgmElements.battleChapter3 = new Audio('assets/audio/music/chapter3-battle.mp3');
         this.bgmElements.battleChapter3.loop = true;
         this.bgmElements.battleChapter3.volume = this.settings.musicVolume;
+
+        // Chapter 1: Emerald Meadows
+        this.bgmElements.storyChapter1 = new Audio('assets/audio/music/chapter1-story.mp3');
+        this.bgmElements.storyChapter1.loop = true;
+        this.bgmElements.storyChapter1.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter1 = new Audio('assets/audio/music/chapter1-battle.mp3');
+        this.bgmElements.battleChapter1.loop = true;
+        this.bgmElements.battleChapter1.volume = this.settings.musicVolume;
+
+        // Chapter 4: Floating Gardens
+        this.bgmElements.storyChapter4 = new Audio('assets/audio/music/chapter4-story.mp3');
+        this.bgmElements.storyChapter4.loop = true;
+        this.bgmElements.storyChapter4.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter4 = new Audio('assets/audio/music/chapter4-battle.mp3');
+        this.bgmElements.battleChapter4.loop = true;
+        this.bgmElements.battleChapter4.volume = this.settings.musicVolume;
+
+        // Chapter 5: Rainbow Falls
+        this.bgmElements.storyChapter5 = new Audio('assets/audio/music/chapter5-story.mp3');
+        this.bgmElements.storyChapter5.loop = true;
+        this.bgmElements.storyChapter5.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter5 = new Audio('assets/audio/music/chapter5-battle.mp3');
+        this.bgmElements.battleChapter5.loop = true;
+        this.bgmElements.battleChapter5.volume = this.settings.musicVolume;
+
+        // Chapter 6: Desert of Echoes
+        this.bgmElements.storyChapter6 = new Audio('assets/audio/music/chapter6-story.mp3');
+        this.bgmElements.storyChapter6.loop = true;
+        this.bgmElements.storyChapter6.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter6 = new Audio('assets/audio/music/chapter6-battle.mp3');
+        this.bgmElements.battleChapter6.loop = true;
+        this.bgmElements.battleChapter6.volume = this.settings.musicVolume;
+
+        // Chapter 7: Frozen Peaks
+        this.bgmElements.storyChapter7 = new Audio('assets/audio/music/chapter7-story.mp3');
+        this.bgmElements.storyChapter7.loop = true;
+        this.bgmElements.storyChapter7.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter7 = new Audio('assets/audio/music/chapter7-battle.mp3');
+        this.bgmElements.battleChapter7.loop = true;
+        this.bgmElements.battleChapter7.volume = this.settings.musicVolume;
+
+        // Chapter 8: Twilight Marsh
+        this.bgmElements.storyChapter8 = new Audio('assets/audio/music/chapter8-story.mp3');
+        this.bgmElements.storyChapter8.loop = true;
+        this.bgmElements.storyChapter8.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter8 = new Audio('assets/audio/music/chapter8-battle.mp3');
+        this.bgmElements.battleChapter8.loop = true;
+        this.bgmElements.battleChapter8.volume = this.settings.musicVolume;
+
+        // Chapter 9: Starlight Bridge
+        this.bgmElements.storyChapter9 = new Audio('assets/audio/music/chapter9-story.mp3');
+        this.bgmElements.storyChapter9.loop = true;
+        this.bgmElements.storyChapter9.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter9 = new Audio('assets/audio/music/chapter9-battle.mp3');
+        this.bgmElements.battleChapter9.loop = true;
+        this.bgmElements.battleChapter9.volume = this.settings.musicVolume;
       },
 
       playBGM(track, chapter = 1) {
@@ -1255,7 +1318,7 @@
 
         // Determine which track to play (chapter-specific if available)
         let audioKey = track;
-        if (chapter > 1) {
+        if (chapter >= 1) {
           const chapterKey = `${track}Chapter${chapter}`;
           if (this.bgmElements[chapterKey]) {
             audioKey = chapterKey;

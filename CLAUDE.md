@@ -2,7 +2,7 @@
 
 ## Project Status
 
-**Current State**: Chapters 1-8 Complete (AI-generated assets)
+**Current State**: Chapters 1-9 Complete (AI-generated assets)
 **Live URL**: https://sagivmalihi.github.io/multiplication-game/
 **Last Updated**: January 2025
 
@@ -15,6 +15,7 @@
 - [x] Chapter 6: מדבר ההדים (Desert of Echoes) - 10 encounters
 - [x] Chapter 7: פסגות הקרח (Frozen Peaks) - 10 encounters
 - [x] Chapter 8: ביצת הדמדומים (Twilight Marsh) - 10 encounters
+- [x] Chapter 9: גשר הכוכבים (Starlight Bridge) - 10 encounters
 - [x] All 3 minigame types (Timed Selection, Fill Blank, Match Pairs)
 - [x] Combat system with speed-based damage (1x/2x/3x multipliers)
 - [x] Procedural 8-bit audio via Web Audio API + external BGM
@@ -28,7 +29,7 @@
 - [x] Chapter-specific backgrounds (story, battle, complete screens)
 
 ### What's Remaining (Future Chapters)
-- [ ] Chapters 9-10 (storyline exists in storyline.md)
+- [ ] Chapter 10 (storyline exists in storyline.md)
 - [ ] Boss battle with Balagan (Chapter 10)
 - [ ] Statistics tracking
 - [ ] Difficulty progression (tables 1-5 → 1-10 → 1-20)
@@ -138,7 +139,8 @@ When extending the game, use these specialized sub-agents:
 ### `audio-designer`
 **Use for**: Web Audio API sounds, music, SFX, external audio files
 **Tools**: Read, Glob, Bash
-**When**: Adding new sound effects, background music, or sourcing audio files
+**When**: Adding new sound effects, background music, or generating audio with ElevenLabs
+**Note**: This project has a paid ElevenLabs account. ALWAYS use `generate_audio.py` to create chapter-specific music (story + battle BGM) for new chapters.
 
 ### `story-writer`
 **Use for**: Hebrew narrative, dialogue, character text
@@ -162,20 +164,20 @@ This is a comprehensive checklist of all assets and code changes needed to add a
 | | Chapter complete | `assets/images/backgrounds/chapter{N}-complete.png` | Yes | Celebration scene with crystal |
 | | Monsters (3+) | `assets/images/monsters/{name}.png` | Yes | Transparent backgrounds |
 | | Victory background | `assets/images/backgrounds/victory.png` | No | Shared (per-monster victory) |
-| **Audio** | Story BGM | `assets/audio/music/chapter{N}-story.mp3` | Optional | Can reuse `story-bgm.mp3` |
-| | Battle BGM | `assets/audio/music/chapter{N}-battle.mp3` | Optional | Can reuse `battle-bgm.mp3` |
+| **Audio** | Story BGM | `assets/audio/music/chapter{N}-story.mp3` | Yes | Generate with ElevenLabs |
+| | Battle BGM | `assets/audio/music/chapter{N}-battle.mp3` | Yes | Generate with ElevenLabs |
 | | Victory jingle | `assets/audio/sfx/victory-jingle.mp3` | No | Shared |
 | | Chapter complete SFX | `assets/audio/sfx/chapter-complete.mp3` | No | Shared |
 
 #### Required Assets Per Chapter Summary
 
-Each new chapter needs **5 required image assets**:
+Each new chapter needs **5 required image assets + 2 audio assets**:
 1. `chapter{N}-{name}.png` - Story/dialogue background
 2. `chapter{N}-battle.png` - Battle arena background
 3. `chapter{N}-complete.png` - Chapter completion celebration
 4. 3+ monster PNGs with transparent backgrounds
-
-Audio is optional - chapters can reuse default `story-bgm.mp3` and `battle-bgm.mp3`.
+5. `chapter{N}-story.mp3` - Chapter-specific story BGM (generate with ElevenLabs)
+6. `chapter{N}-battle.mp3` - Chapter-specific battle BGM (generate with ElevenLabs)
 
 #### Image Generation Commands
 
@@ -424,8 +426,9 @@ git push origin main
 - If dependency issues on Python 3.12, install with `--no-deps` then add: `onnxruntime pillow pooch numpy pymatting scipy opencv-python-headless scikit-image jsonschema tqdm`
 
 ### AI Audio Generation (ElevenLabs)
-- **Music API requires PAID plan** (free users get 402 error)
-- SFX generation works on free tier
+- **This project has a PAID ElevenLabs account** - always use it for audio generation
+- Music API and SFX generation both work with paid plan
+- **ALWAYS generate chapter-specific audio** for new chapters (story + battle BGM)
 - Store prompts in `assets/audio/PROMPTS.md` for reproducibility
 
 ### Game Balance (for 7-year-old)
