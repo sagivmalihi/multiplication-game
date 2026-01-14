@@ -2,7 +2,7 @@
 
 ## Project Status
 
-**Current State**: Chapters 1-6 Complete (AI-generated assets)
+**Current State**: Chapters 1-8 Complete (AI-generated assets)
 **Live URL**: https://sagivmalihi.github.io/multiplication-game/
 **Last Updated**: January 2025
 
@@ -13,6 +13,8 @@
 - [x] Chapter 4: הגנים המרחפים (Floating Gardens) - 10 encounters
 - [x] Chapter 5: מפלי הקשת (Rainbow Falls) - 10 encounters
 - [x] Chapter 6: מדבר ההדים (Desert of Echoes) - 10 encounters
+- [x] Chapter 7: פסגות הקרח (Frozen Peaks) - 10 encounters
+- [x] Chapter 8: ביצת הדמדומים (Twilight Marsh) - 10 encounters
 - [x] All 3 minigame types (Timed Selection, Fill Blank, Match Pairs)
 - [x] Combat system with speed-based damage (1x/2x/3x multipliers)
 - [x] Procedural 8-bit audio via Web Audio API + external BGM
@@ -26,7 +28,7 @@
 - [x] Chapter-specific backgrounds (story, battle, complete screens)
 
 ### What's Remaining (Future Chapters)
-- [ ] Chapters 7-10 (storyline exists in storyline.md)
+- [ ] Chapters 9-10 (storyline exists in storyline.md)
 - [ ] Boss battle with Balagan (Chapter 10)
 - [ ] Statistics tracking
 - [ ] Difficulty progression (tables 1-5 → 1-10 → 1-20)

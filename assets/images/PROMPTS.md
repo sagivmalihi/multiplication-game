@@ -306,3 +306,47 @@ Fantasy game battle arena in a magical desert canyon. Circular sandy clearing su
 ```
 Fantasy game chapter complete celebration background. Magical desert oasis at golden hour with palm trees and sparkling water. Magical golden sparkles and confetti in the air. Gold crystal glowing in center with rays of warm light emanating outward. Triumphant joyful atmosphere. Warm orange sunset colors. Anime style. Wide aspect ratio. No characters.
 ```
+
+## Chapter 8: Twilight Marsh
+
+### or-toeh.png (Will-o-Wisp)
+**Generated**: January 2025
+
+```
+Cute mischievous will-o-wisp monster anime chibi style. Glowing purple-blue orb with tiny cute face, spiral confused eyes, small wispy flames around it. Pokemon-like. Child-friendly. Transparent background.
+```
+
+### tzfardea-arafel.png (Fog Frog)
+**Generated**: January 2025
+
+```
+Cute confused fog frog monster anime chibi style. Purple frog with misty aura swirling around it, big eyes with spiral confusion, sitting on small lily pad. Glowing spots on skin. Pokemon-like. Child-friendly. Transparent background.
+```
+
+### drakon-bitza.png (Marsh Dragon)
+**Generated**: January 2025
+
+```
+Cute playful tiny marsh dragon monster anime chibi style. Small purple-blue dragon with tiny wings, big confused spiral eyes, friendly smile. Sitting in swamp water. Not scary at all. Pokemon-like. Child-friendly. Transparent background.
+```
+
+### chapter8-marsh.png (Twilight Marsh - Story/Dialog)
+**Generated**: January 2025
+
+```
+Fantasy game background of twilight marsh swampland. Purple-pink mist, twisted dark trees, glowing mushrooms, fireflies, murky waters with lily pads. Mysterious but beautiful atmosphere. Anime style landscape for children's game. Purple and dark blue color palette. No characters. Wide aspect ratio.
+```
+
+### chapter8-battle.png (Twilight Marsh Battle Arena)
+**Generated**: January 2025
+
+```
+Fantasy game battle arena in twilight marsh. Circular clearing surrounded by misty purple swamp waters. Glowing runes on floating lily pads. Twisted trees with hanging moss. Purple-pink magical mist. Dramatic lighting with fireflies. Anime style. Action-ready. Wide aspect ratio. No characters.
+```
+
+### chapter8-complete.png (Twilight Marsh Chapter Complete)
+**Generated**: January 2025
+
+```
+Fantasy game chapter complete celebration background. Twilight marsh at golden hour with magical sparkles and purple-pink mist clearing. Glowing purple twilight crystal on large lily pad in center with rays of light. Fireflies and confetti. Triumphant joyful atmosphere. Anime style. Wide aspect ratio. No characters.
+```
