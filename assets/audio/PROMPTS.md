@@ -234,3 +234,23 @@ Ethereal cosmic fantasy music for starlight bridge in space. Shimmering stardust
 ```
 Energetic cosmic battle music for starlight bridge. Exciting but child-friendly. 150 BPM. Epic space adventure. Shimmering and building. Seamless loop.
 ```
+
+## Chapter 10: Crystal Palace
+
+### chapter10-story.mp3
+**Type**: Music
+**Duration**: 60 seconds
+**Generated**: January 2025
+
+```
+Grand majestic fantasy palace music. Royal fanfare mixed with mysterious atmosphere. Golden halls, crystal spires, magical wonder. Orchestral with harp, strings, and soft bells. Child-friendly. Slightly mysterious undertone. Seamless loop.
+```
+
+### chapter10-battle.mp3
+**Type**: Music
+**Duration**: 60 seconds
+**Generated**: January 2025
+
+```
+Epic climactic boss battle fantasy music. Dramatic but hopeful. Final confrontation with redemption theme. Orchestral with rising crescendo, emotional strings. Not scary, triumphant undertone. For 7 year old child. Seamless loop.
+```

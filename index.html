@@ -105,6 +105,12 @@
       --chapter-9-accent: #C0C0C0;
       --chapter-9-bg: #0D1B2A;
 
+      /* Chapter 10: Crystal Palace */
+      --chapter-10-primary: #FFD700;
+      --chapter-10-secondary: #FFFAF0;
+      --chapter-10-accent: #DAA520;
+      --chapter-10-bg: #FFF8DC;
+
       /* Font Sizes */
       --text-xs: 0.75rem;
       --text-sm: 0.875rem;
@@ -468,6 +474,19 @@
 
     #complete-screen.chapter-9 {
       background: url('assets/images/backgrounds/chapter9-complete.png') center/cover no-repeat;
+    }
+
+    /* Chapter 10: Crystal Palace */
+    #story-screen.chapter-10 {
+      background: url('assets/images/backgrounds/chapter10-palace.png') center center / cover no-repeat;
+    }
+
+    #battle-screen.chapter-10 {
+      background: url('assets/images/backgrounds/chapter10-battle.png') center/cover no-repeat;
+    }
+
+    #complete-screen.chapter-10 {
+      background: url('assets/images/backgrounds/chapter10-complete.png') center/cover no-repeat;
     }
 
     .battle-container {
@@ -1308,6 +1327,15 @@
         this.bgmElements.battleChapter9 = new Audio('assets/audio/music/chapter9-battle.mp3');
         this.bgmElements.battleChapter9.loop = true;
         this.bgmElements.battleChapter9.volume = this.settings.musicVolume;
+
+        // Chapter 10: Crystal Palace
+        this.bgmElements.storyChapter10 = new Audio('assets/audio/music/chapter10-story.mp3');
+        this.bgmElements.storyChapter10.loop = true;
+        this.bgmElements.storyChapter10.volume = this.settings.musicVolume;
+
+        this.bgmElements.battleChapter10 = new Audio('assets/audio/music/chapter10-battle.mp3');
+        this.bgmElements.battleChapter10.loop = true;
+        this.bgmElements.battleChapter10.volume = this.settings.musicVolume;
       },
 
       playBGM(track, chapter = 1) {
@@ -1806,6 +1834,40 @@
           { speaker: 'פיפ', text: 'תשעה גבישים! רק עוד אחד! תראי - ארמון הגביש ממש לפנינו! בלגן מחכה שם!' }
         ]
       },
+      chapter10: {
+        title: 'פרק 10: ארמון הגביש',
+        intro: [
+          { speaker: 'מספר', text: 'אריאל עלתה במדרגות השיש הגדולות וראתה את ארמון הגביש לפניה - בית אבותיה המלכותי!' },
+          { speaker: 'פיפ', text: 'הגענו! ארמון הגביש! אבל הסתכלי - בלגן גרם לכל דבר להתערבל!' },
+          { speaker: 'מספר', text: 'החדרים היו מבולבלים, המדרגות הובילו לכיוונים מוזרים, ורוחות הארמון איבדו את הדרך.' },
+          { speaker: 'פיפ', text: 'זה הרגע הגדול, אריאל! הגביש האחרון מחכה, ובלגן מחכה בכס המלכות!' }
+        ],
+        encounters: [
+          { monster: 'royal-guard-golem', name: 'גולם משמר מלכותי', intro: 'גולם אבן ענק שומר על הכניסה. הוא שכח על מי הוא מגן!' },
+          { monster: 'palace-spirit', name: 'רוח ארמון מבולבלת', intro: 'רוח קדומה של הארמון צפה בערפל של בלבול.' },
+          { monster: 'knight-statue', name: 'פסל אביר מעורבל', intro: 'פסל של אביר עתיק התעורר לחיים, אבל הוא מבולבל לגמרי!' },
+          { monster: 'royal-guard-golem', name: 'גולם משמר מלכותי', intro: 'עוד גולם משמר! הוא נלחם כדי להגן, אבל לא זוכר על מה.' },
+          { monster: 'palace-spirit', name: 'רוח ארמון מבולבלת', intro: 'רוח נוספת של הארמון מנסה לבלבל את הדרך.' },
+          { monster: 'knight-statue', name: 'פסל אביר מעורבל', intro: 'פסל נוסף של אביר קדום קם מהקיר!' },
+          { monster: 'royal-guard-golem', name: 'גולם משמר מלכותי', intro: 'שלושה גולמים עומדים בשער הגדול לאולם המלכות.' },
+          { monster: 'palace-spirit', name: 'רוח ארמון מבולבלת', intro: 'רוחות הארמון רוקדות במעגל של כאוס.' },
+          { monster: 'knight-statue', name: 'פסל אביר מעורבל', intro: 'הפסלים האחרונים של האבירים הקדומים מחכים לעזרה.' },
+          { monster: 'balagan', name: 'בלגן הקוסם', intro: 'בלגן עצמו עומד ליד כס המלכות. הוא נראה עצוב, לא זועף.' }
+        ],
+        outro: [
+          { speaker: 'מספר', text: 'אריאל נכנסה לאולם כס המלכות. בלגן עמד שם, מוקף בערפל של בלבול.' },
+          { speaker: 'בלגן', text: 'הגעת עד לכאן? אף אחד לא היה אמור להצליח!' },
+          { speaker: 'אריאל', text: 'למה עשית את זה, בלגן? למה פיזרת את הגבישים?' },
+          { speaker: 'בלגן', text: 'כי... כי אני מעולם לא הצלחתי בכפל. כולם צחקו עליי.' },
+          { speaker: 'אריאל', text: 'אבל זה לא מאוחר מדי ללמוד! אני יכולה ללמד אותך!' },
+          { speaker: 'בלגן', text: 'את... תלמדי אותי? אחרי כל מה שעשיתי?' },
+          { speaker: 'אריאל', text: 'כל אחד יכול ללמוד. זה מה שגיליתי במסע שלי.' },
+          { speaker: 'מספר', text: 'בלגן ניסה תרגיל כפל פשוט בעזרתה של אריאל. כשהוא קיבל תשובה נכונה, עיניו נפערו בהפתעה.' },
+          { speaker: 'מספר', text: 'גלימת הכאוס שלו הפכה לגלימה מסודרת, וגביש הכתר הזהוב ירד לידיה של אריאל!' },
+          { speaker: 'פיפ', text: 'כל הכבוד, אריאל! הצלחת להשלים את כל ההרפתקה! את אלופת הכפל האמיתית!' },
+          { speaker: 'מספר', text: 'עשרת הגבישים התחילו להקיף את הארמון באור קשת, והממלכה כולה חגגה את ניצחונה של אריאל!' }
+        ]
+      },
       encouragement: [
         'נסי שוב, את יכולה!',
         'כמעט! עוד פעם!',
@@ -1831,9 +1893,9 @@
     // RIDDLE GENERATOR
     // ============================================
     const RiddleGenerator = {
-      // Difficulty progression: Ch1-3: tables 2-5, Ch4-6: tables 2-7, Ch7-9: tables 2-10
+      // Difficulty progression: Ch1-3: tables 2-5, Ch4-6: tables 2-7, Ch7-9: tables 2-10, Ch10: tables 1-12
       generate(chapter = 1) {
-        const maxTable = Math.min(10, 2 + chapter);
+        const maxTable = chapter === 10 ? 12 : Math.min(10, 2 + chapter);
         const a = Math.floor(Math.random() * maxTable) + 1;
         const b = Math.floor(Math.random() * 10) + 1;
         const missingFirst = Math.random() > 0.5;
@@ -2068,7 +2130,8 @@
           container.appendChild(btn);
         });
 
-        TimerSystem.start(10000);
+        // Chapter 10 gets more time (15s instead of 10s)
+        TimerSystem.start(GameState.chapter === 10 ? 15000 : 10000);
       },
 
       startFillBlank() {
@@ -2081,7 +2144,8 @@
         input.value = '';
         input.focus();
 
-        TimerSystem.start(15000);
+        // Chapter 10 gets more time (20s instead of 15s)
+        TimerSystem.start(GameState.chapter === 10 ? 20000 : 15000);
       },
 
       startMatchPairs() {
@@ -2105,7 +2169,8 @@
           grid.appendChild(btn);
         });
 
-        TimerSystem.start(45000);
+        // Chapter 10 gets more time (60s instead of 45s)
+        TimerSystem.start(GameState.chapter === 10 ? 60000 : 45000);
       },
 
       checkSelectionAnswer(answer, btn) {
@@ -2179,7 +2244,11 @@
         element.classList?.add('answer-correct');
 
         const elapsed = TimerSystem.getElapsed();
-        const maxTime = GameState.minigameType === 'fillBlank' ? 15000 : 10000;
+        // Chapter 10 has extended timers
+        const isChapter10 = GameState.chapter === 10;
+        const maxTime = GameState.minigameType === 'fillBlank'
+          ? (isChapter10 ? 20000 : 15000)
+          : (isChapter10 ? 15000 : 10000);
         const damage = CombatSystem.calculateDamage(elapsed, maxTime);
 
         AudioManager.playCorrectAnswer(damage);
@@ -2574,9 +2643,18 @@
         } else {
           // Final chapter complete - game finished!
           SaveManager.clearSave();
+
+          // Special message for completing the entire game
+          document.querySelector('.complete-message').textContent = 'כל הכבוד! סיימת את כל ההרפתקה!';
+          document.querySelector('.complete-message').insertAdjacentHTML('afterend',
+            '<p class="final-victory-text" style="color: var(--gold); font-size: 1.5rem; margin-top: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">את אלופת הכפל האמיתית! 🏆</p>');
+
           document.getElementById('play-again-btn').textContent = 'שחקי שוב מההתחלה';
           document.getElementById('play-again-btn').onclick = () => {
             AudioManager.playButtonClick();
+            // Remove the final victory text when restarting
+            const finalText = document.querySelector('.final-victory-text');
+            if (finalText) finalText.remove();
             this.startNewGame();
           };
         }
