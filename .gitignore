@@ -1,3 +1,8 @@
 .claude/settings.local.json
 .env
 output.png
+
+# Node/Playwright
+node_modules/
+playwright-report/
+test-results/

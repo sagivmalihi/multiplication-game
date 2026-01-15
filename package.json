@@ -1,0 +1,31 @@
+{
+  "name": "multiplication-game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:e2e": "playwright test tests/e2e/",
+    "test:core": "playwright test tests/e2e/core-flow.spec.ts",
+    "test:full": "playwright test tests/e2e/full-game.spec.ts",
+    "report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sagivmalihi/multiplication-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sagivmalihi/multiplication-game/issues"
+  },
+  "homepage": "https://github.com/sagivmalihi/multiplication-game#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "typescript": "^5.9.3"
+  }
+}
