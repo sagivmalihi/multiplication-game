@@ -1349,6 +1349,9 @@
       },
 
       playBGM(track, chapter = 1) {
+        // Store what track should be playing (even if music is disabled)
+        this.currentMusic = { track, chapter };
+
         if (!this.settings.musicEnabled) return;
 
         // Stop any existing music first
@@ -1543,6 +1546,9 @@
         // Stop or resume BGM based on toggle
         if (!this.settings.musicEnabled) {
           this.stopBGM();
+        } else if (this.currentMusic) {
+          // Resume the track that was playing
+          this.playBGM(this.currentMusic.track, this.currentMusic.chapter);
         }
       },
 
