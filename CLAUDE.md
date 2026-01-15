@@ -108,6 +108,8 @@ A web game hosted on GitHub Pages featuring a retro-style fantasy adventure desi
 | `design-system.md` | Visual design, colors, typography, sprites |
 | `storyline.md` | Full story for all 10 chapters |
 | `audio-design.md` | Audio philosophy and Web Audio API specs |
+| `tests/` | Playwright E2E tests (core-flow, save-load, full-game) |
+| `playwright.config.ts` | Playwright test configuration |
 
 ### Asset Folder Structure
 ```
@@ -393,6 +395,29 @@ open index.html
 # or
 python3 -m http.server 8080
 # then visit http://localhost:8080
+```
+
+### Run Tests (Playwright E2E)
+```bash
+# Install dependencies (first time only)
+npm install
+npx playwright install chromium
+
+# Run all tests
+npm test
+
+# Run specific test suites
+npm run test:core      # Core flow tests (~45s)
+npm run test:e2e       # All E2E tests
+npm run test:full      # Full 100-encounter playthrough (~5min)
+
+# Interactive/debug modes
+npm run test:ui        # Playwright UI mode
+npm run test:headed    # Watch tests run in browser
+npm run test:debug     # Debug mode with inspector
+
+# View test report
+npm run report
 ```
 
 ### Deploy to GitHub Pages
