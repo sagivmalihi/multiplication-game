@@ -2423,6 +2423,16 @@
           GameState.score = save.score;
           GameState.playerHP = 100;
 
+          // Update chapter title and screen classes for the loaded chapter
+          const chapterKey = `chapter${GameState.chapter}`;
+          const chapter = StoryContent[chapterKey];
+          if (chapter) {
+            document.getElementById('chapter-title').textContent = chapter.title;
+            document.getElementById('story-screen').className = `screen chapter-${GameState.chapter}`;
+            document.getElementById('battle-screen').className = `screen chapter-${GameState.chapter}`;
+            document.getElementById('victory-screen').className = `screen chapter-${GameState.chapter}`;
+          }
+
           this.storyPhase = 'encounter';
           this.startEncounter();
           AudioManager.playBGM('story', GameState.chapter);

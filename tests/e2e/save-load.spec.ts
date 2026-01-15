@@ -101,6 +101,28 @@ test.describe('Save/Load System', () => {
     expect(state.encounter).toBe(7);
   });
 
+  test('Continue game shows correct chapter title and background', async ({ game, page }) => {
+    // Set up save data for chapter 3
+    await game.setSaveData({
+      chapter: 3,
+      encounter: 2,
+      score: 500,
+      timestamp: Date.now(),
+    });
+
+    await page.reload();
+    await page.waitForSelector(selectors.screens.title);
+    await game.continueGame();
+
+    // Verify chapter title is correct (not stuck on chapter 1)
+    const chapterTitle = await page.locator(selectors.story.chapterTitle).textContent();
+    expect(chapterTitle).toBe('פרק 3: מערות הבדולח');
+
+    // Verify story screen has correct chapter class for background
+    const storyScreen = page.locator(selectors.screens.story);
+    await expect(storyScreen).toHaveClass(/chapter-3/);
+  });
+
   test('Score field is saved with progress', async ({ game, page }) => {
     await game.startNewGame();
 
