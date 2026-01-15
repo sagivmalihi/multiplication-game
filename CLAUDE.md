@@ -27,7 +27,7 @@
 - [x] 6 game screens (Title, Story, Battle, Victory, Retry, Complete)
 - [x] Title screen with background image and auto-playing music
 - [x] Multi-chapter progression system
-- [x] Chapter-specific backgrounds (story, battle, complete screens)
+- [x] Chapter-specific backgrounds (story, battle, victory, complete screens)
 - [x] Final chapter extended timers (15s/20s/60s) for harder tables 1-12
 - [x] Game completion celebration with special victory message
 
@@ -164,7 +164,7 @@ This is a comprehensive checklist of all assets and code changes needed to add a
 | | Battle arena | `assets/images/backgrounds/chapter{N}-battle.png` | Yes | Dramatic battle scene |
 | | Chapter complete | `assets/images/backgrounds/chapter{N}-complete.png` | Yes | Celebration scene with crystal |
 | | Monsters (3+) | `assets/images/monsters/{name}.png` | Yes | Transparent backgrounds |
-| | Victory background | `assets/images/backgrounds/victory.png` | No | Shared (per-monster victory) |
+| | Victory background | `assets/images/backgrounds/chapter{N}-victory.png` | Yes | Chapter-specific celebration |
 | **Audio** | Story BGM | `assets/audio/music/chapter{N}-story.mp3` | Yes | Generate with ElevenLabs |
 | | Battle BGM | `assets/audio/music/chapter{N}-battle.mp3` | Yes | Generate with ElevenLabs |
 | | Victory jingle | `assets/audio/sfx/victory-jingle.mp3` | No | Shared |
@@ -172,13 +172,14 @@ This is a comprehensive checklist of all assets and code changes needed to add a
 
 #### Required Assets Per Chapter Summary
 
-Each new chapter needs **5 required image assets + 2 audio assets**:
+Each new chapter needs **6 required image assets + 2 audio assets**:
 1. `chapter{N}-{name}.png` - Story/dialogue background
 2. `chapter{N}-battle.png` - Battle arena background
-3. `chapter{N}-complete.png` - Chapter completion celebration
-4. 3+ monster PNGs with transparent backgrounds
-5. `chapter{N}-story.mp3` - Chapter-specific story BGM (generate with ElevenLabs)
-6. `chapter{N}-battle.mp3` - Chapter-specific battle BGM (generate with ElevenLabs)
+3. `chapter{N}-victory.png` - Victory celebration (after defeating each monster)
+4. `chapter{N}-complete.png` - Chapter completion celebration
+5. 3+ monster PNGs with transparent backgrounds
+6. `chapter{N}-story.mp3` - Chapter-specific story BGM (generate with ElevenLabs)
+7. `chapter{N}-battle.mp3` - Chapter-specific battle BGM (generate with ElevenLabs)
 
 #### Image Generation Commands
 
@@ -188,6 +189,9 @@ uv run python generate_image.py "Fantasy game background of [CHAPTER SETTING]. [
 
 # Battle arena (dramatic version of chapter setting)
 uv run python generate_image.py "Fantasy game battle arena in [CHAPTER SETTING]. Circular clearing with glowing runes. Dramatic lighting. [CHAPTER ELEMENTS]. Anime style. Action-ready. Wide aspect ratio. No characters." assets/images/backgrounds/chapter{N}-battle.png
+
+# Victory celebration (after defeating each monster)
+uv run python generate_image.py "Fantasy game victory celebration background in [CHAPTER SETTING]. [CHAPTER ELEMENTS]. Magical fireworks, golden sparkles and confetti. Triumphant joyful atmosphere. Anime style. Wide aspect ratio 16:9. No characters." assets/images/backgrounds/chapter{N}-victory.png
 
 # Chapter complete celebration (golden hour with crystal)
 uv run python generate_image.py "Fantasy game chapter complete celebration background. [CHAPTER SETTING] at golden hour with magical sparkles, confetti, and [CELEBRATION ELEMENTS]. [CRYSTAL COLOR] crystal glowing in center with rays of light. Triumphant joyful atmosphere. Anime style. Wide aspect ratio. No characters." assets/images/backgrounds/chapter{N}-complete.png
@@ -246,6 +250,9 @@ chapter{N}: {
 }
 #battle-screen.chapter-{N} {
   background: url('assets/images/backgrounds/chapter{N}-battle.png') center/cover no-repeat;
+}
+#victory-screen.chapter-{N} {
+  background: url('assets/images/backgrounds/chapter{N}-victory.png') center/cover no-repeat;
 }
 #complete-screen.chapter-{N} {
   background: url('assets/images/backgrounds/chapter{N}-complete.png') center/cover no-repeat;

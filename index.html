@@ -786,6 +786,18 @@
       animation: victory-entrance 0.8s ease-out;
     }
 
+    /* Chapter-specific victory backgrounds */
+    #victory-screen.chapter-1 { background: url('assets/images/backgrounds/chapter1-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-2 { background: url('assets/images/backgrounds/chapter2-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-3 { background: url('assets/images/backgrounds/chapter3-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-4 { background: url('assets/images/backgrounds/chapter4-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-5 { background: url('assets/images/backgrounds/chapter5-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-6 { background: url('assets/images/backgrounds/chapter6-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-7 { background: url('assets/images/backgrounds/chapter7-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-8 { background: url('assets/images/backgrounds/chapter8-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-9 { background: url('assets/images/backgrounds/chapter9-victory.png') center/cover no-repeat; }
+    #victory-screen.chapter-10 { background: url('assets/images/backgrounds/chapter10-victory.png') center/cover no-repeat; }
+
     @keyframes victory-entrance {
       0% { opacity: 0; transform: scale(0.8); }
       100% { opacity: 1; transform: scale(1); }
@@ -2566,7 +2578,8 @@
         AudioManager.playVictory();
         AudioManager.playAudioFile('assets/audio/sfx/victory-jingle.mp3');
 
-        // Show victory screen
+        // Show victory screen with chapter-specific background
+        document.getElementById('victory-screen').className = `screen chapter-${GameState.chapter}`;
         ScreenManager.show('victory');
         this.spawnConfetti();
 
@@ -2685,6 +2698,16 @@
         }
       }
     };
+
+    // ============================================
+    // EXPOSE FOR TESTING (Playwright E2E tests)
+    // ============================================
+    window.GameState = GameState;
+    window.TimerSystem = TimerSystem;
+    window.MinigameEngine = MinigameEngine;
+    window.SaveManager = SaveManager;
+    window.GameFlow = GameFlow;
+    window.Events = Events;
 
     // ============================================
     // INITIALIZE GAME
